@@ -1,0 +1,9 @@
+Package: glimmr
+Version: 0.1.0
+Date: 2015-12-21
+Title: Colour Manipulation 
+Author: Jon Clayden
+Maintainer: Jon Clayden <code@clayden.org>
+Description: Provides functions for working with colours.
+Encoding: UTF-8
+License: BSD_3_clause + file LICENCE
