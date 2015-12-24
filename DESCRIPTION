@@ -1,9 +1,11 @@
-Package: glimmr
+Package: shades
 Version: 0.1.0
 Date: 2015-12-21
-Title: Colour Manipulation 
+Title: Colour Manipulation
 Author: Jon Clayden
 Maintainer: Jon Clayden <code@clayden.org>
 Description: Provides functions for working with colours.
+Imports: grDevices, colorspace
 Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
+RoxygenNote: 5.0.1
