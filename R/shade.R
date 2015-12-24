@@ -67,13 +67,18 @@ shade.default <- function (x, ...)
     shade.character(as.character(x), ...)
 }
 
-is_shade <- is.shade <- function (x)
-{
-    return ("shade" %in% class(x))
-}
-
 setOldClass("shade")
 
 setAs("shade", "color", function(from) {
     return (.spaceFunction(attr(from,"space"))(attr(from,"coords")))
 })
+
+setAs("shade", "RGB",      function(from) as(as(from,"color"), "RGB"))
+setAs("shade", "sRGB",     function(from) as(as(from,"color"), "sRGB"))
+setAs("shade", "XYZ",      function(from) as(as(from,"color"), "XYZ"))
+setAs("shade", "LAB",      function(from) as(as(from,"color"), "LAB"))
+setAs("shade", "polarLAB", function(from) as(as(from,"color"), "polarLAB"))
+setAs("shade", "HSV",      function(from) as(as(from,"color"), "HSV"))
+setAs("shade", "HLS",      function(from) as(as(from,"color"), "HLS"))
+setAs("shade", "LUV",      function(from) as(as(from,"color"), "LUV"))
+setAs("shade", "polarLUV", function(from) as(as(from,"color"), "polarLUV"))
