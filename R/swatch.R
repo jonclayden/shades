@@ -1,3 +1,14 @@
+#' Simple colour swatches
+#'
+#' This function provides a simple visualisation of a colour series as a series
+#' of boxes against the specified background colour.
+#' 
+#' @param x One or more colours, in any suitable form (see
+#'   \code{\link{shade}}).
+#' @param bg A background colour.
+#' @param ... Additional arguments (currently unused).
+#' 
+#' @author Jon Clayden <code@@clayden.org>
 #' @export
 swatch <- function (x, bg = "white", ...)
 {

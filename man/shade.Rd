@@ -24,4 +24,7 @@ Objects of class \code{"shade"} are simply standard R character vectors
 representing one or more 8-bit (s)RGB colours in HTML-like hex format, but
 with extra attributes for internal use.
 }
+\author{
+Jon Clayden <code@clayden.org>
+}
 

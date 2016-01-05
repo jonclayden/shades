@@ -28,6 +28,8 @@ NULL
 #'     \item{space}{A string naming a color space.}
 #'     \item{coords}{A matrix giving colour coordinates in the relevant space,
 #'       one colour per row.}
+#' 
+#' @author Jon Clayden <code@@clayden.org>
 #' @aliases shades
 #' @export
 shade <- function (x, ...)
