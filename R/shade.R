@@ -58,7 +58,7 @@ shade.matrix <- function (x, space = "sRGB", ...)
 shade.character <- function (x, ...)
 {
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
-    structure(substr(x,1,7), space="sRGB", coords=coords, class="shade")
+    structure(x, space="sRGB", coords=coords, class="shade")
 }
 
 #' @export
