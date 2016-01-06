@@ -1,4 +1,4 @@
-#' @import grDevices colorspace
+#' @import grDevices methods colorspace
 NULL
 
 .spaceFunction <- function (name)

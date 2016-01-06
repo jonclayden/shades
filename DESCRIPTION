@@ -1,11 +1,11 @@
 Package: shades
 Version: 0.1.0
-Date: 2016-01-05
+Date: 2016-01-06
 Title: Simple Colour Manipulation
 Author: Jon Clayden
 Maintainer: Jon Clayden <code@clayden.org>
-Description: Functions for easily manipulating colours.
-Imports: grDevices, colorspace
+Description: Functions for easily manipulating colours and creating colour scales.
+Imports: grDevices, methods, colorspace
 Suggests: testthat
 Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
