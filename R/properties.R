@@ -4,7 +4,7 @@
     cols <- as(shades, space)
     
     if (is.null(replacement))
-        coords(cols)[,dim]
+        structure(coords(cols)[,dim], names=NULL)
     else
     {
         if (is.numeric(replacement))
