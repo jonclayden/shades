@@ -2,14 +2,14 @@
 
 The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/smbache/magrittr), and fit naturally into that paradigm.
 
-The package is still under development and is not yet on [CRAN](http://cran.r-project.org), but it can be installed easily using [`devtools`](https://github.com/hadley/devtools):
+The package is available on [CRAN](https://cran.r-project.org/web/packages/shades/), but it is still quite early in its development, so you may prefer to obtain an up-to-date version from GitHub using [`devtools`](https://github.com/hadley/devtools):
 
 ```R
 # install.packages("devtools")
 devtools::install_github("jonclayden/shades")
 ```
 
-Feedback or suggestions are welcome.
+Feedback on the package or suggestions are welcome, either by filing an issue or by email.
 
 ## Usage
 
@@ -18,6 +18,7 @@ Colours are represented in R using [CSS-style hex strings](https://en.wikipedia.
 The `shades` package defines a simple class, `shade`, which uses exactly this same convention and is entirely compatible with built-in colours, but it also stores information about the coordinates of the colours in a particular [colour space](https://en.wikipedia.org/wiki/Color_space).
 
 ```R
+library(shades)
 red <- shade("red")
 print(unclass(red))
 ## [1] "red"
@@ -54,6 +55,7 @@ Here, we are using the `swatch` function to visualise a set of colours as a seri
 Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the [`magrittr` pipe operator](https://github.com/smbache/magrittr).
 
 ```R
+library(magrittr)
 c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
 ```
 
