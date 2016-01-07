@@ -1,4 +1,5 @@
 #' @import grDevices methods colorspace
+#' @importFrom graphics par rect
 NULL
 
 .spaceFunction <- function (name)
