@@ -9,4 +9,6 @@ Imports: grDevices, methods, colorspace
 Suggests: testthat
 Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
+URL: https://cran.r-project.org/package=shades,
+    https://github.com/jonclayden/shades/
 RoxygenNote: 5.0.1
