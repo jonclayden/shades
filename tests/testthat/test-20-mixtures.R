@@ -1,0 +1,10 @@
+context("Mixing colours")
+
+test_that("shade objects can be mixed and complements calculated", {
+    expect_equivalent(coords(complement("cyan")), coords(shade("red")))
+    expect_equal(complement("cyan",space="HSV"), warp("red","HSV"))
+    expect_equivalent(complement("cyan",space="Lab"), shade("#4F0002"))
+    
+    expect_equivalent(addmix("blue","green"), shade("#00FFFF"))
+    expect_equivalent(submix("cyan","yellow"), shade("#00FF00"))
+})
