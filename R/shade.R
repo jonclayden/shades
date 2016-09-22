@@ -163,5 +163,5 @@ warp <- function (x, space)
         coords[,1] <- coords[,1] * 360
     }
     
-    return (structure(.toHex(coords,targetSpace), space=.lowerCaseToR[[targetSpace]], coords=coords, class="shade"))
+    return (structure(.toHex(coords,targetSpace), space=space, coords=coords, class="shade"))
 }
