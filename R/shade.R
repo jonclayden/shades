@@ -9,7 +9,7 @@ NULL
     space <- tolower(space)
     
     if (space == "hsv")
-        coords <- t(col2rgb(hsv(coords[,1]/360, coords[,2], coords[,3])) / 255)
+        coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
     else if (.lowerCaseToR[[space]] != "sRGB")
         coords <- convertColor(coords, .lowerCaseToR[[space]], "sRGB")
     
@@ -153,7 +153,7 @@ warp <- function (x, space)
     coords <- attr(x, "coords")
     
     if (sourceSpace == "hsv")
-        coords <- t(col2rgb(hsv(coords[,1]/360, coords[,2], coords[,3])) / 255)
+        coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
     
     coords <- convertColor(coords, .lowerCaseToR[[sourceSpace]], .lowerCaseToR[[targetSpace]])
     
