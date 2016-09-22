@@ -30,7 +30,6 @@
 #' will convert between colour spaces as required, but the RGB representation
 #' will be appropriately updated in the result.
 #' 
-#' 
 #' @param shades One or more colours, in any suitable form (see
 #'   \code{\link{shade}}).
 #' @param values New values for the property in question. If \code{NULL}, the
@@ -38,7 +37,7 @@
 #' @param angles For \code{hueshift}, the angles (in degrees) by which to
 #'   rotate the colour hues.
 #' @return Current colour property values, or new colours of class
-#'   \code{\link{shade}}.
+#'   \code{"shade"}.
 #' 
 #' @examples
 #' saturation(c("papayawhip","lavenderblush","olivedrab"))

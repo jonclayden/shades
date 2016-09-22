@@ -24,7 +24,7 @@ rotate the colour hues.}
 }
 \value{
 Current colour property values, or new colours of class
-  \code{\link{shade}}.
+  \code{"shade"}.
 }
 \description{
 These functions obtain the value of a colour property, or modify it. They
