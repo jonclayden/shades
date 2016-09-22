@@ -1,4 +1,6 @@
-
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, fig.path = "README-", fig.height=2)
+```
 
 # Simple colour manipulation in R 😎
 
@@ -6,8 +8,7 @@ The `shades` package allows colours to be manipulated easily in R. Properties su
 
 The package is available on [CRAN](https://cran.r-project.org/web/packages/shades/), but it is still quite early in its development, so you may prefer to obtain an up-to-date version from GitHub using [`devtools`](https://github.com/hadley/devtools):
 
-
-```r
+```{r, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("jonclayden/shades")
 ```
@@ -20,52 +21,32 @@ Colours are represented in R using [CSS-style hex strings](https://en.wikipedia.
 
 The `shades` package defines a simple class, `shade`, which uses exactly this same convention and is entirely compatible with built-in colours, but it also stores information about the coordinates of the colours in a particular [colour space](https://en.wikipedia.org/wiki/Color_space).
 
-
-```r
+```{r}
 library(shades)
 red <- shade("red")
 print(unclass(red))
-## [1] "red"
-## attr(,"space")
-## [1] "sRGB"
-## attr(,"coords")
-##      R G B
-## [1,] 1 0 0
 ```
 
 From here, the package switches between colour spaces as required, allowing various kinds of colour manipulation to be performed straightforwardly. For example, let's find the saturation level of a few built-in colours.
 
-
-```r
+```{r}
 saturation(c("papayawhip","lavenderblush","olivedrab"))
-## [1] 0.1647100 0.0588200 0.7535287
 ```
 
 Now let's consider a colour gradient stepping through two different colour spaces, which we might want to use as a palette or colour scale.
 
-
-```r
+```{r gradients}
 swatch(gradient(c("red","blue"), 5))
-```
-
-![plot of chunk gradients](README-gradients-1.png)
-
-```r
 swatch(gradient(c("red","blue"), 5, space="Lab"))
 ```
-
-![plot of chunk gradients](README-gradients-2.png)
 
 Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
 
 Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the [`magrittr` pipe operator](https://github.com/smbache/magrittr).
 
-
-```r
+```{r saturation}
 library(magrittr)
 c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
 ```
-
-![plot of chunk saturation](README-saturation-1.png)
 
 This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. The colours could just as easily be passed to a graphical function to be used as a colour scale.
