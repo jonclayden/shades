@@ -10,7 +10,7 @@ shade(x, ...)
 \arguments{
 \item{x}{An R object.}
 
-\item{...}{Additional parameters (currently unused).}
+\item{...}{Additional parameters to methods.}
 }
 \value{
 A character vector of class \code{"shade"}, with additional
@@ -21,8 +21,8 @@ A character vector of class \code{"shade"}, with additional
 }
 \description{
 Objects of class \code{"shade"} are simply standard R character vectors
-representing one or more 8-bit (s)RGB colours in HTML-like hex format, but
-with extra attributes for internal use.
+representing one or more 8-bit (s)RGB colours in CSS-like hex format, but
+with extra attributes giving the current colour space and coordinates.
 }
 \author{
 Jon Clayden <code@clayden.org>
