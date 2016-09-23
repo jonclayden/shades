@@ -27,6 +27,7 @@ NULL
 #' \code{x} and then comparing coordinates, after any clipping.
 #' 
 #' @param x,y R objects, or \code{"shade"} objects for methods.
+#' @param target,current Shade vectors to compare.
 #' @param i An index vector.
 #' @param value A vector of replacement colours.
 #' @param ... Additional parameters to methods. For \code{c}, any number of
@@ -146,6 +147,23 @@ rep.shade <- function (x, ...)
 "!=.shade" <- function (x, y)
 {
     return (!`==.shade`(x,y))
+}
+
+#' @rdname shade
+#' @export
+all.equal.shade <- function (target, current, hexonly = FALSE, ...)
+{
+    if (hexonly)
+        all.equal(as.character(target), as.character(current), ...)
+    else if (length(target) != length(current))
+        paste0("Lengths do not match (", length(target), " and ", length(current), ")")
+    else if (all(target == current))
+        TRUE
+    else
+    {
+        distances <- sapply(seq_along(target), function(i) distance(target[i],current[i]))
+        paste0("Mean colour distance is ", signif(mean(distances,4)))
+    }
 }
 
 #' Retrieve the space of a colour vector

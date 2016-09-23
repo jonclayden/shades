@@ -5,6 +5,7 @@
 \alias{==.shade}
 \alias{[.shade}
 \alias{[<-.shade}
+\alias{all.equal.shade}
 \alias{c.shade}
 \alias{rep.shade}
 \alias{shade}
@@ -39,6 +40,8 @@ shade(x, ...)
 \method{==}{shade}(x, y)
 
 \method{!=}{shade}(x, y)
+
+\method{all.equal}{shade}(target, current, hexonly = FALSE, ...)
 }
 \arguments{
 \item{x, y}{R objects, or \code{"shade"} objects for methods.}
@@ -49,6 +52,8 @@ colours in any acceptable form.}
 \item{i}{An index vector.}
 
 \item{value}{A vector of replacement colours.}
+
+\item{target, current}{Shade vectors to compare.}
 }
 \value{
 A character vector of class \code{"shade"}, with additional
