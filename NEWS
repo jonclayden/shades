@@ -1,0 +1,26 @@
+Significant changes to the shades package are laid out below for each release.
+
+===============================================================================
+
+VERSION 0.2.0
+
+- The package has been reworked to use functions from base R to warp colour
+  coordinates between spaces and so on. It therefore no longer depends on the
+  "colorspace" package, but the list of supported colour spaces has changed
+  somewhat as a result.
+- The warp() function has been added for colour space conversions.
+- New function complement() returns complementary colours, while addmix() and
+  submix(), plus infix shorthands, implement additive and subtractive colour
+  mixing.
+- There are now accessor functions space() and coords(), for obtaining the
+  current space and coordinates of colour vectors.
+- The swatch() function now draws grey borders around colour boxes, to make
+  the delineation of near-white colours clearer.
+
+===============================================================================
+
+VERSION 0.1.0
+
+- First public release.
+
+===============================================================================
