@@ -6,7 +6,7 @@ Author: Jon Clayden
 Maintainer: Jon Clayden <code@clayden.org>
 Description: Functions for easily manipulating colours and creating colour scales.
 Suggests: testthat
-Extends: colorspace
+Enhances: colorspace
 Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
 URL: https://github.com/jonclayden/shades

@@ -1,5 +1,5 @@
 #' @import grDevices
-#' @importFrom graphics par rect
+#' @importFrom graphics par rect plot
 NULL
 
 .lowerCaseToR <- list(rgb="sRGB", srgb="sRGB", hsv="sRGB", xyz="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
@@ -27,9 +27,13 @@ NULL
 #' \code{x} and then comparing coordinates, after any clipping.
 #' 
 #' @param x,y R objects, or \code{"shade"} objects for methods.
+#' @param space For a matrix, the space in which coordinates are being
+#'   provided.
 #' @param target,current Shade vectors to compare.
 #' @param i An index vector.
 #' @param value A vector of replacement colours.
+#' @param hexonly If \code{TRUE}, compare only on the basis of the hex strings.
+#'   Otherwise test for equal coordinates.
 #' @param ... Additional parameters to methods. For \code{c}, any number of
 #'   colours in any acceptable form.
 #' @return A character vector of class \code{"shade"}, with additional
@@ -171,7 +175,8 @@ all.equal.shade <- function (target, current, hexonly = FALSE, ...)
 #' This function retrieves the colour space in which its argument is currently
 #' defined.
 #' 
-#' @param An R object.
+#' @param x An R object.
+#' @param ... Additional arguments to methods.
 #' @return A string naming a colour space.
 #'
 #' @examples
@@ -200,7 +205,8 @@ space.default <- function (x, ...)
 #' This function retrieves the coordinates of a colour vector's elements,
 #' within whatever space it is currently defined.
 #' 
-#' @param An R object.
+#' @param x An R object.
+#' @param ... Additional arguments to methods.
 #' @return A matrix giving colour coordinates in the relevant space, one colour
 #'   per row. Columns are typically named.
 #'

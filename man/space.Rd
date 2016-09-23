@@ -7,7 +7,9 @@
 space(x, ...)
 }
 \arguments{
-\item{An}{R object.}
+\item{x}{An R object.}
+
+\item{...}{Additional arguments to methods.}
 }
 \value{
 A string naming a colour space.

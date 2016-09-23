@@ -49,11 +49,17 @@ shade(x, ...)
 \item{...}{Additional parameters to methods. For \code{c}, any number of
 colours in any acceptable form.}
 
+\item{space}{For a matrix, the space in which coordinates are being
+provided.}
+
 \item{i}{An index vector.}
 
 \item{value}{A vector of replacement colours.}
 
 \item{target, current}{Shade vectors to compare.}
+
+\item{hexonly}{If \code{TRUE}, compare only on the basis of the hex strings.
+Otherwise test for equal coordinates.}
 }
 \value{
 A character vector of class \code{"shade"}, with additional

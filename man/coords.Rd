@@ -7,7 +7,9 @@
 coords(x, ...)
 }
 \arguments{
-\item{An}{R object.}
+\item{x}{An R object.}
+
+\item{...}{Additional arguments to methods.}
 }
 \value{
 A matrix giving colour coordinates in the relevant space, one colour
