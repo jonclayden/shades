@@ -12,6 +12,10 @@ VERSION 0.2.0
 - New function complement() returns complementary colours, while addmix() and
   submix(), plus infix shorthands, implement additive and subtractive colour
   mixing.
+- The new distance() function can be used to calculate a standardised measure
+  of the perceptual "distance" between colours.
+- The shade class gains indexing and equality operators, plus methods for c(),
+  rep() and all.equal().
 - There are now accessor functions space() and coords(), for obtaining the
   current space and coordinates of colour vectors.
 - The swatch() function now draws grey borders around colour boxes, to make
