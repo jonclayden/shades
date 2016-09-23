@@ -18,10 +18,19 @@ A new object of class \code{"shade"}.
 This function shifts the current colour space of its arguments to the
 specified space, returning a new object of class \code{"shade"}.
 }
+\details{
+Valid names for spaces are currently those supported by the
+\code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
+RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
+alias for ``sRGB'') and ``HSV''. Case is not significant.
+}
 \examples{
 warp("red", "HSV")
 }
 \author{
 Jon Clayden <code@clayden.org>
+}
+\seealso{
+\code{\link{convertColor}}
 }
 

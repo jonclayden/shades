@@ -133,12 +133,18 @@ coords.default <- function (x, ...)
 #' This function shifts the current colour space of its arguments to the
 #' specified space, returning a new object of class \code{"shade"}.
 #' 
+#' Valid names for spaces are currently those supported by the
+#' \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
+#' RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
+#' alias for ``sRGB'') and ``HSV''. Case is not significant.
+#' 
 #' @param x An R object which can be coerced to class \code{"shade"}.
 #' @param space A string naming the new space.
 #' @return A new object of class \code{"shade"}.
 #' 
 #' @examples
 #' warp("red", "HSV")
+#' @seealso \code{\link{convertColor}}
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
 warp <- function (x, space)
