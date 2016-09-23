@@ -23,13 +23,24 @@ NULL
 #' with extra attributes giving the current colour space and coordinates.
 #' 
 #' @param x An R object.
-#' @param ... Additional parameters to methods.
+#' @param i An index vector.
+#' @param value A vector of replacement colours.
+#' @param ... Additional parameters to methods. For \code{c}, any number of
+#'   colours in any acceptable form.
 #' @return A character vector of class \code{"shade"}, with additional
 #'   attributes as follows.
 #'     \item{space}{A string naming a color space.}
 #'     \item{coords}{A matrix giving colour coordinates in the relevant space,
 #'       one colour per row.}
 #' 
+#' @note When concatenating, shades that are all from the same space will
+#'   remain in that space, but shades from different spaces will be warped to
+#'   ``XYZ'' space.
+#' 
+#' @examples
+#' s <- shade(c("red", "green", "blue"))
+#' s[1]
+#' s[1] <- "pink"
 #' @author Jon Clayden <code@@clayden.org>
 #' @aliases shades
 #' @export
@@ -38,24 +49,28 @@ shade <- function (x, ...)
     UseMethod("shade")
 }
 
+#' @rdname shade
 #' @export
 shade.shade <- function (x, ...)
 {
     return (x)
 }
 
+#' @rdname shade
 #' @export
 shade.color <- function (x, ...)
 {
     structure(colorspace::hex(x,fixup=TRUE), space=class(x), coords=colorspace::coords(x), class="shade")
 }
 
+#' @rdname shade
 #' @export
 shade.matrix <- function (x, space = "sRGB", ...)
 {
     structure(.toHex(x,space), space=space, coords=x, class="shade")
 }
 
+#' @rdname shade
 #' @export
 shade.character <- function (x, ...)
 {
@@ -63,10 +78,45 @@ shade.character <- function (x, ...)
     structure(x, space="sRGB", coords=coords, class="shade")
 }
 
+#' @rdname shade
 #' @export
 shade.default <- function (x, ...)
 {
     shade.character(as.character(x), ...)
+}
+
+#' @rdname shade
+#' @export
+"[.shade" <- function (x, i)
+{
+    structure(as.character(x)[i], space=attr(x,"space"), coords=attr(x,"coords")[i,,drop=FALSE], class="shade")
+}
+
+#' @rdname shade
+#' @export
+"[<-.shade" <- function (x, i, value)
+{
+    replacement <- warp(value, attr(x,"space"))
+    attr(x,"coords")[i,] <- attr(replacement,"coords")
+    NextMethod("[<-")
+}
+
+#' @rdname shade
+#' @export
+c.shade <- function (...)
+{
+    shades <- lapply(list(...), shade)
+    spaces <- sapply(shades, space)
+    
+    if (all(spaces == spaces[1]))
+        space <- spaces[1]
+    else
+    {
+        space <- "XYZ"
+        shades <- lapply(shades, warp, "XYZ")
+    }
+    
+    structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), class="shade")
 }
 
 #' Retrieve the space of a colour vector
