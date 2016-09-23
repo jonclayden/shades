@@ -21,8 +21,12 @@ NULL
 #' Objects of class \code{"shade"} are simply standard R character vectors
 #' representing one or more 8-bit (s)RGB colours in CSS-like hex format, but
 #' with extra attributes giving the current colour space and coordinates.
+#'
+#' Comparison between \code{"shade"} objects \code{x} and \code{y} is achieved
+#' by converting \code{y} (the second argument) into the colour space of
+#' \code{x} and then comparing coordinates, after any clipping.
 #' 
-#' @param x An R object.
+#' @param x,y R objects, or \code{"shade"} objects for methods.
 #' @param i An index vector.
 #' @param value A vector of replacement colours.
 #' @param ... Additional parameters to methods. For \code{c}, any number of
@@ -117,6 +121,31 @@ c.shade <- function (...)
     }
     
     structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), class="shade")
+}
+
+#' @rdname shade
+#' @export
+rep.shade <- function (x, ...)
+{
+    indices <- rep(seq_along(x), ...)
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], class="shade")
+}
+
+#' @rdname shade
+#' @export
+"==.shade" <- function (x, y)
+{
+    y <- rep(warp(y,attr(x,"space")), length.out=length(x))
+    xCoords <- coords(x)
+    yCoords <- coords(y)
+    sapply(seq_along(x), function(i) all(xCoords[i,] == yCoords[i,]))
+}
+
+#' @rdname shade
+#' @export
+"!=.shade" <- function (x, y)
+{
+    return (!`==.shade`(x,y))
 }
 
 #' Retrieve the space of a colour vector
