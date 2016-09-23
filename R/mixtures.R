@@ -110,5 +110,5 @@ submix <- function (base, mixer, amount = 1, space = NULL)
 #' @export
 "%_/%" <- function (X, Y)
 {
-    .mix(X, Y, "-")
+    complement(.mix(complement(X), complement(Y), "+"))
 }
