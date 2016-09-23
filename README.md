@@ -69,3 +69,45 @@ c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
 ![plot of chunk saturation](README-saturation-1.png)
 
 This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. The colours could just as easily be passed to a graphical function to be used as a colour scale.
+
+The package also supports colour mixing, either additively (as with light) or subtractively (as with paint). For example, consider additive mixtures of the three primary RGB colours.
+
+
+```r
+cols <- shade(c("red", "red", "green", "green", "blue"))
+cols[2] <- cols[2] %>% addmix("green")
+cols[4] <- cols[4] %>% addmix("blue")
+swatch(cols)
+```
+
+![plot of chunk addmix](README-addmix-1.png)
+
+Similarly, we can subtractively combine the three secondary colours.
+
+
+```r
+cols <- shade(c("cyan", "cyan", "magenta", "magenta", "yellow"))
+cols[2] <- cols[2] %>% submix("magenta")
+cols[4] <- cols[4] %>% submix("yellow")
+swatch(cols)
+```
+
+![plot of chunk submix](README-submix-1.png)
+
+A "light mixture" infix operator, `%.)%`, and a "paint mixture" infix operator, `%_/%`, are also available.
+
+
+```r
+("red" %.)% "green") == "yellow"
+## [1] TRUE
+("cyan" %_/% "magenta") == "blue"
+## [1] TRUE
+```
+
+Finally, you can calculate perceptual distances to a reference colour, as in
+
+
+```r
+distance(c("red","green","blue"), "red")
+## [1]  0.00000 86.52385 53.07649
+```
