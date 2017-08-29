@@ -24,10 +24,9 @@ on colour coordinates in Lab space.
 \examples{
 distance(c("red","green","blue"), "red")
 }
-\author{
-Jon Clayden <code@clayden.org>
-}
 \references{
 \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
 }
-
+\author{
+Jon Clayden <code@clayden.org>
+}

@@ -22,15 +22,24 @@ specified space, returning a new object of class \code{"shade"}.
 Valid names for spaces are currently those supported by the
 \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
 RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
-alias for ``sRGB'') and ``HSV''. Case is not significant.
+alias for ``sRGB''), ``HSV'' and ``LMS''. Case is not significant.
+}
+\note{
+LMS space, used for chromatic adaptation and simulating colour
+  blindness, is not uniquely defined. Here we use the (linearised) Bradford
+  transform, obtained by Lam (1985) and used widely in ICC colour profiles
+  and elsewhere, to transform to and from CIE XYZ space.
 }
 \examples{
 warp("red", "HSV")
 }
-\author{
-Jon Clayden <code@clayden.org>
+\references{
+Lam, K.M. (1985). Metamerism and colour constancy. PhD thesis, University of
+Bradford.
 }
 \seealso{
 \code{\link{convertColor}}
 }
-
+\author{
+Jon Clayden <code@clayden.org>
+}

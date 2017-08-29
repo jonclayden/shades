@@ -31,4 +31,3 @@ gradient(c("red","blue"), 5, space="LAB")
 \author{
 Jon Clayden <code@clayden.org>
 }
-

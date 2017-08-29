@@ -25,4 +25,3 @@ coords("red")
 \author{
 Jon Clayden <code@clayden.org>
 }
-

@@ -21,4 +21,3 @@ of boxes against the specified background colour.
 \author{
 Jon Clayden <code@clayden.org>
 }
-

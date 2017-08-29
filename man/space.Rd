@@ -24,4 +24,3 @@ space("red")
 \author{
 Jon Clayden <code@clayden.org>
 }
-
