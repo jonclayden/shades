@@ -2,7 +2,10 @@
 #' @importFrom graphics par rect plot
 NULL
 
-.lowerCaseToR <- list(rgb="sRGB", srgb="sRGB", hsv="sRGB", xyz="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
+.lowerCaseToR <- list(rgb="sRGB", srgb="sRGB", hsv="sRGB", xyz="XYZ", lms="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
+
+.bradfordXYZtoLMS <- matrix(c(0.8951, -0.7502, 0.0389, 0.2664, 1.7135, -0.0685, -0.1614, 0.0367, 1.0296), 3, 3)
+.bradfordLMStoXYZ <- solve(.bradfordXYZtoLMS)
 
 .toHex <- function (coords, space)
 {
@@ -10,7 +13,10 @@ NULL
     
     if (space == "hsv")
         coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
-    else if (.lowerCaseToR[[space]] != "sRGB")
+    else if (space == "lms")
+        coords <- t(.bradfordLMStoXYZ %*% t(coords))
+    
+    if (.lowerCaseToR[[space]] != "sRGB")
         coords <- convertColor(coords, .lowerCaseToR[[space]], "sRGB")
     
     return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
@@ -239,14 +245,22 @@ coords.default <- function (x, ...)
 #' Valid names for spaces are currently those supported by the
 #' \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
 #' RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
-#' alias for ``sRGB'') and ``HSV''. Case is not significant.
+#' alias for ``sRGB''), ``HSV'' and ``LMS''. Case is not significant.
 #' 
 #' @param x An R object which can be coerced to class \code{"shade"}.
 #' @param space A string naming the new space.
 #' @return A new object of class \code{"shade"}.
 #' 
+#' @note LMS space, used for chromatic adaptation and simulating colour
+#'   blindness, is not uniquely defined. Here we use the (linearised) Bradford
+#'   transform, obtained by Lam (1985) and used widely in ICC colour profiles
+#'   and elsewhere, to transform to and from CIE XYZ space.
+#' 
 #' @examples
 #' warp("red", "HSV")
+#' @references
+#' Lam, K.M. (1985). Metamerism and colour constancy. PhD thesis, University of
+#' Bradford.
 #' @seealso \code{\link{convertColor}}
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
@@ -263,6 +277,8 @@ warp <- function (x, space)
     
     if (sourceSpace == "hsv")
         coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
+    else if (sourceSpace == "lms")
+        coords <- t(.bradfordLMStoXYZ %*% t(coords))
     
     coords <- convertColor(coords, .lowerCaseToR[[sourceSpace]], .lowerCaseToR[[targetSpace]])
     
@@ -271,6 +287,8 @@ warp <- function (x, space)
         coords <- t(rgb2hsv(t(coords), maxColorValue=1))
         coords[,1] <- coords[,1] * 360
     }
+    else if (targetSpace == "lms")
+        coords <- t(.bradfordXYZtoLMS %*% t(coords))
     
     return (structure(.toHex(coords,targetSpace), space=space, coords=coords, class="shade"))
 }
