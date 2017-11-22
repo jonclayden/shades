@@ -6,11 +6,16 @@
         structure(coords(shades)[,dim], names=NULL)
     else
     {
+        shape <- dim(shades)
+        if (is.null(length))
+            shape <- length(shades)
+        
         if (is.numeric(replacement))
         {
             indices <- rep(seq_along(shades), each=length(replacement))
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- rep(replacement, length(shades))
+            drop(structure(shade(coords,space=space), dim=c(length(replacement),shape)))
         }
         else
         {
@@ -19,8 +24,8 @@
             indices <- rep(seq_along(shades), each=length(temp))
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- replacement(coords[,dim])
+            drop(structure(shade(coords,space=space), dim=c(length(temp),shape)))
         }
-        shade(coords, space=space)
     }
 }
 

@@ -290,5 +290,5 @@ warp <- function (x, space)
     else if (targetSpace == "lms")
         coords <- t(.bradfordXYZtoLMS %*% t(coords))
     
-    return (structure(.toHex(coords,targetSpace), space=space, coords=coords, class="shade"))
+    return (structure(.toHex(coords,targetSpace), dim=dim(x), space=space, coords=coords, class="shade"))
 }
