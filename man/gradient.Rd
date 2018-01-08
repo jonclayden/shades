@@ -7,14 +7,13 @@
 gradient(shades, steps, space = NULL)
 }
 \arguments{
-\item{shades}{One or more colours, in any suitable form (see
-\code{\link{shade}}).}
+\item{shades}{Two or more colours, in any suitable form (see
+\code{\link{shade}}), or a named colour map such as \code{"viridis"}.}
 
-\item{steps}{A vector giving the number of steps required  between each key
-colour. Should have length one less than \code{shades}.}
+\item{steps}{An integer giving the number of shades required in the palette.}
 
 \item{space}{The colour space to traverse. Defaults to the current space of
-\code{shades}.}
+\code{shades}, or \code{"LAB"} for the built-in colour maps.}
 }
 \value{
 A character vector of class \code{"shade"} containing the gradient
@@ -24,9 +23,19 @@ A character vector of class \code{"shade"} containing the gradient
 This function returns a set of colours interpolating between the specified
 key colours, equally separated in the specified space.
 }
+\details{
+The key colours may be specified explicitly, or else a built-in colour map
+may be used. The maps available are currently those developed for Python's
+\code{matplotlib} 2.0 (see the reference URL below), namely \code{"magma"},
+\code{"inferno"}, \code{"plasma"} and \code{"viridis"}.
+}
 \examples{
 gradient(c("red","blue"), 5)
 gradient(c("red","blue"), 5, space="LAB")
+gradient("viridis", 5)
+}
+\references{
+\url{http://bids.github.io/colormap/}
 }
 \author{
 Jon Clayden <code@clayden.org>
