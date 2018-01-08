@@ -7,4 +7,6 @@ test_that("shade objects can be mixed and complements calculated", {
     
     expect_equivalent(addmix("blue","green"), shade("#00FFFF"))
     expect_equivalent(submix("cyan","yellow"), shade("#00FF00"))
+    expect_equivalent("blue" %.)% "green", shade("#00FFFF"))
+    expect_equivalent("cyan" %_/% "yellow", shade("#00FF00"))
 })
