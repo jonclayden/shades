@@ -6,9 +6,7 @@
         structure(coords(shades)[,dim], names=NULL)
     else
     {
-        shape <- dim(shades)
-        if (is.null(length))
-            shape <- length(shades)
+        shape <- .dims(shades)
         
         if (is.numeric(replacement))
         {

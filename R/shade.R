@@ -22,6 +22,16 @@ NULL
     return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
 }
 
+.dims <- function (x, collapse = FALSE)
+{
+    if (is.null(dim(x)))
+        return (length(x))
+    else if (length(dim(x)) > 2 && collapse)
+        return (c(dim(x)[1], prod(dim(x)[-1])))
+    else
+        return (dim(x))
+}
+
 #' The shade class
 #' 
 #' Objects of class \code{"shade"} are simply standard R character vectors
