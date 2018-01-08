@@ -12,6 +12,30 @@
                           "575"=matrix(c(0.8425,0.9154,0.0018), nrow=1),
                           "660"=matrix(c(0.1649,0.061,0), nrow=1))
 
+#' Simulate colour appearance for dichromats
+#' 
+#' This functions manipulates colours to simulate the effects of different
+#' kinds of colour blindness, and specifically dichromacy, in which only two of
+#' the usual three types of photoreceptors are present. There are three types,
+#' corresponding to the loss of red, green or blue photoreceptors.
+#' 
+#' @param shades One or more colours, in any suitable form (see
+#'   \code{\link{shade}}).
+#' @param type The type of colour vision deficiency to simulate: protanopia
+#'   (red blindness), deuteranopia (green blindness) or tritanopia (blue
+#'   blindness). The latter is the rarest in the population. Abbrevations,
+#'   such as the first letter, may be used.
+#' @return New colours of class \code{"shade"} in LMS space, representing
+#'   projections of the original shades onto a submanifold appropriate to the
+#'   type of dichromacy being simulated.
+#' 
+#' @examples
+#' dichromat(c("red", "green", "blue"))
+#' @references
+#' Brettel, H., Viénot, F. and Mollon, J.D. (1997). Computerized simulation of
+#' color appearance for dichromats. Journal of the Optical Society of America A
+#' 14(10):2647-2655.
+#' @author Jon Clayden <code@@clayden.org>
 #' @export
 dichromat <- function (shades, type = c("protanopic","deuteranopic","tritanopic"))
 {
