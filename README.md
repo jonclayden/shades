@@ -1,6 +1,6 @@
 
 
-[![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades)
+[![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades)
 
 # Simple colour manipulation in R 😎
 

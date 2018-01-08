@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(collapse = TRUE, fig.path = "tools/figures/", fig.height=2)
 ```
 
-[![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades) [![Coverage Status](https://img.shields.io/codecov/c/github/jonclayden/shades/master.svg)](https://codecov.io/github/jonclayden/shades?branch=master)
+[![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades)
 
 # Simple colour manipulation in R 😎
 
