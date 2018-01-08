@@ -1,13 +1,17 @@
 #' Simple colour swatches
 #'
 #' This function provides a simple visualisation of a colour series as a series
-#' of boxes against the specified background colour.
+#' of boxes against the specified background colour. If the input has more than
+#' one dimension then the boxes will be arranged in a grid (flattening further
+#' dimensions after the second).
 #' 
 #' @param x One or more colours, in any suitable form (see
 #'   \code{\link{shade}}).
 #' @param bg A background colour.
 #' @param ... Additional arguments (currently unused).
 #' 
+#' @examples
+#' swatch(c("red", "green", "blue"))
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
 swatch <- function (x, bg = "white", ...)
