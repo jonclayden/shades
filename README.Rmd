@@ -1,5 +1,5 @@
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, fig.path = "README-", fig.height=2)
+knitr::opts_chunk$set(collapse = TRUE, fig.path = "tools/figures/", fig.height=2)
 ```
 
 # Simple colour manipulation in R 😎

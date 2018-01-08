@@ -48,13 +48,13 @@ Now let's consider a colour gradient stepping through two different colour space
 swatch(gradient(c("red","blue"), 5))
 ```
 
-![plot of chunk gradients](README-gradients-1.png)
+![plot of chunk gradients](tools/figures/gradients-1.png)
 
 ```r
 swatch(gradient(c("red","blue"), 5, space="Lab"))
 ```
 
-![plot of chunk gradients](README-gradients-2.png)
+![plot of chunk gradients](tools/figures/gradients-2.png)
 
 Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
 
@@ -66,7 +66,7 @@ library(magrittr)
 c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
 ```
 
-![plot of chunk saturation](README-saturation-1.png)
+![plot of chunk saturation](tools/figures/saturation-1.png)
 
 This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. The colours could just as easily be passed to a graphical function to be used as a colour scale.
 
@@ -80,7 +80,7 @@ cols[4] <- cols[4] %>% addmix("blue")
 swatch(cols)
 ```
 
-![plot of chunk addmix](README-addmix-1.png)
+![plot of chunk addmix](tools/figures/addmix-1.png)
 
 Similarly, we can subtractively combine the three secondary colours.
 
@@ -92,7 +92,7 @@ cols[4] <- cols[4] %>% submix("yellow")
 swatch(cols)
 ```
 
-![plot of chunk submix](README-submix-1.png)
+![plot of chunk submix](tools/figures/submix-1.png)
 
 A "light mixture" infix operator, `%.)%`, and a "paint mixture" infix operator, `%_/%`, are also available.
 
