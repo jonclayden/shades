@@ -1,5 +1,7 @@
 
 
+[![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades)
+
 # Simple colour manipulation in R 😎
 
 The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/smbache/magrittr), and fit naturally into that paradigm.
