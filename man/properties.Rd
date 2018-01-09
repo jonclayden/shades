@@ -38,6 +38,16 @@ These functions obtain the value of a colour property, or modify it. They
 will convert between colour spaces as required, but the RGB representation
 will be appropriately updated in the result.
 }
+\details{
+Brightness and lightness differ technically, in the sense that one is
+absolute and the other is relative. Intuitively, a grey square on white
+paper is brighter under bright sunlight than in a dark room, but its
+lightness (relative to the white around it) is constant between conditions.
+In these functions, brightness is ``value'' in HSV space and is between 0
+and 1, while lightness is defined in Lab space and is between 0 and 100.
+Saturation and chroma are also related. Hue is defined in HSV space, with
+red at 0º (and 360º), which is generally the most familiar parameterisation.
+}
 \examples{
 saturation(c("papayawhip","lavenderblush","olivedrab"))
 saturation("papayawhip", 0.7)

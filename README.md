@@ -93,10 +93,7 @@ The package also supports colour mixing, either additively (as with light) or su
 
 
 ```r
-cols <- shade(c("red", "red", "green", "green", "blue"))
-cols[2] <- cols[2] %>% addmix("green")
-cols[4] <- cols[4] %>% addmix("blue")
-swatch(cols)
+c("red", addmix("red","green"), "green", addmix("green","blue"), "blue") %>% swatch
 ```
 
 ![plot of chunk addmix](tools/figures/addmix-1.png)
@@ -105,10 +102,7 @@ Similarly, we can subtractively combine the three secondary colours.
 
 
 ```r
-cols <- shade(c("cyan", "cyan", "magenta", "magenta", "yellow"))
-cols[2] <- cols[2] %>% submix("magenta")
-cols[4] <- cols[4] %>% submix("yellow")
-swatch(cols)
+c("cyan", submix("cyan","magenta"), "magenta", submix("magenta","yellow"), "yellow") %>% swatch
 ```
 
 ![plot of chunk submix](tools/figures/submix-1.png)
