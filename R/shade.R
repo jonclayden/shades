@@ -17,6 +17,7 @@ NULL
     fromXYZ = function (xyz, ...) {
         rgb <- colorspaces$sRGB$fromXYZ(xyz, ...)
         rgb[rgb < 0] <- 0
+        rgb[rgb > 1] <- 1
         hsv <- drop(rgb2hsv(t(rgb), maxColorValue=1))
         hsv[1] <- (hsv[1] * 360) %% 360
         structure(hsv, names=c("H","S","V"))
