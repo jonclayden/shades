@@ -53,8 +53,9 @@ dichromat <- function (shades, type = c("protanopic","deuteranopic","tritanopic"
         a <- E[,2] * A[,3] - E[,3] * A[,2]
         b <- E[,3] * A[,1] - E[,1] * A[,3]
         c <- E[,1] * A[,2] - E[,2] * A[,1]
-        c(a=a, b=b, c=c)
+        c(a, b, c)
     })
+    rownames(abc) <- c("a", "b", "c")
     
     Qprime <- Q
     if (type == "protanopic")
