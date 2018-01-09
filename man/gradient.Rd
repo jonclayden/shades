@@ -13,7 +13,8 @@ gradient(shades, steps, space = NULL)
 \item{steps}{An integer giving the number of shades required in the palette.}
 
 \item{space}{The colour space to traverse. Defaults to the current space of
-\code{shades}, or \code{"LAB"} for the built-in colour maps.}
+\code{shades}, or \code{"Lab"} for the \code{matplotlib} colour maps, or
+\code{"sRGB"} otherwise.}
 }
 \value{
 A character vector of class \code{"shade"} containing the gradient
@@ -26,16 +27,19 @@ key colours, equally separated in the specified space.
 \details{
 The key colours may be specified explicitly, or else a built-in colour map
 may be used. The maps available are currently those developed for Python's
-\code{matplotlib} 2.0 (see the reference URL below), namely \code{"magma"},
-\code{"inferno"}, \code{"plasma"} and \code{"viridis"}.
+\code{matplotlib} 2.0, namely \code{"magma"}, \code{"inferno"},
+\code{"plasma"} and \code{"viridis"}, and certain ColorBrewer palettes,
+namely \code{"Blues"}, \code{"Reds"}, \code{"YlOrRd"} (yellow-orange-red)
+and \code{"RdBu"} (red-grey-blue, a balanced diverging scale).
 }
 \examples{
 gradient(c("red","blue"), 5)
-gradient(c("red","blue"), 5, space="LAB")
+gradient(c("red","blue"), 5, space="Lab")
 gradient("viridis", 5)
 }
 \references{
-\url{http://bids.github.io/colormap/}
+\url{http://bids.github.io/colormap/} for the \code{matplotlib} colour maps;
+\url{http://colorbrewer2.org} for the ColorBrewer ones.
 }
 \author{
 Jon Clayden <code@clayden.org>
