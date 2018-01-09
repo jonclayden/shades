@@ -12,6 +12,7 @@
 \alias{[<-.shade}
 \alias{c.shade}
 \alias{rep.shade}
+\alias{rev.shade}
 \alias{==.shade}
 \alias{!=.shade}
 \alias{all.equal.shade}
@@ -36,6 +37,8 @@ shade(x, ...)
 \method{c}{shade}(...)
 
 \method{rep}{shade}(x, ...)
+
+\method{rev}{shade}(x)
 
 \method{==}{shade}(x, y)
 

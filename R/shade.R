@@ -154,6 +154,14 @@ rep.shade <- function (x, ...)
 
 #' @rdname shade
 #' @export
+rev.shade <- function (x)
+{
+    indices <- rev(seq_along(x))
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], class="shade")
+}
+
+#' @rdname shade
+#' @export
 "==.shade" <- function (x, y)
 {
     y <- rep(warp(y,attr(x,"space")), length.out=length(x))
