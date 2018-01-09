@@ -15,7 +15,8 @@ NULL
         colorspaces$sRGB$toXYZ(rgb, ...)
     },
     fromXYZ = function (xyz, ...) {
-        rgb <- colorspaces$sRGB$fromXYZ(xyz, ...)
+        # This rounding operation mirrors convertColor(), and avoids numerical variability between platforms
+        rgb <- round(colorspaces$sRGB$fromXYZ(xyz, ...), 5)
         rgb[rgb < 0] <- 0
         rgb[rgb > 1] <- 1
         hsv <- drop(rgb2hsv(t(rgb), maxColorValue=1))
