@@ -5,6 +5,8 @@ test_that("colour properties can be extracted", {
     expect_equal(brightness("red"), 1)
     expect_equal(saturation("grey40"), 0)
     expect_equal(brightness(c("grey40","grey60")), c(0.4,0.6))
+    expect_equal(round(chroma(c("black","white","red"))), c(0,0,105))
+    expect_equal(round(lightness(c("black","white","red"))), c(0,100,53))
 })
 
 test_that("colour properties can be manipulated", {
