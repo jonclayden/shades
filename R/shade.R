@@ -231,12 +231,17 @@ all.equal.shade <- function (target, current, hexonly = FALSE, ...)
         all.equal(as.character(target), as.character(current), ...)
     else if (length(target) != length(current))
         paste0("Lengths do not match (", length(target), " and ", length(current), ")")
-    else if (all(target == current))
-        TRUE
     else
     {
-        distances <- sapply(seq_along(target), function(i) distance(target[i],current[i]))
-        paste0("Mean colour distance is ", signif(mean(distances,4)))
+        target <- warp(target, space(current))
+        result <- all.equal(coords(target), coords(current), ...)
+        if (isTRUE(result))
+            return (TRUE)
+        else
+        {
+            distances <- sapply(seq_along(target), function(i) distance(target[i],current[i]))
+            paste0("Mean colour distance is ", signif(mean(distances,4)))
+        }
     }
 }
 
