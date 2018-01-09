@@ -3,24 +3,31 @@
 \name{saturation}
 \alias{saturation}
 \alias{brightness}
-\alias{hueshift}
+\alias{lightness}
+\alias{chroma}
+\alias{hue}
+\alias{delta}
 \title{Query or change colour properties}
 \usage{
 saturation(shades, values = NULL)
 
 brightness(shades, values = NULL)
 
-hueshift(shades, angles = 0)
+lightness(shades, values = NULL)
+
+chroma(shades, values = NULL)
+
+hue(shades, values = NULL)
+
+delta(values)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
 \code{\link{shade}}).}
 
 \item{values}{New values for the property in question. If \code{NULL}, the
-current value(s) will be returned.}
-
-\item{angles}{For \code{hueshift}, the angles (in degrees) by which to
-rotate the colour hues.}
+current value(s) will be returned. May also be a function computing new
+values from old ones, notably \code{delta}, which adds its argument.}
 }
 \value{
 Current colour property values, or new colours of class
@@ -34,6 +41,7 @@ will be appropriately updated in the result.
 \examples{
 saturation(c("papayawhip","lavenderblush","olivedrab"))
 saturation("papayawhip", 0.7)
+saturation("papayawhip", delta(0.2))
 }
 \author{
 Jon Clayden <code@clayden.org>

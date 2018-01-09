@@ -22,13 +22,16 @@ specified space, returning a new object of class \code{"shade"}.
 Valid names for spaces are currently those supported by the
 \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
 RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
-alias for ``sRGB''), ``HSV'' and ``LMS''. Case is not significant.
+alias for ``sRGB''), ``HSV'', ``LCh'' and ``LMS''. Case is not significant.
 }
 \note{
 LMS space, used for chromatic adaptation and simulating colour
   blindness, is not uniquely defined. Here we use the (linearised) Bradford
   transform, obtained by Lam (1985) and used widely in ICC colour profiles
   and elsewhere, to transform to and from CIE XYZ space.
+  
+  R uses the D65 standard illuminant as the reference white for the ``Lab''
+  and ``Luv'' spaces.
 }
 \examples{
 warp("red", "HSV")
