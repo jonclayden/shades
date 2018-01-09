@@ -2,22 +2,50 @@
 #' @importFrom graphics par rect plot
 NULL
 
-.lowerCaseToR <- list(rgb="sRGB", srgb="sRGB", hsv="sRGB", xyz="XYZ", lms="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
-
+# Linearised transformation matrices
 .bradfordXYZtoLMS <- matrix(c(0.8951, -0.7502, 0.0389, 0.2664, 1.7135, -0.0685, -0.1614, 0.0367, 1.0296), 3, 3)
 .bradfordLMStoXYZ <- solve(.bradfordXYZtoLMS)
+
+# Standard and additional colour space converters
+.converters <- list(rgb="sRGB", srgb="sRGB", xyz="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
+
+.converters$hsv <- colorConverter(
+    toXYZ = function (hsv, ...) {
+        rgb <- drop(col2rgb(hsv((hsv[1] %% 360)/360, hsv[2], hsv[3])) / 255)
+        colorspaces$sRGB$toXYZ(rgb, ...)
+    },
+    fromXYZ = function (xyz, ...) {
+        rgb <- colorspaces$sRGB$fromXYZ(xyz, ...)
+        rgb[rgb < 0] <- 0
+        hsv <- drop(rgb2hsv(t(rgb), maxColorValue=1))
+        hsv[1] <- (hsv[1] * 360) %% 360
+        return (hsv)
+    },
+    name = "HSV")
+
+.converters$lms <- colorConverter(
+    toXYZ = function (lms, ...) { .bradfordLMStoXYZ %*% lms },
+    fromXYZ = function (xyz, ...) { .bradfordXYZtoLMS %*% xyz },
+    name = "LMS")
+
+.converters$lch <- colorConverter(
+    toXYZ = function (lch, ...) {
+        angle <- lch[3] / 180 * pi
+        lab <- c(lch[1], lch[2] * cos(angle), lch[2] * sin(angle))
+        colorspaces$Lab$toXYZ(lab, ...)
+    },
+    fromXYZ = function (xyz, ...) {
+        lab <- colorspaces$Lab$fromXYZ(xyz, ...)
+        c(lab[1], sqrt(lab[2]^2 + lab[3]^2), atan2(lab[3],lab[2]) / pi * 180)
+    },
+    name = "LCh")
 
 .toHex <- function (coords, space)
 {
     space <- tolower(space)
     
-    if (space == "hsv")
-        coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
-    else if (space == "lms")
-        coords <- t(.bradfordLMStoXYZ %*% t(coords))
-    
-    if (.lowerCaseToR[[space]] != "sRGB")
-        coords <- convertColor(coords, .lowerCaseToR[[space]], "sRGB")
+    if (!identical(.converters[[space]], "sRGB"))
+        coords <- convertColor(coords, .converters[[space]], "sRGB")
     
     return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
 }
@@ -263,7 +291,7 @@ coords.default <- function (x, ...)
 #' Valid names for spaces are currently those supported by the
 #' \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
 #' RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
-#' alias for ``sRGB''), ``HSV'' and ``LMS''. Case is not significant.
+#' alias for ``sRGB''), ``HSV'', ``LCh'' and ``LMS''. Case is not significant.
 #' 
 #' @param x An R object which can be coerced to class \code{"shade"}.
 #' @param space A string naming the new space.
@@ -273,6 +301,9 @@ coords.default <- function (x, ...)
 #'   blindness, is not uniquely defined. Here we use the (linearised) Bradford
 #'   transform, obtained by Lam (1985) and used widely in ICC colour profiles
 #'   and elsewhere, to transform to and from CIE XYZ space.
+#'   
+#'   R uses the D65 standard illuminant as the reference white for the ``Lab''
+#'   and ``Luv'' spaces.
 #' 
 #' @examples
 #' warp("red", "HSV")
@@ -291,22 +322,7 @@ warp <- function (x, space)
     if (sourceSpace == targetSpace)
         return (x)
     
-    coords <- attr(x, "coords")
-    
-    if (sourceSpace == "hsv")
-        coords <- t(col2rgb(hsv((coords[,1] %% 360)/360, coords[,2], coords[,3])) / 255)
-    else if (sourceSpace == "lms")
-        coords <- t(.bradfordLMStoXYZ %*% t(coords))
-    
-    coords <- convertColor(coords, .lowerCaseToR[[sourceSpace]], .lowerCaseToR[[targetSpace]])
-    
-    if (targetSpace == "hsv")
-    {
-        coords <- t(rgb2hsv(t(coords), maxColorValue=1))
-        coords[,1] <- coords[,1] * 360
-    }
-    else if (targetSpace == "lms")
-        coords <- t(.bradfordXYZtoLMS %*% t(coords))
+    coords <- convertColor(attr(x,"coords"), .converters[[sourceSpace]], .converters[[targetSpace]])
     
     return (structure(.toHex(coords,targetSpace), dim=dim(x), space=space, coords=coords, class="shade"))
 }
