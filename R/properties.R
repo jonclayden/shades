@@ -13,6 +13,7 @@
             indices <- rep(seq_along(shades), each=length(replacement))
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- rep(replacement, length(shades))
+            coords <- .clip(coords, space)
             drop(structure(shade(coords,space=space), dim=c(length(replacement),shape)))
         }
         else
@@ -22,6 +23,7 @@
             indices <- rep(seq_along(shades), each=length(temp))
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- replacement(coords[,dim])
+            coords <- .clip(coords, space)
             drop(structure(shade(coords,space=space), dim=c(length(temp),shape)))
         }
     }
@@ -36,15 +38,15 @@
 #' @param shades One or more colours, in any suitable form (see
 #'   \code{\link{shade}}).
 #' @param values New values for the property in question. If \code{NULL}, the
-#'   current value(s) will be returned.
-#' @param angles For \code{hueshift}, the angles (in degrees) by which to
-#'   rotate the colour hues.
+#'   current value(s) will be returned. May also be a function computing new
+#'   values from old ones, notably \code{delta}, which adds its argument.
 #' @return Current colour property values, or new colours of class
 #'   \code{"shade"}.
 #' 
 #' @examples
 #' saturation(c("papayawhip","lavenderblush","olivedrab"))
 #' saturation("papayawhip", 0.7)
+#' saturation("papayawhip", delta(0.2))
 #' @author Jon Clayden <code@@clayden.org>
 #' @rdname properties
 #' @export
@@ -62,7 +64,28 @@ brightness <- function (shades, values = NULL)
 
 #' @rdname properties
 #' @export
-hueshift <- function (shades, angles = 0)
+lightness <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, function(x) (x+angles) %% 360, "HSV", 1)
+    .replaceProperty(shades, values, "Lch", 1)
+}
+
+#' @rdname properties
+#' @export
+chroma <- function (shades, values = NULL)
+{
+    .replaceProperty(shades, values, "Lch", 2)
+}
+
+#' @rdname properties
+#' @export
+hue <- function (shades, values = NULL)
+{
+    .replaceProperty(shades, values, "HSV", 1)
+}
+
+#' @rdname properties
+#' @export
+delta <- function (values)
+{
+    return (function(x) x+values)
 }

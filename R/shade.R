@@ -50,6 +50,24 @@ NULL
     return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
 }
 
+.clip <- function (coords, space)
+{
+    if (grepl("rgb$", tolower(space)))
+    {
+        coords[coords < 0] <- 0
+        coords[coords > 1] <- 1
+    }
+    else if (tolower(space) == "hsv")
+    {
+        temp <- coords[,1] %% 360
+        coords[coords < 0] <- 0
+        coords[coords > 1] <- 1
+        coords[,1] <- temp
+    }
+    
+    return (coords)
+}
+
 .dims <- function (x, collapse = FALSE)
 {
     if (is.null(dim(x)))

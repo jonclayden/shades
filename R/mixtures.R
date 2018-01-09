@@ -1,21 +1,3 @@
-.clip <- function (coords, space)
-{
-    if (grepl("rgb$", tolower(space)))
-    {
-        coords[coords < 0] <- 0
-        coords[coords > 1] <- 1
-    }
-    else if (tolower(space) == "hsv")
-    {
-        temp <- coords[,1] %% 360
-        coords[coords < 0] <- 0
-        coords[coords > 1] <- 1
-        coords[,1] <- temp
-    }
-    
-    return (coords)
-}
-
 .mix <- function (base, mixer, op, amount = 1, space = NULL)
 {
     op <- match.fun(op)
@@ -59,7 +41,7 @@ complement <- function (shades, space = NULL)
         space <- space(shades)
     
     if (tolower(space) == "hsv")
-        hueshift(shades, 180)
+        hue(shades, delta(180))
     else
     {
         white <- warp("white", space=space)
