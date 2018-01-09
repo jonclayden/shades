@@ -65,19 +65,13 @@ Here we are using the built-in "viridis" colour map, [developed for Python's `ma
 The package also supports colour mixing, either additively (as with light) or subtractively (as with paint). For example, consider additive mixtures of the three primary RGB colours.
 
 ```{r addmix}
-cols <- shade(c("red", "red", "green", "green", "blue"))
-cols[2] <- cols[2] %>% addmix("green")
-cols[4] <- cols[4] %>% addmix("blue")
-swatch(cols)
+c("red", addmix("red","green"), "green", addmix("green","blue"), "blue") %>% swatch
 ```
 
 Similarly, we can subtractively combine the three secondary colours.
 
 ```{r submix}
-cols <- shade(c("cyan", "cyan", "magenta", "magenta", "yellow"))
-cols[2] <- cols[2] %>% submix("magenta")
-cols[4] <- cols[4] %>% submix("yellow")
-swatch(cols)
+c("cyan", submix("cyan","magenta"), "magenta", submix("magenta","yellow"), "yellow") %>% swatch
 ```
 
 A "light mixture" infix operator, `%.)%`, and a "paint mixture" infix operator, `%_/%`, are also available.
