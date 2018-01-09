@@ -66,14 +66,14 @@ brightness <- function (shades, values = NULL)
 #' @export
 lightness <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "Lch", 1)
+    .replaceProperty(shades, values, "Lab", 1)
 }
 
 #' @rdname properties
 #' @export
 chroma <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "Lch", 2)
+    .replaceProperty(shades, values, "LCh", 2)
 }
 
 #' @rdname properties
