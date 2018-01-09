@@ -19,13 +19,13 @@ NULL
         rgb[rgb < 0] <- 0
         hsv <- drop(rgb2hsv(t(rgb), maxColorValue=1))
         hsv[1] <- (hsv[1] * 360) %% 360
-        return (hsv)
+        structure(hsv, names=c("H","S","V"))
     },
     name = "HSV")
 
 .converters$lms <- colorConverter(
     toXYZ = function (lms, ...) { .bradfordLMStoXYZ %*% lms },
-    fromXYZ = function (xyz, ...) { .bradfordXYZtoLMS %*% xyz },
+    fromXYZ = function (xyz, ...) { structure(.bradfordXYZtoLMS %*% xyz, names=c("L","M","S")) },
     name = "LMS")
 
 .converters$lch <- colorConverter(
@@ -36,7 +36,9 @@ NULL
     },
     fromXYZ = function (xyz, ...) {
         lab <- colorspaces$Lab$fromXYZ(xyz, ...)
-        c(lab[1], sqrt(lab[2]^2 + lab[3]^2), atan2(lab[3],lab[2]) / pi * 180)
+        lch <- c(lab[1], sqrt(lab[2]^2 + lab[3]^2), atan2(lab[3],lab[2]) / pi * 180)
+        lch[3] <- lch[3] %% 360
+        structure(lch, names=c("L","C","h"))
     },
     name = "LCh")
 
