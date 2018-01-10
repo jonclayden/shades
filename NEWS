@@ -2,6 +2,27 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.0.0
+
+- Support for two new colour spaces has been added: LMS, a direct
+  representation of the response levels of each of the three colour receptor
+  types in the eye; and LCh, a polar representation of Lab space.
+- The new dichromat() function can be used to simulate colour blindness.
+- The gradient() function now additionally supports predefined colour maps from
+  matplotlib and ColorBrewer. Its second argument is now interpreted a little
+  differently.
+- The hueshift() function has been removed, in favour of the more general
+  combination of hue() and delta(). hue(x, delta(y)) is the equivalent of the
+  old hueshift(x,y), and delta() can also be used with other colour properties.
+- New colour property functions lightness() and chroma() have been added.
+- Dimensions are now set when two or more colour properties are changed, and
+  the swatch() visualisation function plots multidimensional shades in a grid.
+- There is now a rev() method for shades.
+- The all.equal() method for shades now passes on its ellipsis argument when
+  checking colour coordinates.
+
+===============================================================================
+
 VERSION 0.2.0
 
 - The package has been reworked to use functions from base R to warp colour

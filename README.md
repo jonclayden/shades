@@ -64,13 +64,13 @@ Similarly, we can create a set of new colours by changing the brightness and sat
 
 
 ```r
-library(magrittr)
+library(shades); library(magrittr)
 c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
 ```
 
 ![plot of chunk saturation](tools/figures/saturation-1.png)
 
-This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. Notice that the final shades are arranged in two rows for convenience, since there are two axes of variation.
+This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. Notice that the pipeline is combinative (like the base function `outer`), returning each combination of parameters in a multidimensional array. The final shades are arranged in two rows by `swatch`, for convenience.
 
 Any of these gradients can be directly passed to a standard graphical function, to be used as a colour scale. However, when choosing a colour scale, it is helpful to bear in mind that some viewers may have a colour vision deficiency (colour blindness), making it harder for them to distinguish certain colours and therefore to see a continuous scale. The `dichromat` function can be used to simulate this.
 
