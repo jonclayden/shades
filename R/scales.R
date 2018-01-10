@@ -44,7 +44,7 @@ gradient <- function (shades, steps, space = NULL)
 {
     if (length(shades) == 1)
     {
-        if (is.character(shades) && shades %in% names(.colmaps))
+        if (is.character(shades) && tolower(shades) %in% names(.colmaps))
             shades <- warp(shade(.colmaps[[tolower(shades)]]), .colmapspaces[[tolower(shades)]])
         else
             stop("A single-element argument should specify a predefined colour map")
