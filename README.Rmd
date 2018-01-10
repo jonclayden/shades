@@ -6,9 +6,9 @@ knitr::opts_chunk$set(collapse = TRUE, fig.path = "tools/figures/", fig.height=2
 
 # Simple colour manipulation in R 😎
 
-The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/smbache/magrittr), and fit naturally into that paradigm.
+The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/tidyverse/magrittr), and fits naturally into that paradigm.
 
-The package is available on [CRAN](https://cran.r-project.org/package=shades), but it is still quite early in its development, so you may prefer to obtain an up-to-date version from GitHub using [`devtools`](https://github.com/hadley/devtools):
+The package is available on [CRAN](https://cran.r-project.org/package=shades). You can also install the current development version from GitHub using [`devtools`](https://github.com/hadley/devtools):
 
 ```{r, eval=FALSE}
 # install.packages("devtools")
@@ -44,7 +44,7 @@ swatch(gradient(c("red","blue"), 5, space="Lab"))
 
 Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
 
-Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the [`magrittr` pipe operator](https://github.com/smbache/magrittr).
+Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the [`magrittr` pipe operator](https://github.com/tidyverse/magrittr).
 
 ```{r saturation}
 library(shades); library(magrittr)
