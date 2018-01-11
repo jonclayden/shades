@@ -124,3 +124,13 @@ Finally, you can calculate perceptual distances to a reference colour, as in
 distance(c("red","green","blue"), "red")
 ## [1]  0.00000 86.52385 53.07649
 ```
+
+## Related packages
+
+The `shades` package aims to bring together a range of colour manipulation tools and make them easy to used. However, there are several other packages available that can do similar things, sometimes in slightly different ways. These include
+
+- the [`grDevices` package], which is shipped with R and used as the basis for `shades`;
+- the venerable [`colorspace` package](https://cran.r-project.org/package=colorspace), which provides formal colour classes and transformations between spaces;
+- [`munsell`](https://cran.r-project.org/package=munsell), which interprets colours in Munsell notation and does some colour manipulation;
+- [`viridis`](https://cran.r-project.org/package=viridis) and [`RColorBrewer`](https://cran.r-project.org/package=RColorBrewer), which provide the colour scales from `matplotlib` and ColorBrewer; and
+- [`dichromat`](https://cran.r-project.org/package=dichromat), which provides another implementation of the `dichromat` function (a duplication which I didn't discover until after writing this package's version!).
