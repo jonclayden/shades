@@ -128,6 +128,9 @@ distance(c("red","green","blue"), "red")
 
 ### Minimal ggplot2 example
 ```r
+library(magrittr)
+library(ggplot2)
+library(shades)
 data("mtcars")
 mtcars$cyl<- factor(mtcars$cyl)
 ggplot(mtcars, aes(mpg, qsec, col=cyl)) + geom_point() + 
