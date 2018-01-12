@@ -125,6 +125,17 @@ distance(c("red","green","blue"), "red")
 ## [1]  0.00000 86.52385 53.07649
 ```
 
+### Minimal ggplot2 example
+```r
+data("mtcars")
+mtcars$cyl<- factor(mtcars$cyl)
+ggplot(mtcars, aes(mpg, qsec, col=cyl)) + geom_point() + 
+            scale_color_manual(values=gradient("viridis",3) %>% dichromat)
+ggplot(mtcars, aes(cyl, mpg, fill=cyl)) + geom_boxplot() + 
+            scale_fill_manual(values=gradient("viridis",3) %>% dichromat)
+```
+          
+
 ## Related packages
 
 The `shades` package aims to bring together a range of colour manipulation tools and make them easy to use. However, there are several other packages available that can do similar things, sometimes in slightly different ways. These include
