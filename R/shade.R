@@ -1,7 +1,3 @@
-#' @import grDevices
-#' @importFrom graphics par rect plot
-NULL
-
 # Linearised transformation matrices
 .bradfordXYZtoLMS <- matrix(c(0.8951, -0.7502, 0.0389, 0.2664, 1.7135, -0.0685, -0.1614, 0.0367, 1.0296), 3, 3)
 .bradfordLMStoXYZ <- solve(.bradfordXYZtoLMS)
