@@ -127,19 +127,19 @@ distance(c("red","green","blue"), "red")
 
 ### Minimal ggplot2 example
 
+Gradients from this package can be used as `ggplot2` colour scales through the manual scale functions; for example,
+
+
 ```r
-library(ggplot2)
-library(shades)
+library(shades); library(ggplot2)
 mtcars$cyl<- factor(mtcars$cyl)
-ggplot(mtcars, aes(mpg, qsec, col=cyl)) + geom_point() + 
-            scale_color_manual(values=gradient("viridis",3) )
+ggplot(mtcars, aes(mpg,qsec,col=cyl)) + geom_point() + scale_color_manual(values=gradient("viridis",3))
 ```
 
 ![plot of chunk ggplot](tools/figures/ggplot-1.png)
 
 ```r
-ggplot(mtcars, aes(cyl, mpg, fill=cyl)) + geom_boxplot() + 
-            scale_fill_manual(values=gradient("viridis",3) )
+ggplot(mtcars, aes(cyl,mpg,fill=cyl)) + geom_boxplot() + scale_fill_manual(values=gradient("viridis",3))
 ```
 
 ![plot of chunk ggplot](tools/figures/ggplot-2.png)
