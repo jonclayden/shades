@@ -88,7 +88,7 @@ distance(c("red","green","blue"), "red")
 ```
 
 ### Minimal ggplot2 example
-```{r, ggplot, fig.height=7}
+```{r, ggplot, fig.height=5}
 library(ggplot2)
 library(shades)
 mtcars$cyl<- factor(mtcars$cyl)
