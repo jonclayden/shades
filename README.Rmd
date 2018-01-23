@@ -105,5 +105,8 @@ The `shades` package aims to bring together a range of colour manipulation tools
 - the `grDevices` package, which is shipped with R and used as the basis for `shades`;
 - the venerable [`colorspace` package](https://cran.r-project.org/package=colorspace), which provides formal colour classes and transformations between spaces;
 - [`munsell`](https://cran.r-project.org/package=munsell), which interprets colours in Munsell notation and does some colour manipulation;
-- [`viridis`](https://cran.r-project.org/package=viridis) and [`RColorBrewer`](https://cran.r-project.org/package=RColorBrewer), which provide the colour scales from `matplotlib` and ColorBrewer; and
-- [`dichromat`](https://cran.r-project.org/package=dichromat), which provides another implementation of the `dichromat` function (a duplication which I didn't discover until after writing this package's version!).
+- [`viridis`](https://cran.r-project.org/package=viridis) and [`RColorBrewer`](https://cran.r-project.org/package=RColorBrewer), which provide the colour scales from `matplotlib` and ColorBrewer;
+- [`dichromat`](https://cran.r-project.org/package=dichromat), which provides another implementation of the `dichromat` function (a duplication which I didn't discover until after writing this package's version!); and
+- [`colorblindr`](https://github.com/clauswilke/colorblindr), which provides alternative tools for simulating colour blindness in figures.
+
+This package was also partly influenced by [Colors.jl](https://github.com/JuliaGraphics/Colors.jl), a colour manipulation package for Julia.
