@@ -27,8 +27,9 @@
 #'   \code{\link{shade}}).
 #' @param type The type of colour vision deficiency to simulate: protanopia
 #'   (red blindness), deuteranopia (green blindness) or tritanopia (blue
-#'   blindness). The latter is the rarest in the population. Abbrevations,
-#'   such as the first letter, may be used.
+#'   blindness). The latter is the rarest in the population. \code{"none"} is
+#'   also available, as a pass-through option. Abbrevations, such as the first
+#'   letter, may be used, and multiple values are acceptable.
 #' @return New colours of class \code{"shade"} in LMS space, representing
 #'   projections of the original shades onto a submanifold appropriate to the
 #'   type of dichromacy being simulated.
@@ -41,23 +42,36 @@
 #' 14(10):2647-2655.
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
-dichromat <- function (shades, type = c("protanopic","deuteranopic","tritanopic"))
+dichromat <- function (shades, type = c("protanopic","deuteranopic","tritanopic","none"))
 {
-    type <- match.arg(type)
-    
-    Q <- coords(warp(shades, "LMS"))
-    lambda <- switch(type, protanopic=ifelse(Q[,3]/Q[,2] < .cache$Er[1], 575, 475),
-                           deuteranopic=ifelse(Q[,3]/Q[,1] < .cache$Er[2], 575, 475),
-                           tritanopic=ifelse(Q[,2]/Q[,1] < .cache$Er[3], 660, 485))
-    lambda <- as.character(lambda)
-    
-    Qprime <- Q
-    if (type == "protanopic")
-        Qprime[,1] <- -(.cache$b[lambda]*Q[,2] + .cache$c[lambda]*Q[,3]) / .cache$a[lambda]
-    else if (type == "deuteranopic")
-        Qprime[,2] <- -(.cache$a[lambda]*Q[,1] + .cache$c[lambda]*Q[,3]) / .cache$b[lambda]
+    if (missing(type))
+        type <- "protanopic"
     else
-        Qprime[,3] <- -(.cache$a[lambda]*Q[,1] + .cache$b[lambda]*Q[,2]) / .cache$c[lambda]
+        type <- match.arg(type, several.ok=TRUE)
     
-    return (shade(Qprime, space="LMS"))
+    shades <- warp(shades, "LMS")
+    Q <- coords(shades)
+    coords <- do.call(rbind, lapply(type, function(t) {
+        Qprime <- Q
+        if (t != "none")
+        {
+            lambda <- switch(t, protanopic=ifelse(Q[,3]/Q[,2] < .cache$Er[1], 575, 475),
+                                deuteranopic=ifelse(Q[,3]/Q[,1] < .cache$Er[2], 575, 475),
+                                tritanopic=ifelse(Q[,2]/Q[,1] < .cache$Er[3], 660, 485))
+            lambda <- as.character(lambda)
+            
+            if (t == "protanopic")
+                Qprime[,1] <- -(.cache$b[lambda]*Q[,2] + .cache$c[lambda]*Q[,3]) / .cache$a[lambda]
+            else if (t == "deuteranopic")
+                Qprime[,2] <- -(.cache$a[lambda]*Q[,1] + .cache$c[lambda]*Q[,3]) / .cache$b[lambda]
+            else
+                Qprime[,3] <- -(.cache$a[lambda]*Q[,1] + .cache$b[lambda]*Q[,2]) / .cache$c[lambda]
+        }
+        return (Qprime)
+    }))
+    
+    indices <- rep(seq_along(shades),each=length(type)) + length(shades) * (seq_along(type)-1)
+    coords <- coords[indices,,drop=FALSE]
+    
+    return (drop(structure(shade(coords,space="LMS"), dim=c(length(type),.dims(shades)))))
 }

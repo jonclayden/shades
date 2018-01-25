@@ -4,7 +4,8 @@
 \alias{dichromat}
 \title{Simulate colour appearance for dichromats}
 \usage{
-dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic"))
+dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic",
+  "none"))
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
@@ -12,8 +13,9 @@ dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic"))
 
 \item{type}{The type of colour vision deficiency to simulate: protanopia
 (red blindness), deuteranopia (green blindness) or tritanopia (blue
-blindness). The latter is the rarest in the population. Abbrevations,
-such as the first letter, may be used.}
+blindness). The latter is the rarest in the population. \code{"none"} is
+also available, as a pass-through option. Abbrevations, such as the first
+letter, may be used, and multiple values are acceptable.}
 }
 \value{
 New colours of class \code{"shade"} in LMS space, representing
