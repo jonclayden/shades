@@ -1,6 +1,9 @@
 context("Creating and converting shade objects")
 
 test_that("shade objects can be created from various objects", {
+    expect_error(shade(), "must not be empty")
+    expect_error(shade(character(0)), "must not be empty")
+    expect_output(print(shade("red")), "1 shade")
     expect_equal(space(shade("red")), "sRGB")
     expect_equivalent(coords("red"), matrix(c(1,0,0),nrow=1))
     expect_equivalent(shade(matrix(c(1,0,0),nrow=1)), shade("#FF0000"))
