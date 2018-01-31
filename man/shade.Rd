@@ -8,6 +8,7 @@
 \alias{shade.matrix}
 \alias{shade.character}
 \alias{shade.default}
+\alias{print.shade}
 \alias{[.shade}
 \alias{[<-.shade}
 \alias{c.shade}
@@ -29,6 +30,8 @@ shade(x, ...)
 \method{shade}{character}(x, ...)
 
 \method{shade}{default}(x, ...)
+
+\method{print}{shade}(x, ...)
 
 \method{[}{shade}(x, i)
 

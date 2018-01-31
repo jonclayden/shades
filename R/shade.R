@@ -158,6 +158,15 @@ shade.default <- function (x, ...)
 
 #' @rdname shade
 #' @export
+print.shade <- function (x, ...)
+{
+    len <- length(x)
+    cat(paste("", len, ifelse(len==1,"shade","shades"), "in", space(x), "space\n"))
+    print(structure(x, space=NULL, coords=NULL, class=NULL), quote=FALSE)
+}
+
+#' @rdname shade
+#' @export
 "[.shade" <- function (x, i)
 {
     structure(as.character(x)[i], space=attr(x,"space"), coords=attr(x,"coords")[i,,drop=FALSE], class="shade")
