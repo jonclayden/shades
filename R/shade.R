@@ -145,6 +145,8 @@ shade.matrix <- function (x, space = "sRGB", ...)
 #' @export
 shade.character <- function (x, ...)
 {
+    if (length(x) == 0)
+        stop("Colour vector must not be empty")
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
     structure(x, space="sRGB", coords=coords, class="shade")
 }
@@ -153,6 +155,8 @@ shade.character <- function (x, ...)
 #' @export
 shade.default <- function (x, ...)
 {
+    if (missing(x))
+        stop("Colour vector must not be empty")
     shade.character(as.character(x), ...)
 }
 
