@@ -2,6 +2,19 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.1.0
+
+- The dichromat() function now offers a pass-through (normal colour vision)
+  option, and is also vectorised over its second argument (#3). Some of the
+  coefficients it uses internally are now pre-calculated and cached for
+  efficiency.
+- There is now a print method for vectors of class shade.
+- An empty shade vector is now explicitly an error.
+- The README now includes an example of using shades with ggplot2 (#2), as
+  well as links to several related packages.
+
+===============================================================================
+
 VERSION 1.0.0
 
 - Support for two new colour spaces has been added: LMS, a direct
