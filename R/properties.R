@@ -48,7 +48,8 @@
 #'   \code{\link{shade}}).
 #' @param values New values for the property in question. If \code{NULL}, the
 #'   current value(s) will be returned. May also be a function computing new
-#'   values from old ones, notably \code{delta}, which adds its argument.
+#'   values from old ones, notably \code{delta}, which adds its argument, or
+#'   \code{scalefac}, which multiplies it.
 #' @return Current colour property values, or new colours of class
 #'   \code{"shade"}.
 #' 
@@ -56,6 +57,7 @@
 #' saturation(c("papayawhip","lavenderblush","olivedrab"))
 #' saturation("papayawhip", 0.7)
 #' saturation("papayawhip", delta(0.2))
+#' saturation("papayawhip", scalefac(1.5))
 #' @author Jon Clayden <code@@clayden.org>
 #' @rdname properties
 #' @export
@@ -97,4 +99,11 @@ hue <- function (shades, values = NULL)
 delta <- function (values)
 {
     return (function(x) x+values)
+}
+
+#' @rdname properties
+#' @export
+scalefac <- function (values)
+{
+    return (function(x) x*values)
 }
