@@ -25,7 +25,7 @@ shade(x, ...)
 
 \method{shade}{color}(x, ...)
 
-\method{shade}{matrix}(x, space = "sRGB", ...)
+\method{shade}{matrix}(x, space = "sRGB", alpha = NULL, ...)
 
 \method{shade}{character}(x, ...)
 

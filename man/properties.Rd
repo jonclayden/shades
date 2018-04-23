@@ -6,7 +6,9 @@
 \alias{lightness}
 \alias{chroma}
 \alias{hue}
+\alias{opacity}
 \alias{delta}
+\alias{scalefac}
 \title{Query or change colour properties}
 \usage{
 saturation(shades, values = NULL)
@@ -19,7 +21,11 @@ chroma(shades, values = NULL)
 
 hue(shades, values = NULL)
 
+opacity(shades, values = NULL)
+
 delta(values)
+
+scalefac(values)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
@@ -27,7 +33,8 @@ delta(values)
 
 \item{values}{New values for the property in question. If \code{NULL}, the
 current value(s) will be returned. May also be a function computing new
-values from old ones, notably \code{delta}, which adds its argument.}
+values from old ones, notably \code{delta}, which adds its argument, or
+\code{scalefac}, which multiplies it.}
 }
 \value{
 Current colour property values, or new colours of class
@@ -52,6 +59,7 @@ red at 0º (and 360º), which is generally the most familiar parameterisation.
 saturation(c("papayawhip","lavenderblush","olivedrab"))
 saturation("papayawhip", 0.7)
 saturation("papayawhip", delta(0.2))
+saturation("papayawhip", scalefac(1.5))
 }
 \author{
 Jon Clayden <code@clayden.org>
