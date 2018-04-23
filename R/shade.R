@@ -47,7 +47,7 @@
     if (!identical(.converters[[space]], "sRGB"))
         coords <- convertColor(coords, .converters[[space]], "sRGB")
     
-    if (is.null(alpha))
+    if (is.null(alpha) || all(alpha == 1))
         return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
     else
         return (rgb(coords[,1], coords[,2], coords[,3], pmax(0,pmin(1,alpha)), maxColorValue=1))
