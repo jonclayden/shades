@@ -198,8 +198,9 @@ shade.default <- function (x, ...)
 print.shade <- function (x, ...)
 {
     len <- length(x)
-    cat(paste("", len, ifelse(len==1,"shade","shades"), "in", space(x), "space\n"))
-    print(structure(x, space=NULL, coords=NULL, class=NULL), quote=FALSE)
+    hasAlpha <- !is.null(attr(x, "alpha"))
+    cat(paste0(" ", len, ifelse(len==1," shade"," shades"), " in ", space(x), " space, ", ifelse(hasAlpha,"with","without"), " transparency\n"))
+    print(structure(x, space=NULL, coords=NULL, alpha=NULL, class=NULL), quote=FALSE)
 }
 
 #' @rdname shade
