@@ -398,6 +398,7 @@ warp <- function (x, space)
         return (x)
     
     coords <- convertColor(attr(x,"coords"), .converters[[sourceSpace]], .converters[[targetSpace]])
+    alpha <- .alpha(x)
     
-    return (structure(.toHex(coords,targetSpace), dim=dim(x), space=space, coords=coords, alpha=.alpha(x), class="shade"))
+    return (structure(.toHex(coords,targetSpace,alpha), dim=dim(x), space=space, coords=coords, alpha=alpha, class="shade"))
 }

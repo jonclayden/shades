@@ -14,7 +14,8 @@
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- rep(replacement, length(shades))
             coords <- .clip(coords, space)
-            drop(structure(shade(coords,space=space), dim=c(length(replacement),shape)))
+            alpha <- .alpha(shades, allowNull=FALSE)[indices]
+            drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(replacement),shape)))
         }
         else
         {
@@ -24,7 +25,8 @@
             coords <- coords(shades)[indices,,drop=FALSE]
             coords[,dim] <- replacement(coords[,dim])
             coords <- .clip(coords, space)
-            drop(structure(shade(coords,space=space), dim=c(length(temp),shape)))
+            alpha <- .alpha(shades, allowNull=FALSE)[indices]
+            drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(temp),shape)))
         }
     }
 }
