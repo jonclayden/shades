@@ -265,7 +265,9 @@ rev.shade <- function (x)
     y <- rep(warp(y,attr(x,"space")), length.out=length(x))
     xCoords <- coords(x)
     yCoords <- coords(y)
-    sapply(seq_along(x), function(i) all(xCoords[i,] == yCoords[i,]))
+    coordsAgree <- sapply(seq_along(x), function(i) all(xCoords[i,] == yCoords[i,]))
+    alphaAgrees <- .alpha(x, allowNull=FALSE) == .alpha(y, allowNull=FALSE)
+    return (coordsAgree & alphaAgrees)
 }
 
 #' @rdname shade
