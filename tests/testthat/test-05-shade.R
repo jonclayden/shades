@@ -10,10 +10,8 @@ test_that("shade objects can be created from various objects", {
     # Using a factor to check the default initialisation method
     expect_equivalent(shade(factor(rep("red",3))), rep(shade("red"),3))
     
-    if (system.file(package="colorspace") == "")
-        skip("The \"colorspace\" package is not available")
-    else
-        expect_true(shade(colorspace::sRGB(1,0,0)) == "red")
+    skip_if_not_installed("colorspace")
+    expect_true(shade(colorspace::sRGB(1,0,0)) == "red")
 })
 
 test_that("shade objects can be converted between spaces", {

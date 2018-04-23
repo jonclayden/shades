@@ -3,7 +3,7 @@
     shades <- warp(shades, space)
     
     if (is.null(replacement))
-        structure(coords(shades)[,dim], names=NULL)
+        unname(coords(shades)[,dim])
     else
     {
         shape <- .dims(shades)
