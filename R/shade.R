@@ -50,7 +50,7 @@
     if (is.null(alpha))
         return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
     else
-        return (rgb(coords[,1], coords[,2], coords[,3], alpha, maxColorValue=1))
+        return (rgb(coords[,1], coords[,2], coords[,3], pmax(0,pmin(1,alpha)), maxColorValue=1))
 }
 
 .clip <- function (coords, space)
@@ -83,30 +83,25 @@
 
 .alpha <- function (x, ..., allowNull = TRUE)
 {
-    if (length(list(...)) > 1)
+    if (!missing(..1))
     {
         elements <- lapply(list(x,...), .alpha, allowNull=FALSE)
         result <- do.call("c", elements)
-        if (allowNull && all(result == 1))
-            return (NULL)
-        else
-            return (result)
     }
     else
     {
         if (!is.null(attr(x, "alpha")))
-        {
-            alpha <- attr(x, "alpha")
-            alpha[alpha < 0] <- 0
-            alpha[alpha > 1] <- 1
-        }
+            result <- pmax(0, pmin(1, attr(x,"alpha")))
         else if (any(grepl("#[0-9A-Fa-f]{8}", as.character(x), perl=TRUE)))
-            return (unname(col2rgb(as.character(x), alpha=TRUE)["alpha",] / 255))
-        else if (allowNull)
-            return (NULL)
+            result <- unname(col2rgb(as.character(x), alpha=TRUE)["alpha",] / 255)
         else
-            return (rep(1, length(x)))
+            result <- rep(1, length(x))
     }
+    
+    if (allowNull && all(result == 1))
+        return (NULL)
+    else
+        return (result)
 }
 
 #' The shade class

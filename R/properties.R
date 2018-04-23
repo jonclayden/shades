@@ -109,16 +109,13 @@ opacity <- function (shades, values = NULL)
             alpha <- rep(values, length(shades))
             indices <- rep(seq_along(shades), each=length(values))
             coords <- coords(shades)[indices,,drop=FALSE]
-            shades <- drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(values),.dims(shades))))
+            shades <- drop(structure(shade(coords,space=space(shades),alpha=alpha), dim=c(length(values),.dims(shades))))
         }
         else
         {
             fun <- match.fun(values)
             alpha <- as.numeric(fun(.alpha(shades, allowNull=FALSE)))
-            if (all(alpha == 1))
-                attr(shades, "alpha") <- NULL
-            else
-                attr(shades, "alpha") <- alpha
+            shades <- shade(coords(shades), space=space(shades), alpha=alpha)
         }
         return (shades)
     }
