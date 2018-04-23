@@ -58,6 +58,9 @@ colours in any acceptable form.}
 \item{space}{For a matrix, the space in which coordinates are being
 provided.}
 
+\item{alpha}{For a matrix, an associated vector of opacity values between 0
+and 1, if required.}
+
 \item{i}{An index vector.}
 
 \item{value}{A vector of replacement colours.}

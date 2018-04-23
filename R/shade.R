@@ -117,6 +117,8 @@
 #' @param x,y R objects, or \code{"shade"} objects for methods.
 #' @param space For a matrix, the space in which coordinates are being
 #'   provided.
+#' @param alpha For a matrix, an associated vector of opacity values between 0
+#'   and 1, if required.
 #' @param target,current Shade vectors to compare.
 #' @param i An index vector.
 #' @param value A vector of replacement colours.
