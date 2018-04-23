@@ -96,6 +96,36 @@ hue <- function (shades, values = NULL)
 
 #' @rdname properties
 #' @export
+opacity <- function (shades, values = NULL)
+{
+    shades <- shade(shades)
+    
+    if (is.null(values))
+        return (.alpha(shades, allowNull=FALSE))
+    else
+    {
+        if (is.numeric(values))
+        {
+            alpha <- rep(values, length(shades))
+            indices <- rep(seq_along(shades), each=length(values))
+            coords <- coords(shades)[indices,,drop=FALSE]
+            shades <- drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(values),.dims(shades))))
+        }
+        else
+        {
+            fun <- match.fun(values)
+            alpha <- as.numeric(fun(.alpha(shades, allowNull=FALSE)))
+            if (all(alpha == 1))
+                attr(shades, "alpha") <- NULL
+            else
+                attr(shades, "alpha") <- alpha
+        }
+        return (shades)
+    }
+}
+
+#' @rdname properties
+#' @export
 delta <- function (values)
 {
     return (function(x) x+values)

@@ -40,14 +40,17 @@
     },
     name = "LCh")
 
-.toHex <- function (coords, space)
+.toHex <- function (coords, space, alpha = NULL)
 {
     space <- tolower(space)
     
     if (!identical(.converters[[space]], "sRGB"))
         coords <- convertColor(coords, .converters[[space]], "sRGB")
     
-    return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
+    if (is.null(alpha))
+        return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
+    else
+        return (rgb(coords[,1], coords[,2], coords[,3], alpha, maxColorValue=1))
 }
 
 .clip <- function (coords, space)
@@ -76,6 +79,34 @@
         return (c(dim(x)[1], prod(dim(x)[-1])))
     else
         return (dim(x))
+}
+
+.alpha <- function (x, ..., allowNull = TRUE)
+{
+    if (length(list(...)) > 1)
+    {
+        elements <- lapply(list(x,...), .alpha, allowNull=FALSE)
+        result <- do.call("c", elements)
+        if (allowNull && all(result == 1))
+            return (NULL)
+        else
+            return (result)
+    }
+    else
+    {
+        if (!is.null(attr(x, "alpha")))
+        {
+            alpha <- attr(x, "alpha")
+            alpha[alpha < 0] <- 0
+            alpha[alpha > 1] <- 1
+        }
+        else if (any(grepl("#[0-9A-Fa-f]{8}", as.character(x), perl=TRUE)))
+            return (unname(col2rgb(as.character(x), alpha=TRUE)["alpha",] / 255))
+        else if (allowNull)
+            return (NULL)
+        else
+            return (rep(1, length(x)))
+    }
 }
 
 #' The shade class
@@ -131,14 +162,16 @@ shade.shade <- function (x, ...)
 #' @export
 shade.color <- function (x, ...)
 {
-    structure(colorspace::hex(x,fixup=TRUE), space=class(x), coords=colorspace::coords(x), class="shade")
+    hex <- colorspace::hex(x, fixup=TRUE)
+    structure(hex, space=class(x), coords=colorspace::coords(x), alpha=.alpha(hex), class="shade")
 }
 
 #' @rdname shade
 #' @export
-shade.matrix <- function (x, space = "sRGB", ...)
+shade.matrix <- function (x, space = "sRGB", alpha = NULL, ...)
 {
-    structure(.toHex(x,space), space=space, coords=x, class="shade")
+    hex <- .toHex(x, space, alpha)
+    structure(hex, space=space, coords=x, alpha=.alpha(hex), class="shade")
 }
 
 #' @rdname shade
@@ -148,7 +181,7 @@ shade.character <- function (x, ...)
     if (length(x) == 0)
         stop("Colour vector must not be empty")
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
-    structure(x, space="sRGB", coords=coords, class="shade")
+    structure(x, space="sRGB", coords=coords, alpha=.alpha(x), class="shade")
 }
 
 #' @rdname shade
@@ -173,7 +206,7 @@ print.shade <- function (x, ...)
 #' @export
 "[.shade" <- function (x, i)
 {
-    structure(as.character(x)[i], space=attr(x,"space"), coords=attr(x,"coords")[i,,drop=FALSE], class="shade")
+    structure(as.character(x)[i], space=attr(x,"space"), coords=attr(x,"coords")[i,,drop=FALSE], alpha=attr(x,"alpha")[i], class="shade")
 }
 
 #' @rdname shade
@@ -182,6 +215,14 @@ print.shade <- function (x, ...)
 {
     replacement <- warp(value, attr(x,"space"))
     attr(x,"coords")[i,] <- attr(replacement,"coords")
+    
+    alpha <- .alpha(x, allowNull=FALSE)
+    alpha[i] <- .alpha(value, allowNull=FALSE)
+    if (all(alpha == 1))
+        attr(x, "alpha") <- NULL
+    else
+        attr(x, "alpha") <- alpha
+    
     NextMethod("[<-")
 }
 
@@ -200,7 +241,7 @@ c.shade <- function (...)
         shades <- lapply(shades, warp, "XYZ")
     }
     
-    structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), class="shade")
+    structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), alpha=do.call(".alpha",shades), class="shade")
 }
 
 #' @rdname shade
@@ -208,7 +249,7 @@ c.shade <- function (...)
 rep.shade <- function (x, ...)
 {
     indices <- rep(seq_along(x), ...)
-    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], class="shade")
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], class="shade")
 }
 
 #' @rdname shade
@@ -216,7 +257,7 @@ rep.shade <- function (x, ...)
 rev.shade <- function (x)
 {
     indices <- rev(seq_along(x))
-    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], class="shade")
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], class="shade")
 }
 
 #' @rdname shade
@@ -360,5 +401,5 @@ warp <- function (x, space)
     
     coords <- convertColor(attr(x,"coords"), .converters[[sourceSpace]], .converters[[targetSpace]])
     
-    return (structure(.toHex(coords,targetSpace), dim=dim(x), space=space, coords=coords, class="shade"))
+    return (structure(.toHex(coords,targetSpace), dim=dim(x), space=space, coords=coords, alpha=.alpha(x), class="shade"))
 }
