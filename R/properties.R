@@ -125,14 +125,24 @@ opacity <- function (shades, values = NULL)
 
 #' @rdname properties
 #' @export
-delta <- function (values)
+delta <- function (...)
 {
+    values <- as.numeric(c(...))
     return (function(x) x+values)
 }
 
 #' @rdname properties
 #' @export
-scalefac <- function (values)
+scalefac <- function (...)
 {
+    values <- as.numeric(c(...))
     return (function(x) x*values)
+}
+
+#' @rdname properties
+#' @export
+literal <- function (...)
+{
+    values <- as.numeric(c(...))
+    return (function(x) rep(values,length.out=length(x)))
 }
