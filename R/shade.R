@@ -285,6 +285,8 @@ all.equal.shade <- function (target, current, hexonly = FALSE, ...)
         all.equal(as.character(target), as.character(current), ...)
     else if (length(target) != length(current))
         paste0("Lengths do not match (", length(target), " and ", length(current), ")")
+    else if (!all(.alpha(target,allowNull=FALSE) == .alpha(current,allowNull=FALSE)))
+        paste0("Alpha values do not match (mean absolute difference is ", signif(mean(abs(.alpha(target,allowNull=FALSE) - .alpha(current,allowNull=FALSE))),4), ")")
     else
     {
         target <- warp(target, space(current))

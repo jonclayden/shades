@@ -5,6 +5,7 @@ test_that("opacity can be obtained and manipulated", {
     expect_equal(opacity("#FF000080"), 128/255)
     expect_equal(opacity(saturation("#FF000080",0.5)), 128/255)
     expect_equal(warp("#FF000080","HSV"), "#FF000080", hexonly=TRUE)
+    
     expect_equal(opacity("red",c(0,0.5)), c("#FF000000","#FF000080"), hexonly=TRUE)
     expect_equal(opacity("red",delta(-0.5)), "#FF000080", hexonly=TRUE)
     expect_null(attr(opacity("#FF000080",delta(0.5)),"alpha"))
@@ -17,4 +18,5 @@ test_that("opacity can be obtained and manipulated", {
     
     expect_true(shade("#FF8080") == shade("#FF8080FF"))
     expect_false(shade("#FF8080") == shade("#FF8080DD"))
+    expect_match(all.equal(shade("#FF8080"), "#FF8080DD"), "Alpha values do not match")
 })
