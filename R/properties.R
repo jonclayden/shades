@@ -141,7 +141,7 @@ scalefac <- function (...)
 
 #' @rdname properties
 #' @export
-literal <- function (...)
+recycle <- function (...)
 {
     values <- as.numeric(c(...))
     return (function(x) rep(values,length.out=length(x)))
