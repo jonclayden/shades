@@ -9,6 +9,7 @@
 \alias{opacity}
 \alias{delta}
 \alias{scalefac}
+\alias{recycle}
 \title{Query or change colour properties}
 \usage{
 saturation(shades, values = NULL)
@@ -23,9 +24,11 @@ hue(shades, values = NULL)
 
 opacity(shades, values = NULL)
 
-delta(values)
+delta(...)
 
-scalefac(values)
+scalefac(...)
+
+recycle(...)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
@@ -33,8 +36,11 @@ scalefac(values)
 
 \item{values}{New values for the property in question. If \code{NULL}, the
 current value(s) will be returned. May also be a function computing new
-values from old ones, notably \code{delta}, which adds its argument, or
+values from old ones, such as \code{delta}, which adds its argument, or
 \code{scalefac}, which multiplies it.}
+
+\item{...}{Arguments to replacement functions \code{delta}, \code{scalefac}
+and \code{recycle}, which will be concatenated.}
 }
 \value{
 Current colour property values, or new colours of class
@@ -55,11 +61,22 @@ and 1, while lightness is defined in Lab space and is between 0 and 100.
 Saturation and chroma are also related. Hue is defined in HSV space, with
 red at 0º (and 360º), which is generally the most familiar parameterisation.
 }
+\note{
+The colour property functions are vectorised over both of their
+  arguments, such that the dimensions of the result will be
+  \code{c(length(values),dim(shades))}. However, the \code{recycle} function
+  can be used to suppress the usual dimensional expansion, and instead
+  follow R's standard recycling rule.
+}
 \examples{
 saturation(c("papayawhip","lavenderblush","olivedrab"))
+
 saturation("papayawhip", 0.7)
 saturation("papayawhip", delta(0.2))
 saturation("papayawhip", scalefac(1.5))
+
+saturation(c("red","green"), c(0.4,0.6))
+saturation(c("red","green"), recycle(0.4,0.6))
 }
 \author{
 Jon Clayden <code@clayden.org>

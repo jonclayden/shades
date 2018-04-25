@@ -3,31 +3,27 @@
     shades <- warp(shades, space)
     
     if (is.null(replacement))
-        unname(coords(shades)[,dim])
+        return (unname(coords(shades)[,dim]))
     else
     {
-        shape <- .dims(shades)
-        
         if (is.numeric(replacement))
         {
-            indices <- rep(seq_along(shades), each=length(replacement))
-            coords <- coords(shades)[indices,,drop=FALSE]
-            coords[,dim] <- rep(replacement, length(shades))
-            coords <- .clip(coords, space)
-            alpha <- .alpha(shades, allowNull=FALSE)[indices]
-            drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(replacement),shape)))
+            arity <- length(replacement)
+            replacement <- rep(replacement, length(shades))
         }
         else
         {
-            replacement <- match.fun(replacement)
-            temp <- replacement(coords(shades)[1,dim])
-            indices <- rep(seq_along(shades), each=length(temp))
-            coords <- coords(shades)[indices,,drop=FALSE]
-            coords[,dim] <- replacement(coords[,dim])
-            coords <- .clip(coords, space)
-            alpha <- .alpha(shades, allowNull=FALSE)[indices]
-            drop(structure(shade(coords,space=space,alpha=alpha), dim=c(length(temp),shape)))
+            fun <- match.fun(replacement)
+            arity <- length(fun(coords(shades)[1,dim]))
+            replacement <- fun(coords(shades)[,dim])
         }
+        
+        indices <- rep(seq_along(shades), each=arity)
+        coords <- coords(shades)[indices,,drop=FALSE]
+        coords[,dim] <- replacement
+        coords <- .clip(coords, space)
+        alpha <- .alpha(shades, allowNull=FALSE)[indices]
+        return (drop(structure(shade(coords,space=space,alpha=alpha), dim=c(arity,.dims(shades)))))
     }
 }
 
@@ -50,16 +46,28 @@
 #'   \code{\link{shade}}).
 #' @param values New values for the property in question. If \code{NULL}, the
 #'   current value(s) will be returned. May also be a function computing new
-#'   values from old ones, notably \code{delta}, which adds its argument, or
+#'   values from old ones, such as \code{delta}, which adds its argument, or
 #'   \code{scalefac}, which multiplies it.
+#' @param ... Arguments to replacement functions \code{delta}, \code{scalefac}
+#'   and \code{recycle}, which will be concatenated.
 #' @return Current colour property values, or new colours of class
 #'   \code{"shade"}.
 #' 
+#' @note The colour property functions are vectorised over both of their
+#'   arguments, such that the dimensions of the result will be
+#'   \code{c(length(values),dim(shades))}. However, the \code{recycle} function
+#'   can be used to suppress the usual dimensional expansion, and instead
+#'   follow R's standard recycling rule.
+#' 
 #' @examples
 #' saturation(c("papayawhip","lavenderblush","olivedrab"))
+#' 
 #' saturation("papayawhip", 0.7)
 #' saturation("papayawhip", delta(0.2))
 #' saturation("papayawhip", scalefac(1.5))
+#' 
+#' saturation(c("red","green"), c(0.4,0.6))
+#' saturation(c("red","green"), recycle(0.4,0.6))
 #' @author Jon Clayden <code@@clayden.org>
 #' @rdname properties
 #' @export
@@ -108,18 +116,19 @@ opacity <- function (shades, values = NULL)
     {
         if (is.numeric(values))
         {
-            alpha <- rep(values, length(shades))
-            indices <- rep(seq_along(shades), each=length(values))
-            coords <- coords(shades)[indices,,drop=FALSE]
-            shades <- drop(structure(shade(coords,space=space(shades),alpha=alpha), dim=c(length(values),.dims(shades))))
+            arity <- length(values)
+            values <- rep(values, length(shades))
         }
         else
         {
             fun <- match.fun(values)
-            alpha <- as.numeric(fun(.alpha(shades, allowNull=FALSE)))
-            shades <- shade(coords(shades), space=space(shades), alpha=alpha)
+            arity <- length(fun(.alpha(shades,allowNull=FALSE)[1]))
+            values <- fun(.alpha(shades, allowNull=FALSE))
         }
-        return (shades)
+        
+        indices <- rep(seq_along(shades), each=arity)
+        coords <- coords(shades)[indices,,drop=FALSE]
+        return (drop(structure(shade(coords,space=space(shades),alpha=values), dim=c(arity,.dims(shades)))))
     }
 }
 
