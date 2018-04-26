@@ -2,6 +2,23 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.2.0
+
+- There is now support for transparency, which can be queried or modified
+  through the new opacity() function, which functions just like the other
+  colour property functions (#4). Opacity (alpha) values are stored as an
+  attribute with shade objects, and reflected in the RGB hex representation
+  only when less than 1.
+- The scalefac() functional has been added, which multiplies its argument just
+  as delta() adds it. Both functions now accept, and concatenate, multiple
+  arguments for convenience.
+- The usual behaviour of the colour property manipulation functions, which
+  vectorise over both arguments, can be suppressed by wrapping replacement
+  values with the recycle() function, which reverts to a standard R
+  "recycling" scheme with final dimensions matching the original.
+
+===============================================================================
+
 VERSION 1.1.0
 
 - The dichromat() function now offers a pass-through (normal colour vision)
