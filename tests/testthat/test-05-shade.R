@@ -17,6 +17,9 @@ test_that("shade objects can be created from various objects", {
 test_that("shade objects can be converted between spaces", {
     expect_equivalent(coords(warp("red","HSV")), matrix(c(0,1,1),nrow=1))
     expect_equivalent(round(coords(warp(shade("red"),"LAB"))), matrix(c(53,80,67),nrow=1))
+    # Check that precision loss isn't too great when making a round-trip conversion
+    shade <- shade(matrix(runif(3),nrow=1), space="sRGB")
+    expect_equivalent(coords(warp(warp(shade,"HSV"),"sRGB")), coords(shade), tolerance=1e-4)
 })
 
 test_that("shade object can be indexed, combined and compared", {
