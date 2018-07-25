@@ -7,7 +7,11 @@
 
 .converters$hsv <- colorConverter(
     toXYZ = function (hsv, ...) {
-        rgb <- drop(col2rgb(hsv((hsv[1] %% 360)/360, hsv[2], hsv[3])) / 255)
+        c <- hsv[2] * hsv[3]            # chroma
+        base <- (1 - hsv[2]) * hsv[3]
+        sextile <- (hsv[1] %% 360) / 60 + 1
+        f <- sextile - floor(sextile)
+        rgb <- base + switch(as.integer(sextile), c(c,f*c,0), c((1-f)*c,c,0), c(0,c,f*c), c(0,(1-f)*c,c), c(f*c,0,c), c(c,0,(1-f)*c))
         colorspaces$sRGB$toXYZ(rgb, ...)
     },
     fromXYZ = function (xyz, ...) {
