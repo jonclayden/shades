@@ -3,7 +3,7 @@
 \name{saturation}
 \alias{saturation}
 \alias{brightness}
-\alias{lightness}
+\alias{lightness.default}
 \alias{chroma}
 \alias{hue}
 \alias{opacity}
@@ -16,7 +16,7 @@ saturation(shades, values = NULL)
 
 brightness(shades, values = NULL)
 
-lightness(shades, values = NULL)
+\method{lightness}{default}(shades, values = NULL)
 
 chroma(shades, values = NULL)
 

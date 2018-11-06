@@ -85,7 +85,7 @@ brightness <- function (shades, values = NULL)
 
 #' @rdname properties
 #' @export
-lightness <- function (shades, values = NULL)
+lightness.default <- function (shades, values = NULL)
 {
     .replaceProperty(shades, values, "Lab", 1)
 }
