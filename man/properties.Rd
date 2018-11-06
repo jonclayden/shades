@@ -2,6 +2,9 @@
 % Please edit documentation in R/functions.R, R/properties.R
 \name{lightness}
 \alias{lightness}
+\alias{lightness.function}
+\alias{lightness.ggproto_method}
+\alias{lightness.Scale}
 \alias{saturation}
 \alias{brightness}
 \alias{lightness.default}
@@ -14,6 +17,12 @@
 \title{Query or change colour properties}
 \usage{
 lightness(shades, values = NULL)
+
+\method{lightness}{function}(shades, values = NULL)
+
+\method{lightness}{ggproto_method}(shades, values = NULL)
+
+\method{lightness}{Scale}(shades, values = NULL)
 
 saturation(shades, values = NULL)
 

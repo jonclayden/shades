@@ -4,6 +4,7 @@
 lightness <- function (shades, values = NULL) UseMethod("lightness")
 
 #' @export
+#' @rdname properties
 lightness.function <- function(shades, values = NULL) {
   orig_call <- match.call(expand.dots = FALSE)
   orig_call[[1]] <- quote(lightness)
@@ -26,9 +27,11 @@ lightness.function <- function(shades, values = NULL) {
 }
 
 #' @export
+#' @rdname properties
 lightness.ggproto_method <- lightness.function
 
 #' @export
+#' @rdname properties
 lightness.Scale <- function (shades, values = NULL) {
   orig_call <- match.call(expand.dots = FALSE)
   orig_call[[1]] <- quote(lightness)
