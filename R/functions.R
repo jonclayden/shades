@@ -1,5 +1,6 @@
 
 #' @export
+#' @rdname properties
 lightness <- function (shades, values = NULL) UseMethod("lightness")
 
 #' @export
@@ -32,9 +33,9 @@ lightness.Scale <- function (shades, values = NULL) {
   orig_call <- match.call(expand.dots = FALSE)
   orig_call[[1]] <- quote(lightness)
   
-  new_scale <- ggproto(NULL, shades,
+  new_scale <- ggplot2::ggproto(NULL, shades,
         palette = function (self, n) {
-          res <- ggproto_parent(shades, self)$palette(n)
+          res <- ggplot2::ggproto_parent(shades, self)$palette(n)
           lightness(res, values)
         })
 
