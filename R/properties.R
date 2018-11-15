@@ -1,4 +1,19 @@
-.replaceProperty <- function (shades, replacement, space, dim)
+.replaceProperty <- function (shades, replacement, space, dim) UseMethod(".replaceProperty")
+
+
+.replaceProperty.function <- function (shades, replacement, space, dim) {
+  function (...) .replaceProperty(shades(...), replacement, space, dim)
+}
+
+.replaceProperty.ggproto_method <- .replaceProperty.function
+
+.replaceProperty.Scale <- function(shades, replacement, space, dim) {
+  shades$palette <- .replaceProperty(shades$palette, replacement, space, dim)
+
+  return(shades)
+}
+
+.replaceProperty.default <- function (shades, replacement, space, dim) 
 {
     shades <- warp(shades, space)
     
