@@ -1,16 +1,21 @@
-.replaceProperty <- function (shades, replacement, space, dim) UseMethod(".replaceProperty")
+.replaceProperty <- function (shades, replacement, space, dim)
+{
+    UseMethod(".replaceProperty")
+}
 
-
-.replaceProperty.function <- function (shades, replacement, space, dim) {
-  function (...) .replaceProperty(shades(...), replacement, space, dim)
+.replaceProperty.function <- function (shades, replacement, space, dim)
+{
+    function (...) .replaceProperty(shades(...), replacement, space, dim)
 }
 
 .replaceProperty.ggproto_method <- .replaceProperty.function
 
-.replaceProperty.Scale <- function(shades, replacement, space, dim) {
-  shades$palette <- .replaceProperty(shades$palette, replacement, space, dim)
-
-  return(shades)
+.replaceProperty.Scale <- function (shades, replacement, space, dim)
+{
+    ggplot2::ggproto(NULL, shades, palette=function(self,...) {
+        colours <- ggplot2::ggproto_parent(shades, self)$palette(...)
+        .replaceProperty(colours, replacement, space, dim)
+    })
 }
 
 .replaceProperty.default <- function (shades, replacement, space, dim) 
