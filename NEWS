@@ -2,6 +2,20 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.3.0
+
+- It is now possible to manipulate palette functions and ggplot2 scales using
+  the colour manipulation functions in this package (#5, #7). When passed one
+  of these objects, a modified wrapper object is returned. This allows colour
+  tweaks to be made to standard scales in ggplot2 plots. See the README for a
+  visual example.
+- The gradient() function now returns a function if its second argument is
+  missing or NULL. This change is complementary to the one above, allowing
+  palette functions to be created.
+- Conversions from HSV to RGB coordinates are now more precise.
+
+===============================================================================
+
 VERSION 1.2.0
 
 - There is now support for transparency, which can be queried or modified
