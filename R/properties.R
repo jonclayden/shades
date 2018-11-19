@@ -8,8 +8,6 @@
     function (...) .replaceProperty(shades(...), replacement, space, dim)
 }
 
-# .replaceProperty.ggproto_method <- .replaceProperty.function
-
 .replaceProperty.Scale <- function (shades, replacement, space, dim)
 {
     ggplot2::ggproto(NULL, shades, palette=function(self,...) {
@@ -128,6 +126,19 @@ hue <- function (shades, values = NULL)
 #' @export
 opacity <- function (shades, values = NULL)
 {
+    # Handle functions and ggplot2 scales
+    if (is.function(shades))
+        return (function (...) opacity(shades(...), values))
+    else if (inherits(shades, "Scale"))
+    {
+        result <- ggplot2::ggproto(NULL, shades, palette=function(self,...) {
+            colours <- ggplot2::ggproto_parent(shades, self)$palette(...)
+            opacity(colours, values)
+        })
+        return (result)
+    }
+    
+    # From here on we're dealing with literal colours
     shades <- shade(shades)
     
     if (is.null(values))

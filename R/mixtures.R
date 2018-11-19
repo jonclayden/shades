@@ -1,25 +1,5 @@
 .mix <- function (base, mixer, op, amount = 1, space = NULL)
 {
-    UseMethod(".mix")
-}
-
-.mix.function <- function (base, mixer, op, amount = 1, space = NULL)
-{
-    function (...) .mix(base(...), mixer, op, amount, space)
-}
-
-# .mix.ggproto_method <- .mix.function
-
-.mix.Scale <- function (base, mixer, op, amount = 1, space = NULL)
-{
-    ggplot2::ggproto(NULL, base, palette=function(self,...) {
-        colours <- ggplot2::ggproto_parent(base, self)$palette(...)
-        .mix(colours, mixer, op, amount, space)
-    })
-}
-
-.mix.default <- function (base, mixer, op, amount = 1, space = NULL)
-{
     op <- match.fun(op)
     
     if (is.null(space))
@@ -57,15 +37,27 @@
 #' @export
 complement <- function (shades, space = NULL)
 {
-    if (is.null(space))
-        space <- space(shades)
-    
-    if (tolower(space) == "hsv")
-        hue(shades, delta(180))
+    if (is.function(shades))
+        function (...) complement(shades(...), space)
+    else if (inherits(shades, "Scale"))
+    {
+        ggplot2::ggproto(NULL, shades, palette=function(self,...) {
+            colours <- ggplot2::ggproto_parent(shades, self)$palette(...)
+            complement(colours, space)
+        })
+    }
     else
     {
-        white <- warp("white", space=space)
-        .mix(white, shades, "-", space=space)
+        if (is.null(space))
+            space <- space(shades)
+    
+        if (tolower(space) == "hsv")
+            hue(shades, delta(180))
+        else
+        {
+            white <- warp("white", space=space)
+            .mix(white, shades, "-", space=space)
+        }
     }
 }
 
@@ -91,7 +83,17 @@ complement <- function (shades, space = NULL)
 #' @export
 addmix <- function (base, mixer, amount = 1, space = NULL)
 {
-    .mix(base, mixer, "+", amount, space)
+    if (is.function(base))
+        function (...) addmix(base(...), mixer, amount, space)
+    else if (inherits(base, "Scale"))
+    {
+        ggplot2::ggproto(NULL, base, palette=function(self,...) {
+            colours <- ggplot2::ggproto_parent(base, self)$palette(...)
+            addmix(colours, mixer, amount, space)
+        })
+    }
+    else
+        .mix(base, mixer, "+", amount, space)
 }
 
 #' @rdname mixtures
@@ -99,12 +101,7 @@ addmix <- function (base, mixer, amount = 1, space = NULL)
 submix <- function (base, mixer, amount = 1, space = NULL)
 {
     if (is.function(base))
-    {
-        function (...) {
-            colours <- base(...)
-            submix(colours, mixer, amount, space)
-        }
-    }
+        function (...) submix(base(...), mixer, amount, space)
     else if (inherits(base, "Scale"))
     {
         ggplot2::ggproto(NULL, base, palette=function(self,...) {
@@ -120,7 +117,7 @@ submix <- function (base, mixer, amount = 1, space = NULL)
 #' @export
 "%.)%" <- function (X, Y)
 {
-    .mix(X, Y, "+")
+    addmix(X, Y)
 }
 
 #' @rdname mixtures
