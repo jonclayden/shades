@@ -9,9 +9,11 @@ test_that("property methods can be applied to functions", {
     
     skip_if_not_installed("ggplot2")
     
+    library(ggplot2)
+    
     data <- data.frame(sex=c("M","M","F","F"), age=c(23,34,28,26), height=c(180,168,159,170))
     plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + lightness(scale_colour_viridis_d(), 50)
     
-    # This relies on scale::viridis_pal (at time of writing) agreeing with our viridis scale, but this seems less fragile than trying to pull the palette function out of the object returned by scale_colour_viridis_d(), or assuming that scales and ggplot2 continue to interact the way they do now (and adding another suggested dependency)
+    # This relies on scales::viridis_pal (at time of writing) agreeing with our viridis scale, but this seems less fragile than assuming that scales and ggplot2 continue to interact the way they do now (and adding another suggested dependency)
     expect_true(all(layer_data(plot)$colour %in% lightness(gradient("viridis",2), 50)))
 })
