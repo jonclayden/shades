@@ -127,9 +127,7 @@ distance(c("red","green","blue"), "red")
 
 ## Interoperability with ggplot2
 
-The `shades` package can be used with the popular [`ggplot2` graphics library](https://github.com/tidyverse/ggplot2) in different ways, with different levels of integration
-
-Firstly, gradients from this package can be used as `ggplot2` colour scales through the manual scale functions; for example,
+The `shades` package can be used with the popular [`ggplot2` graphics library](https://github.com/tidyverse/ggplot2) in different ways, with different levels of integration. Firstly, gradients from this package can be used as `ggplot2` colour scales through the manual scale functions; for example,
 
 
 ```r
@@ -140,7 +138,7 @@ ggplot(mtcars, aes(cyl,mpg,fill=cyl)) + geom_boxplot() + scale_fill_manual(value
 
 ![plot of chunk ggplot](tools/figures/ggplot-1.svg)
 
-This does not require the two packages to know anything about each other, and is flexible and powerful, but it doesn't easily allow existing `ggplot2` scales to be modified using the colour manipulation functions from `shades`. As of `shades` version 1.3.0, it is also possible to call the package's colour property functions directly on palette functions and scales, so that (for example), we can darken all colours slightly:
+This does not require the two packages to know anything about each other, and is flexible and powerful, but it doesn't easily allow existing `ggplot2` scales to be modified using the colour manipulation functions from `shades`. As of `shades` version 1.3.0, it is also possible to call the package's colour property functions directly on palette functions and scales, so that (for example), we can darken all colours in an existing scale slightly:
 
 
 ```r
