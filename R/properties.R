@@ -61,7 +61,7 @@
 #' red at 0º (and 360º), which is generally the most familiar parameterisation.
 #' 
 #' @param shades One or more colours, in any suitable form (see
-#'   \code{\link{shade}}).
+#'   \code{\link{shade}}), or a palette function or scale.
 #' @param values New values for the property in question. If \code{NULL}, the
 #'   current value(s) will be returned. May also be a function computing new
 #'   values from old ones, such as \code{delta}, which adds its argument, or
@@ -69,7 +69,8 @@
 #' @param ... Arguments to replacement functions \code{delta}, \code{scalefac}
 #'   and \code{recycle}, which will be concatenated.
 #' @return Current colour property values, or new colours of class
-#'   \code{"shade"}.
+#'   \code{"shade"}. If \code{shades} is a function, the result will be a new
+#'   function that wraps the old one and modifies its return value accordingly.
 #' 
 #' @note The colour property functions are vectorised over both of their
 #'   arguments, such that the dimensions of the result will be

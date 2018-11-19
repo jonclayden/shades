@@ -16,7 +16,7 @@ X \%.)\% Y
 X \%_/\% Y
 }
 \arguments{
-\item{base, X}{A vector of base colours.}
+\item{base, X}{A vector of base colours, or a palette function or scale.}
 
 \item{mixer, Y}{A vector of colours to mix in.}
 
@@ -25,6 +25,9 @@ of the base. This will be recycled to the length of \code{mixer}.}
 
 \item{space}{A string giving the space in which to perform the mixing, or
 \code{NULL}. In the latter case, the space of \code{base} will be used.}
+}
+\value{
+New colours of class \code{"shade"}, or a new palette function.
 }
 \description{
 These functions allow colours to be mixed in any colour space, either

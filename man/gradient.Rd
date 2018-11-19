@@ -4,13 +4,15 @@
 \alias{gradient}
 \title{Colour gradients}
 \usage{
-gradient(shades, steps, space = NULL)
+gradient(shades, steps = NULL, space = NULL)
 }
 \arguments{
 \item{shades}{Two or more colours, in any suitable form (see
 \code{\link{shade}}), or a named colour map such as \code{"viridis"}.}
 
-\item{steps}{An integer giving the number of shades required in the palette.}
+\item{steps}{An integer giving the number of shades required in the palette.
+If \code{NULL}, a function will instead be returned that takes this
+argument.}
 
 \item{space}{The colour space to traverse. Defaults to the current space of
 \code{shades}, or \code{"Lab"} for the \code{matplotlib} colour maps, or
@@ -18,7 +20,7 @@ gradient(shades, steps, space = NULL)
 }
 \value{
 A character vector of class \code{"shade"} containing the gradient
-  elements in the specified space.
+  elements in the specified space, or a palette function.
 }
 \description{
 This function returns a set of colours interpolating between the specified

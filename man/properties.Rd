@@ -32,7 +32,7 @@ recycle(...)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
-\code{\link{shade}}).}
+\code{\link{shade}}), or a palette function or scale.}
 
 \item{values}{New values for the property in question. If \code{NULL}, the
 current value(s) will be returned. May also be a function computing new
@@ -44,7 +44,8 @@ and \code{recycle}, which will be concatenated.}
 }
 \value{
 Current colour property values, or new colours of class
-  \code{"shade"}.
+  \code{"shade"}. If \code{shades} is a function, the result will be a new
+  function that wraps the old one and modifies its return value accordingly.
 }
 \description{
 These functions obtain the value of a colour property, or modify it. They

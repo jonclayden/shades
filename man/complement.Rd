@@ -8,12 +8,12 @@ complement(shades, space = NULL)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
-\code{\link{shade}}).}
+\code{\link{shade}}), or a palette function or scale.}
 
 \item{space}{The space in which to take the complement.}
 }
 \value{
-New colours of class \code{"shade"}.
+New colours of class \code{"shade"}, or a new palette function.
 }
 \description{
 This function returns the complement of its argument, the "opposite" colours

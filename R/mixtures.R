@@ -26,9 +26,9 @@
 #' in the specified space.
 #' 
 #' @param shades One or more colours, in any suitable form (see
-#'   \code{\link{shade}}).
+#'   \code{\link{shade}}), or a palette function or scale.
 #' @param space The space in which to take the complement.
-#' @return New colours of class \code{"shade"}.
+#' @return New colours of class \code{"shade"}, or a new palette function.
 #' 
 #' @examples
 #' complement("cyan")
@@ -68,12 +68,13 @@ complement <- function (shades, space = NULL)
 #' \code{\%.)\%} is an alternative for \code{addmix}, and \code{\%_/\%} for
 #' \code{submix}, with the mixing amount being fixed to 1 in these cases.
 #' 
-#' @param base,X A vector of base colours.
+#' @param base,X A vector of base colours, or a palette function or scale.
 #' @param mixer,Y A vector of colours to mix in.
 #' @param amount The amount of each colour to mix in, relative to the amount
 #'   of the base. This will be recycled to the length of \code{mixer}.
 #' @param space A string giving the space in which to perform the mixing, or
 #'   \code{NULL}. In the latter case, the space of \code{base} will be used.
+#' @return New colours of class \code{"shade"}, or a new palette function.
 #' 
 #' @examples
 #' addmix(c("red","green","blue"), "red")
