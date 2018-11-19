@@ -34,4 +34,5 @@ test_that("shade object can be indexed, combined and compared", {
     expect_equal(space(c(shade("red"), shade(matrix(c(0,1,1),nrow=1),space="HSV"))), "XYZ")
     
     expect_match(all.equal(shade("red"),shade("green")), "Mean colour distance is")
+    expect_match(all.equal(shade("red"),shade(c("green","blue"))), "Lengths do not match")
 })
