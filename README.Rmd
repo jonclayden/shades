@@ -1,14 +1,14 @@
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, fig.path = "tools/figures/", fig.height=2)
+knitr::opts_chunk$set(collapse=TRUE, fig.path="tools/figures/", fig.height=2, dev="svg")
 ```
 
 [![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades)
 
 # Simple colour manipulation in R 😎
 
-The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/tidyverse/magrittr), and fits naturally into that paradigm.
+The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/tidyverse/magrittr), and fits naturally into that paradigm. It can also be used [with `ggplot2` scales](#interoperability-with-ggplot2).
 
-The package is available on [CRAN](https://cran.r-project.org/package=shades). You can also install the current development version from GitHub using [`devtools`](https://github.com/hadley/devtools):
+The package is available on [CRAN](https://cran.r-project.org/package=shades). You can also install the current development version from GitHub using [`devtools`](https://github.com/r-lib/devtools):
 
 ```{r, eval=FALSE}
 # install.packages("devtools")
@@ -87,16 +87,26 @@ Finally, you can calculate perceptual distances to a reference colour, as in
 distance(c("red","green","blue"), "red")
 ```
 
-### Minimal ggplot2 example
+## Interoperability with ggplot2
 
-Gradients from this package can be used as `ggplot2` colour scales through the manual scale functions; for example,
+The `shades` package can be used with the popular [`ggplot2` graphics library](https://github.com/tidyverse/ggplot2) in different ways, with different levels of integration
+
+Firstly, gradients from this package can be used as `ggplot2` colour scales through the manual scale functions; for example,
 
 ```{r, ggplot, fig.height=5}
 library(shades); library(ggplot2)
 mtcars$cyl<- factor(mtcars$cyl)
-ggplot(mtcars, aes(mpg,qsec,col=cyl)) + geom_point() + scale_color_manual(values=gradient("viridis",3))
 ggplot(mtcars, aes(cyl,mpg,fill=cyl)) + geom_boxplot() + scale_fill_manual(values=gradient("viridis",3))
 ```
+
+This does not require the two packages to know anything about each other, and is flexible and powerful, but it doesn't easily allow existing `ggplot2` scales to be modified using the colour manipulation functions from `shades`. As of `shades` version 1.3.0, it is also possible to call the package's colour property functions directly on palette functions and scales, so that (for example), we can darken all colours slightly:
+
+```{r, scales, fig.height=5}
+ggplot(mtcars, aes(cyl,mpg,fill=cyl)) + geom_boxplot() + scale_fill_brewer(type="qual")
+ggplot(mtcars, aes(cyl,mpg,fill=cyl)) + geom_boxplot() + lightness(scale_fill_brewer(type="qual"), delta(-20))
+```
+
+Notice here that we have chosen to use the `delta()` function, which is available in all colour property functions, to request a *relative* reduction of 20 to the original lightness of each colour in the scale. We could also have given a literal value to fix the lightness of all colours to a certain level.
 
 ## Related packages
 
