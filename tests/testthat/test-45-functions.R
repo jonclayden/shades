@@ -7,13 +7,30 @@ test_that("property methods can be applied to functions", {
     expect_equal(lightness(rampFunction(5L)), lightness(rampFunction)(5L))
     expect_equal(lightness(rampFunction(5L),50), lightness(rampFunction,50)(5L))
     
+    expect_equal(opacity(rampFunction(5L),0.5), opacity(rampFunction,0.5)(5L))
+    expect_equal(complement(rampFunction(5L)), complement(rampFunction)(5L))
+    expect_equal(addmix(rampFunction(5L),"red"), addmix(rampFunction,"red")(5L))
+    expect_equal(submix(rampFunction(5L),"red"), submix(rampFunction,"red")(5L))
+    
     skip_if_not_installed("ggplot2")
     
     library(ggplot2)
     
     data <- data.frame(sex=c("M","M","F","F"), age=c(23,34,28,26), height=c(180,168,159,170))
-    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + lightness(scale_colour_viridis_d(), 50)
     
     # This relies on scales::viridis_pal (at time of writing) agreeing with our viridis scale, but this seems less fragile than assuming that scales and ggplot2 continue to interact the way they do now (and adding another suggested dependency)
+    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + lightness(scale_colour_viridis_d(), 50)
     expect_true(all(layer_data(plot)$colour %in% lightness(gradient("viridis",2), 50)))
+    
+    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + opacity(scale_colour_viridis_d(), 0.5)
+    expect_true(all(layer_data(plot)$colour %in% opacity(gradient("viridis",2), 0.5)))
+    
+    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + complement(scale_colour_viridis_d())
+    expect_true(all(layer_data(plot)$colour %in% complement(gradient("viridis",2),space="sRGB")))
+    
+    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + addmix(scale_colour_viridis_d(), "red")
+    expect_true(all(layer_data(plot)$colour %in% addmix(gradient("viridis",2), "red", space="sRGB")))
+    
+    plot <- ggplot(data, aes(x=age,y=height,colour=sex)) + geom_point() + submix(scale_colour_viridis_d(), "red")
+    expect_true(all(layer_data(plot)$colour %in% submix(gradient("viridis",2), "red", space="sRGB")))
 })
