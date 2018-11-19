@@ -8,7 +8,7 @@
     function (...) .replaceProperty(shades(...), replacement, space, dim)
 }
 
-.replaceProperty.ggproto_method <- .replaceProperty.function
+# .replaceProperty.ggproto_method <- .replaceProperty.function
 
 .replaceProperty.Scale <- function (shades, replacement, space, dim)
 {

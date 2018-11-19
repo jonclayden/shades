@@ -1,5 +1,25 @@
 .mix <- function (base, mixer, op, amount = 1, space = NULL)
 {
+    UseMethod(".mix")
+}
+
+.mix.function <- function (base, mixer, op, amount = 1, space = NULL)
+{
+    function (...) .mix(base(...), mixer, op, amount, space)
+}
+
+# .mix.ggproto_method <- .mix.function
+
+.mix.Scale <- function (base, mixer, op, amount = 1, space = NULL)
+{
+    ggplot2::ggproto(NULL, base, palette=function(self,...) {
+        colours <- ggplot2::ggproto_parent(base, self)$palette(...)
+        .mix(colours, mixer, op, amount, space)
+    })
+}
+
+.mix.default <- function (base, mixer, op, amount = 1, space = NULL)
+{
     op <- match.fun(op)
     
     if (is.null(space))
@@ -78,7 +98,22 @@ addmix <- function (base, mixer, amount = 1, space = NULL)
 #' @export
 submix <- function (base, mixer, amount = 1, space = NULL)
 {
-    complement(.mix(complement(base,space), complement(mixer,space), "+", amount, space))
+    if (is.function(base))
+    {
+        function (...) {
+            colours <- base(...)
+            submix(colours, mixer, amount, space)
+        }
+    }
+    else if (inherits(base, "Scale"))
+    {
+        ggplot2::ggproto(NULL, base, palette=function(self,...) {
+            colours <- ggplot2::ggproto_parent(base, self)$palette(...)
+            submix(colours, mixer, amount, space)
+        })
+    }
+    else
+        complement(.mix(complement(base,space), complement(mixer,space), "+", amount, space))
 }
 
 #' @rdname mixtures
@@ -92,5 +127,5 @@ submix <- function (base, mixer, amount = 1, space = NULL)
 #' @export
 "%_/%" <- function (X, Y)
 {
-    complement(.mix(complement(X), complement(Y), "+"))
+    submix(X, Y)
 }
