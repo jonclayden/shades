@@ -25,11 +25,13 @@
 #' @param shades Two or more colours, in any suitable form (see
 #'   \code{\link{shade}}), or a named colour map such as \code{"viridis"}.
 #' @param steps An integer giving the number of shades required in the palette.
+#'   If \code{NULL}, a function will instead be returned that takes this
+#'   argument.
 #' @param space The colour space to traverse. Defaults to the current space of
 #'   \code{shades}, or \code{"Lab"} for the \code{matplotlib} colour maps, or
 #'   \code{"sRGB"} otherwise.
 #' @return A character vector of class \code{"shade"} containing the gradient
-#'   elements in the specified space.
+#'   elements in the specified space, or a palette function.
 #' 
 #' @examples
 #' gradient(c("red","blue"), 5)
@@ -40,7 +42,7 @@
 #' \url{http://colorbrewer2.org} for the ColorBrewer ones.
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
-gradient <- function (shades, steps, space = NULL)
+gradient <- function (shades, steps = NULL, space = NULL)
 {
     if (length(shades) == 1)
     {
@@ -56,6 +58,9 @@ gradient <- function (shades, steps, space = NULL)
         space <- space(shades)
     else if (space != attr(shades,"space"))
         shades <- warp(shades, space)
+    
+    if (is.null(steps))
+        return (function (steps) gradient(shades,steps,space))
     
     nShades <- length(shades)
     locs <- seq(1, nShades, length.out=steps)
