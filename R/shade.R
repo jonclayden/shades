@@ -19,7 +19,8 @@
         rgb <- round(colorspaces$sRGB$fromXYZ(xyz, ...), 5)
         rgb[rgb < 0] <- 0
         rgb[rgb > 1] <- 1
-        hsv <- drop(rgb2hsv(t(rgb), maxColorValue=1))
+        rgb <- (if (is.matrix(rgb)) t(rgb) else matrix(rgb,ncol=1L))
+        hsv <- drop(rgb2hsv(rgb, maxColorValue=1))
         hsv[1] <- (hsv[1] * 360) %% 360
         structure(hsv, names=c("H","S","V"))
     },
