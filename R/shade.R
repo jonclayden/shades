@@ -183,6 +183,7 @@ shade.character <- function (x, ...)
     if (length(x) == 0)
         stop("Colour vector must not be empty")
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
+    coords[is.na(x),] <- NA
     structure(x, space="sRGB", coords=coords, alpha=.alpha(x), class="shade")
 }
 
