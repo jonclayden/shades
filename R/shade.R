@@ -49,14 +49,17 @@
 .toHex <- function (coords, space, alpha = NULL)
 {
     space <- tolower(space)
+    missing <- apply(coords, 1, anyNA)
     
-    if (!identical(.converters[[space]], "sRGB"))
-        coords <- convertColor(coords, .converters[[space]], "sRGB")
+    if (any(!missing) && !identical(.converters[[space]], "sRGB"))
+        coords[!missing,] <- convertColor(coords[!missing,,drop=FALSE], .converters[[space]], "sRGB")
     
+    result <- rep(NA_character_, nrow(coords))
     if (is.null(alpha) || all(alpha == 1))
-        return (rgb(coords[,1], coords[,2], coords[,3], maxColorValue=1))
+        result[!missing] <- rgb(coords[!missing,1], coords[!missing,2], coords[!missing,3], maxColorValue=1)
     else
-        return (rgb(coords[,1], coords[,2], coords[,3], pmax(0,pmin(1,alpha)), maxColorValue=1))
+        result[!missing] <- rgb(coords[!missing,1], coords[!missing,2], coords[!missing,3], pmax(0,pmin(1,alpha[!missing])), maxColorValue=1)
+    return (result)
 }
 
 .clip <- function (coords, space)
@@ -408,7 +411,10 @@ warp <- function (x, space)
     if (sourceSpace == targetSpace)
         return (x)
     
-    coords <- convertColor(attr(x,"coords"), .converters[[sourceSpace]], .converters[[targetSpace]])
+    coords <- attr(x, "coords")
+    missing <- apply(coords, 1, anyNA)
+    if (any(!missing))
+        coords[!missing,] <- convertColor(coords[!missing,,drop=FALSE], .converters[[sourceSpace]], .converters[[targetSpace]])
     alpha <- .alpha(x)
     
     return (structure(.toHex(coords,targetSpace,alpha), dim=dim(x), space=space, coords=coords, alpha=alpha, class="shade"))
