@@ -5,6 +5,7 @@
 # Standard and additional colour space converters
 .converters <- list(rgb="sRGB", srgb="sRGB", xyz="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
 
+# Since R 3.6.0, colorConverter() has a "vectorized" argument that allows converters to indicate that they can handle multiple colours at once. For now we don't use that, for backwards compatibility
 .converters$hsv <- colorConverter(
     toXYZ = function (hsv, ...) {
         c <- hsv[2] * hsv[3]            # chroma
