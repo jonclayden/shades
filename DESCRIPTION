@@ -11,4 +11,4 @@ Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
 URL: https://github.com/jonclayden/shades
 BugReports: https://github.com/jonclayden/shades/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

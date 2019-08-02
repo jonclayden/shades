@@ -1,6 +1,6 @@
 context("Missing value handling")
 
-test_that("missing values are handled properly", {
+test_that("missing shades are handled properly", {
     shades <- gradient(c("red","blue"), 3)
     shades[2] <- NA
     
@@ -11,4 +11,10 @@ test_that("missing values are handled properly", {
     expect_equivalent(complement(shades), shade(c("#00FFFF",NA,"#FFFF00")))
     expect_equivalent(dichromat(shades)[2], shade(NA))
     expect_equal(opacity(shades,0.5), c("#FF000080",NA,"#0000FF80"), hexonly=TRUE)
+})
+
+test_that("NAs as new property values lead to pass-through", {
+    expect_equal(saturation(saturation("olivedrab",NA)), saturation("olivedrab"))
+    expect_equal(opacity("red",NA), "red")
+    expect_equal(opacity("red",c(0,NA,1)), c("#FF000000","#FF0000FF","#FF0000FF"), hexonly=TRUE)
 })

@@ -24,7 +24,7 @@
         return (unname(coords(shades)[,dim]))
     else
     {
-        if (is.numeric(replacement))
+        if (is.numeric(replacement) || is.logical(replacement))
         {
             arity <- length(replacement)
             replacement <- rep(replacement, length(shades))
@@ -36,9 +36,10 @@
             replacement <- fun(coords(shades)[,dim])
         }
         
+        missing <- is.na(replacement)
         indices <- rep(seq_along(shades), each=arity)
         coords <- coords(shades)[indices,,drop=FALSE]
-        coords[,dim] <- replacement
+        coords[!missing,dim] <- replacement[!missing]
         coords <- .clip(coords, space)
         alpha <- .alpha(shades, allowNull=FALSE)[indices]
         return (drop(structure(shade(coords,space=space,alpha=alpha), dim=c(arity,.dims(shades)))))
@@ -62,7 +63,8 @@
 #' 
 #' @param shades One or more colours, in any suitable form (see
 #'   \code{\link{shade}}), or a palette function or scale.
-#' @param values New values for the property in question. If \code{NULL}, the
+#' @param values New values for the property in question, with \code{NA} as a
+#'   pass-through value that will leave the property as-is. If \code{NULL}, the
 #'   current value(s) will be returned. May also be a function computing new
 #'   values from old ones, such as \code{delta}, which adds its argument, or
 #'   \code{scalefac}, which multiplies it.
@@ -146,7 +148,7 @@ opacity <- function (shades, values = NULL)
         return (.alpha(shades, allowNull=FALSE))
     else
     {
-        if (is.numeric(values))
+        if (is.numeric(values) || is.logical(values))
         {
             arity <- length(values)
             values <- rep(values, length(shades))
@@ -160,6 +162,7 @@ opacity <- function (shades, values = NULL)
         
         indices <- rep(seq_along(shades), each=arity)
         coords <- coords(shades)[indices,,drop=FALSE]
+        values[is.na(values)] <- .alpha(shades, allowNull=FALSE)[indices][is.na(values)]
         return (drop(structure(shade(coords,space=space(shades),alpha=values), dim=c(arity,.dims(shades)))))
     }
 }
