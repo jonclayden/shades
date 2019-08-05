@@ -2,6 +2,15 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.4.0
+
+- The package now handles missing values, patching up some of the limitations
+  of the underlying core graphics functions. In particular, shade vectors may
+  contain NAs, and will propagate them through manipulations, while NAs are
+  accepted as pass-through values when updating colour properties.
+
+===============================================================================
+
 VERSION 1.3.1
 
 - A fix has been made for compatibility with changes in the next annual release
