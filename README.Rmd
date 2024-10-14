@@ -2,17 +2,17 @@
 knitr::opts_chunk$set(collapse=TRUE, fig.path="tools/figures/", fig.height=2, dev="svg")
 ```
 
-[![CRAN version](http://www.r-pkg.org/badges/version/shades)](https://cran.r-project.org/package=shades) [![Build Status](https://travis-ci.org/jonclayden/shades.svg?branch=master)](https://travis-ci.org/jonclayden/shades) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades)
+[![CRAN version](https://www.r-pkg.org/badges/version/shades)](https://cran.r-project.org/package=shades) [![CI Status](https://github.com/jonclayden/shades/actions/workflows/ci.yaml/badge.svg)](https://github.com/jonclayden/shades/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades) [![Dependencies](https://tinyverse.netlify.app/badge/shades)](https://tinyverse.netlify.app)
 
 # Simple colour manipulation in R 😎
 
-The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/tidyverse/magrittr), and fits naturally into that paradigm. It can also be used [with `ggplot2` scales](#interoperability-with-ggplot2).
+The `shades` package allows colours to be manipulated easily in R. Properties such as brightness and saturation can be quickly queried, changed or varied, and perceptually uniform colour gradients can be constructed. It plays nicely with the pipe operator from the [popular `magrittr` package](https://github.com/tidyverse/magrittr), or the similar native one introduced in R 4.1.0, and fits naturally into that paradigm. It can also be used [with `ggplot2` scales](#interoperability-with-ggplot2).
 
-The package is available on [CRAN](https://cran.r-project.org/package=shades). You can also install the current development version from GitHub using [`devtools`](https://github.com/r-lib/devtools):
+The package is available on [CRAN](https://cran.r-project.org/package=shades). You can also install the current development version from GitHub using the `remotes` package:
 
 ```{r, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("jonclayden/shades")
+# install.packages("remotes")
+remotes::install_github("jonclayden/shades")
 ```
 
 Feedback on the package or suggestions are welcome, either by filing an issue or by email.
@@ -44,11 +44,10 @@ swatch(gradient(c("red","blue"), 5, space="Lab"))
 
 Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
 
-Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the [`magrittr` pipe operator](https://github.com/tidyverse/magrittr).
+Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the pipe operator.
 
 ```{r saturation}
-library(shades); library(magrittr)
-c("red","blue") %>% brightness(0.6) %>% saturation(seq(0,1,0.25)) %>% swatch
+c("red","blue") |> brightness(0.6) |> saturation(seq(0,1,0.25)) |> swatch()
 ```
 
 This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. Notice that the pipeline is combinative (like the base function `outer`), returning each combination of parameters in a multidimensional array. The final shades are arranged in two rows by `swatch`, for convenience.
@@ -56,14 +55,14 @@ This operation takes the original two colours, reduces their brightness to 60%, 
 Note that `NA` can be used as a pass-through value:
 
 ```{r missing}
-"cornflowerblue" %>% saturation(c(NA,seq(0,1,0.25))) %>% swatch
+"cornflowerblue" |> saturation(c(NA,seq(0,1,0.25))) |> swatch()
 ```
 
 Any of these gradients can be directly passed to a standard graphical function, to be used as a colour scale. However, when choosing a colour scale, it is helpful to bear in mind that some viewers may have a colour vision deficiency (colour blindness), making it harder for them to distinguish certain colours and therefore to see a continuous scale. The `dichromat` function can be used to simulate this.
 
 ```{r dichromat}
-rev(grDevices::rainbow(9)) %>% dichromat %>% swatch
-gradient("viridis",9) %>% dichromat %>% swatch
+rev(grDevices::rainbow(9)) |> dichromat() |> swatch()
+gradient("viridis",9) |> dichromat() |> swatch()
 ```
 
 Here we are using the built-in "viridis" colour map, [developed for Python's `matplotlib`](http://bids.github.io/colormap/), which was specifically designed to appear continuous under as many conditions as possible. When shown with simulated red-blindness, the default for `dichromat`, it is clearly much more interpretable than a typical rainbow palette generated by R's built-in graphics functions.
@@ -71,13 +70,13 @@ Here we are using the built-in "viridis" colour map, [developed for Python's `ma
 The package also supports colour mixing, either additively (as with light) or subtractively (as with paint). For example, consider additive mixtures of the three primary RGB colours.
 
 ```{r addmix}
-c("red", addmix("red","green"), "green", addmix("green","blue"), "blue") %>% swatch
+c("red", addmix("red","green"), "green", addmix("green","blue"), "blue") |> swatch()
 ```
 
 Similarly, we can subtractively combine the three secondary colours.
 
 ```{r submix}
-c("cyan", submix("cyan","magenta"), "magenta", submix("magenta","yellow"), "yellow") %>% swatch
+c("cyan", submix("cyan","magenta"), "magenta", submix("magenta","yellow"), "yellow") |> swatch()
 ```
 
 A "light mixture" infix operator, `%.)%`, and a "paint mixture" infix operator, `%_/%`, are also available.
