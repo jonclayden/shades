@@ -188,7 +188,8 @@ shade.character <- function (x, ...)
         stop("Colour vector must not be empty")
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
     coords[is.na(x),] <- NA
-    structure(x, space="sRGB", coords=coords, alpha=.alpha(x), class="shade")
+    alpha <- .alpha(x)
+    structure(.toHex(coords,"sRGB",alpha), space="sRGB", coords=coords, alpha=alpha, class="shade")
 }
 
 #' @rdname shade
