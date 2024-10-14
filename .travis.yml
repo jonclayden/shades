@@ -1,6 +1,0 @@
-language: r
-sudo: false
-cache: packages
-r_packages: colorspace
-after_success:
-  - Rscript -e 'covr::codecov(function_exclusions="^\\.onLoad$")'
