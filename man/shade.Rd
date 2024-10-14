@@ -47,7 +47,7 @@ shade(x, ...)
 
 \method{!=}{shade}(x, y)
 
-\method{all}{equal.shade}(target, current, hexonly = FALSE, ...)
+\method{all.equal}{shade}(target, current, hexonly = FALSE, ...)
 }
 \arguments{
 \item{x, y}{R objects, or \code{"shade"} objects for methods.}

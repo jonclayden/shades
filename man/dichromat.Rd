@@ -4,8 +4,7 @@
 \alias{dichromat}
 \title{Simulate colour appearance for dichromats}
 \usage{
-dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic",
-  "none"))
+dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic", "none"))
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
