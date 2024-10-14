@@ -1,0 +1,58 @@
+name: CI
+
+on: [ push, pull_request ]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # This workflow contains a single job called "check"
+  check:
+    # Build and check on Linux and Windows
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+    
+    # The type of runner that this job runs on
+    runs-on: ${{ matrix.os }}
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Check out the repository under $GITHUB_WORKSPACE
+    - uses: actions/checkout@v4
+    
+    # Install and set up R
+    - uses: r-lib/actions/setup-r@v2
+    
+    # The curl package (upon which covr depends) requires libcurl
+    - name: Install upstream system dependencies
+      if: runner.os == 'Linux'
+      run: sudo apt-get install -y libcurl4-openssl-dev
+    
+    - name: Parse and install dependencies
+      run: |
+        deps <- read.dcf("DESCRIPTION", c("Depends","Imports","LinkingTo","Suggests","Enhances"))
+        deps <- na.omit(unlist(strsplit(deps, "\\s*,\\s*", perl=TRUE)))
+        deps <- setdiff(unique(sub("\\s*\\([^\\)]+\\)\\s*$", "", deps, perl=TRUE)), c("R", rownames(installed.packages())))
+        install.packages(deps)
+      shell: Rscript {0}
+    
+    - name: Build package
+      run: R CMD build .
+    
+    - name: Check package
+      run: R CMD check --no-manual *tar.gz || { mv *.Rcheck Rcheck; false; }
+    
+    # Upload the check directory as an artefact on failure
+    - name: Upload check results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-results
+        path: Rcheck
+    
+    - name: Update test coverage
+      if: runner.os == 'Linux'
+      run: Rscript -e 'covr::codecov()'
