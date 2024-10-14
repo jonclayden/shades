@@ -40,5 +40,5 @@ addmix(c("red","green","blue"), "red")
 submix(c("cyan","magenta","yellow"), "cyan")
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

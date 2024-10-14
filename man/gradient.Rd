@@ -20,7 +20,7 @@ argument.}
 }
 \value{
 A character vector of class \code{"shade"} containing the gradient
-  elements in the specified space, or a palette function.
+elements in the specified space, or a palette function.
 }
 \description{
 This function returns a set of colours interpolating between the specified
@@ -44,5 +44,5 @@ gradient("viridis", 5)
 \url{http://colorbrewer2.org} for the ColorBrewer ones.
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

@@ -143,7 +143,7 @@
 #' 
 #' @note When concatenating, shades that are all from the same space will
 #'   remain in that space, but shades from different spaces will be warped to
-#'   ``XYZ'' space.
+#'   "XYZ" space.
 #' 
 #' @examples
 #' s <- shade(c("red", "green", "blue"))
@@ -379,9 +379,9 @@ coords.default <- function (x, ...)
 #' specified space, returning a new object of class \code{"shade"}.
 #' 
 #' Valid names for spaces are currently those supported by the
-#' \code{\link{convertColor}} function, namely ``sRGB'', ``Apple RGB'', ``CIE
-#' RGB'', ``XYZ'', ``Lab'' and ``Luv''; plus ``RGB'' (which is treated as an
-#' alias for ``sRGB''), ``HSV'', ``LCh'' and ``LMS''. Case is not significant.
+#' \code{\link{convertColor}} function, namely "sRGB", "Apple RGB", "CIE
+#' RGB", "XYZ", "Lab" and "Luv"; plus "RGB" (which is treated as an
+#' alias for "sRGB"), "HSV", "LCh" and "LMS". Case is not significant.
 #' 
 #' @param x An R object which can be coerced to class \code{"shade"}.
 #' @param space A string naming the new space.
@@ -392,8 +392,8 @@ coords.default <- function (x, ...)
 #'   transform, obtained by Lam (1985) and used widely in ICC colour profiles
 #'   and elsewhere, to transform to and from CIE XYZ space.
 #'   
-#'   R uses the D65 standard illuminant as the reference white for the ``Lab''
-#'   and ``Luv'' spaces.
+#'   R uses the D65 standard illuminant as the reference white for the "Lab"
+#'   and "Luv" spaces.
 #' 
 #' @examples
 #' warp("red", "HSV")

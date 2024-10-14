@@ -13,7 +13,7 @@ coords(x, ...)
 }
 \value{
 A matrix giving colour coordinates in the relevant space, one colour
-  per row. Columns are typically named.
+per row. Columns are typically named.
 }
 \description{
 This function retrieves the coordinates of a colour vector's elements,
@@ -23,5 +23,5 @@ within whatever space it is currently defined.
 coords("red")
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

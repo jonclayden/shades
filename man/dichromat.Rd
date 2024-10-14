@@ -18,8 +18,8 @@ letter, may be used, and multiple values are acceptable.}
 }
 \value{
 New colours of class \code{"shade"} in LMS space, representing
-  projections of the original shades onto a submanifold appropriate to the
-  type of dichromacy being simulated.
+projections of the original shades onto a submanifold appropriate to the
+type of dichromacy being simulated.
 }
 \description{
 This functions manipulates colours to simulate the effects of different
@@ -36,5 +36,5 @@ color appearance for dichromats. Journal of the Optical Society of America A
 14(10):2647-2655.
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

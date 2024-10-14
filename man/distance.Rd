@@ -28,5 +28,5 @@ distance(c("red","green","blue"), "red")
 \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

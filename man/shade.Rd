@@ -72,10 +72,10 @@ Otherwise test for equal coordinates.}
 }
 \value{
 A character vector of class \code{"shade"}, with additional
-  attributes as follows.
-    \item{space}{A string naming a color space.}
-    \item{coords}{A matrix giving colour coordinates in the relevant space,
-      one colour per row.}
+attributes as follows.
+\item{space}{A string naming a color space.}
+\item{coords}{A matrix giving colour coordinates in the relevant space,
+one colour per row.}
 }
 \description{
 Objects of class \code{"shade"} are simply standard R character vectors
@@ -89,8 +89,8 @@ by converting \code{y} (the second argument) into the colour space of
 }
 \note{
 When concatenating, shades that are all from the same space will
-  remain in that space, but shades from different spaces will be warped to
-  ``XYZ'' space.
+remain in that space, but shades from different spaces will be warped to
+"XYZ" space.
 }
 \examples{
 s <- shade(c("red", "green", "blue"))
@@ -98,5 +98,5 @@ s[1]
 s[1] <- "pink"
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }

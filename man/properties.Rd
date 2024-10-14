@@ -45,8 +45,8 @@ and \code{recycle}, which will be concatenated.}
 }
 \value{
 Current colour property values, or new colours of class
-  \code{"shade"}. If \code{shades} is a function, the result will be a new
-  function that wraps the old one and modifies its return value accordingly.
+\code{"shade"}. If \code{shades} is a function, the result will be a new
+function that wraps the old one and modifies its return value accordingly.
 }
 \description{
 These functions obtain the value of a colour property, or modify it. They
@@ -58,17 +58,17 @@ Brightness and lightness differ technically, in the sense that one is
 absolute and the other is relative. Intuitively, a grey square on white
 paper is brighter under bright sunlight than in a dark room, but its
 lightness (relative to the white around it) is constant between conditions.
-In these functions, brightness is ``value'' in HSV space and is between 0
+In these functions, brightness is "value" in HSV space and is between 0
 and 1, while lightness is defined in Lab space and is between 0 and 100.
 Saturation and chroma are also related. Hue is defined in HSV space, with
 red at 0º (and 360º), which is generally the most familiar parameterisation.
 }
 \note{
 The colour property functions are vectorised over both of their
-  arguments, such that the dimensions of the result will be
-  \code{c(length(values),dim(shades))}. However, the \code{recycle} function
-  can be used to suppress the usual dimensional expansion, and instead
-  follow R's standard recycling rule.
+arguments, such that the dimensions of the result will be
+\code{c(length(values),dim(shades))}. However, the \code{recycle} function
+can be used to suppress the usual dimensional expansion, and instead
+follow R's standard recycling rule.
 }
 \examples{
 saturation(c("papayawhip","lavenderblush","olivedrab"))
@@ -81,5 +81,5 @@ saturation(c("red","green"), c(0.4,0.6))
 saturation(c("red","green"), recycle(0.4,0.6))
 }
 \author{
-Jon Clayden <code@clayden.org>
+Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
 }
