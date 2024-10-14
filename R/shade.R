@@ -288,7 +288,8 @@ rev.shade <- function (x)
 }
 
 #' @rdname shade
-#' @export
+#' @method all.equal shade
+#' @exportS3Method all.equal shade
 all.equal.shade <- function (target, current, hexonly = FALSE, ...)
 {
     if (hexonly)
