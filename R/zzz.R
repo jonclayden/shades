@@ -20,4 +20,9 @@
     
     # Ratios of components of E, also used by dichromat()
     .cache$Er <- c(E[,3]/E[,2], E[,3]/E[,1], E[,2]/E[,1])
+    
+    # Register tinytest extension if the package is installed
+    if (system.file(package="tinytest") != "") {
+        tinytest::register_tinytest_extension("shades", "expect_equal_shades")
+    }
 }

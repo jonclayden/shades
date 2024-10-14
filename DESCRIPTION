@@ -5,7 +5,7 @@ Title: Simple Colour Manipulation
 Author: Jon Clayden
 Maintainer: Jon Clayden <code@clayden.org>
 Description: Functions for easily manipulating colours, creating colour scales and calculating colour distances.
-Suggests: testthat, covr, ggplot2
+Suggests: tinytest, covr, ggplot2
 Enhances: colorspace
 Encoding: UTF-8
 License: BSD_3_clause + file LICENCE
