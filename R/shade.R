@@ -2,6 +2,12 @@
 .bradfordXYZtoLMS <- matrix(c(0.8951, -0.7502, 0.0389, 0.2664, 1.7135, -0.0685, -0.1614, 0.0367, 1.0296), 3, 3)
 .bradfordLMStoXYZ <- solve(.bradfordXYZtoLMS)
 
+# Oklab reference https://bottosson.github.io/posts/oklab/
+.XYZtoOklabM1 <- matrix(c(0.8189330101, 0.0329845436, 0.0482003018, 0.3618667424, 0.9293118715, 0.2643662691, -0.1288597137, 0.0361456387, 0.6338517070), 3, 3)
+.XYZtoOklabM2 <- matrix(c(0.2104542553, 1.9779984951, 0.0259040371, 0.7936177850, -2.4285922050, 0.7827717662, -0.0040720468, 0.4505937099, -0.8086757660), 3, 3)
+.OklabtoXYZM1 <- solve(.XYZtoOklabM1)
+.OklabtoXYZM2 <- solve(.XYZtoOklabM2)
+
 # Standard and additional colour space converters
 .converters <- list(rgb="sRGB", srgb="sRGB", xyz="XYZ", "apple rgb"="Apple RGB", "cie rgb"="CIE RGB", lab="Lab", luv="Luv")
 
@@ -45,6 +51,19 @@
         structure(lch, names=c("L","C","h"))
     },
     name = "LCh")
+
+.converters$oklab <- colorConverter(
+    toXYZ = function (oklab, ...) {
+        .OklabtoXYZM1 %*% (.OklabtoXYZM2 %*% oklab)^3
+    },
+    fromXYZ = function (xyz, ...) {
+        # x^(1/3) returns NaN for negative numbers, so a bit more care is needed
+        lab <- .XYZtoOklabM1 %*% xyz
+        labPrime <- sign(lab) * abs(lab)^(1/3)
+        structure(.XYZtoOklabM2 %*% labPrime, names=c("L","a","b"))
+    },
+    white = "D65",
+    name = "Oklab")
 
 .toHex <- function (coords, space, alpha = NULL)
 {
@@ -382,7 +401,7 @@ coords.default <- function (x, ...)
 #' Valid names for spaces are currently those supported by the
 #' \code{\link{convertColor}} function, namely "sRGB", "Apple RGB", "CIE
 #' RGB", "XYZ", "Lab" and "Luv"; plus "RGB" (which is treated as an
-#' alias for "sRGB"), "HSV", "LCh" and "LMS". Case is not significant.
+#' alias for "sRGB"), "HSV", "LCh", "LMS" and "Oklab". Case is not significant.
 #' 
 #' @param x An R object which can be coerced to class \code{"shade"}.
 #' @param space A string naming the new space.
@@ -399,6 +418,8 @@ coords.default <- function (x, ...)
 #' @examples
 #' warp("red", "HSV")
 #' @references
+#' The Oklab colour space is explained at \url{https://bottosson.github.io/posts/oklab/}.
+#' 
 #' Lam, K.M. (1985). Metamerism and colour constancy. PhD thesis, University of
 #' Bradford.
 #' @seealso \code{\link{convertColor}}
