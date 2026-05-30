@@ -4,6 +4,7 @@
 \alias{saturation}
 \alias{brightness}
 \alias{lightness}
+\alias{luminance}
 \alias{chroma}
 \alias{hue}
 \alias{opacity}
@@ -17,6 +18,8 @@ saturation(shades, values = NULL)
 brightness(shades, values = NULL)
 
 lightness(shades, values = NULL)
+
+luminance(shades, values = NULL)
 
 chroma(shades, values = NULL)
 
@@ -60,8 +63,9 @@ paper is brighter under bright sunlight than in a dark room, but its
 lightness (relative to the white around it) is constant between conditions.
 In these functions, brightness is "value" in HSV space and is between 0
 and 1, while lightness is defined in Lab space and is between 0 and 100.
-Saturation and chroma are also related. Hue is defined in HSV space, with
-red at 0º (and 360º), which is generally the most familiar parameterisation.
+Luminance is different again, being more physically based and defined in XYZ
+space. Saturation and chroma are also related. Hue is defined in HSV space,
+with red at 0º (and 360º), which is the most familiar parameterisation.
 }
 \note{
 The colour property functions are vectorised over both of their

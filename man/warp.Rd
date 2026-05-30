@@ -22,7 +22,7 @@ specified space, returning a new object of class \code{"shade"}.
 Valid names for spaces are currently those supported by the
 \code{\link{convertColor}} function, namely "sRGB", "Apple RGB", "CIE
 RGB", "XYZ", "Lab" and "Luv"; plus "RGB" (which is treated as an
-alias for "sRGB"), "HSV", "LCh" and "LMS". Case is not significant.
+alias for "sRGB"), "HSV", "LCh", "LMS" and "Oklab". Case is not significant.
 }
 \note{
 LMS space, used for chromatic adaptation and simulating colour
@@ -37,6 +37,8 @@ and "Luv" spaces.
 warp("red", "HSV")
 }
 \references{
+The Oklab colour space is explained at \url{https://bottosson.github.io/posts/oklab/}.
+
 Lam, K.M. (1985). Metamerism and colour constancy. PhD thesis, University of
 Bradford.
 }

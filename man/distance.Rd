@@ -2,30 +2,42 @@
 % Please edit documentation in R/distance.R
 \name{distance}
 \alias{distance}
-\title{Colour distance}
+\alias{contrast}
+\title{Colour distance and contrast}
 \usage{
 distance(shades, reference)
+
+contrast(shades, reference)
 }
 \arguments{
 \item{shades}{One or more colours, in any suitable form (see
-\code{\link{shade}}).}
+\code{\link[=shade]{shade()}}).}
 
 \item{reference}{A single reference colour.}
 }
 \value{
-A numeric vector of distances.
+A numeric vector of distances or contrasts.
 }
 \description{
-This function calculates a distance measure that aims to quantify the
-perceptual difference between a vector of colours and a reference colour.
-The measure in question is the CIE Delta E (2000), which is calculated based
-on colour coordinates in Lab space.
+The \code{distance()} function calculates a distance measure that aims to
+quantify perceptual difference between a vector of colours and a reference
+colour. The measure in question is the CIE Delta E (2000), which is
+calculated based on colour coordinates in Lab space.
+}
+\details{
+Colour contrast relates more specifically to legibility, in the context
+where text in one colour is overlaid on a background in another. The W3C
+definition used here ranges between 1 (identical colours, no contrast) and
+21 (black on white, maximum contrast).
 }
 \examples{
 distance(c("red","green","blue"), "red")
 }
 \references{
-\url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
+See \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
+for CIE Delta E. The contrast measure is defined as part of the W3C Web
+Content Accessibility Guidelines, version 2.0, detailed at
+\url{https://www.w3.org/TR/WCAG20/}.
 }
 \author{
 Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}
