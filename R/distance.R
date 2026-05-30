@@ -1,19 +1,27 @@
-#' Colour distance
+#' Colour distance and contrast
 #' 
-#' This function calculates a distance measure that aims to quantify the
-#' perceptual difference between a vector of colours and a reference colour.
-#' The measure in question is the CIE Delta E (2000), which is calculated based
-#' on colour coordinates in Lab space.
+#' The `distance()` function calculates a distance measure that aims to
+#' quantify perceptual difference between a vector of colours and a reference
+#' colour. The measure in question is the CIE Delta E (2000), which is
+#' calculated based on colour coordinates in Lab space.
+#' 
+#' Colour contrast relates more specifically to legibility, in the context
+#' where text in one colour is overlaid on a background in another. The W3C
+#' definition used here ranges between 1 (identical colours, no contrast) and
+#' 21 (black on white, maximum contrast).
 #' 
 #' @param shades One or more colours, in any suitable form (see
-#'   \code{\link{shade}}).
+#'   [shade()]).
 #' @param reference A single reference colour.
-#' @return A numeric vector of distances.
+#' @return A numeric vector of distances or contrasts.
 #' 
 #' @examples
 #' distance(c("red","green","blue"), "red")
 #' @references
-#' \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
+#' See \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
+#' for CIE Delta E. The contrast measure is defined as part of the W3C Web
+#' Content Accessibility Guidelines, version 2.0, detailed at
+#' \url{https://www.w3.org/TR/WCAG20/}.
 #' @author Jon Clayden <code@@clayden.org>
 #' @export
 distance <- function (shades, reference)
@@ -61,4 +69,13 @@ distance <- function (shades, reference)
     RT <- -RC * sin(2*deltatheta)
     
     unname(sqrt((deltaLPrime/SL)^2 + (deltaCPrime/SC)^2 + (deltaHPrime/SH)^2 + RT*(deltaCPrime/SC)*(deltaHPrime/SH)))
+}
+
+#' @rdname distance
+#' @export
+contrast <- function (shades, reference)
+{
+    Y <- luminance(shades)
+    Yref <- luminance(reference)
+    (pmax(Y,Yref) + 0.05) / (pmin(Y,Yref) + 0.05)
 }

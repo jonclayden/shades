@@ -41,7 +41,9 @@ swatch <- function (x, bg = "white", ...)
 
     if (.hasNames(shades))
     {
-        labelCol <- ifelse(lightness(shades) > 50, "black", "white")
+        blackContrast <- contrast(shades, "black")
+        whiteContrast <- contrast(shades, "white")
+        labelCol <- ifelse(blackContrast > whiteContrast, "black", "white")
         text(centres[,1], rev(centres[,2]), names(shades), col=labelCol, cex=0.7)
     }
 }

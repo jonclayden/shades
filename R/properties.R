@@ -58,8 +58,9 @@
 #' lightness (relative to the white around it) is constant between conditions.
 #' In these functions, brightness is "value" in HSV space and is between 0
 #' and 1, while lightness is defined in Lab space and is between 0 and 100.
-#' Saturation and chroma are also related. Hue is defined in HSV space, with
-#' red at 0º (and 360º), which is generally the most familiar parameterisation.
+#' Luminance is different again, being more physically based and defined in XYZ
+#' space. Saturation and chroma are also related. Hue is defined in HSV space,
+#' with red at 0º (and 360º), which is the most familiar parameterisation.
 #' 
 #' @param shades One or more colours, in any suitable form (see
 #'   \code{\link{shade}}), or a palette function or scale.
@@ -109,6 +110,13 @@ brightness <- function (shades, values = NULL)
 lightness <- function (shades, values = NULL)
 {
     .replaceProperty(shades, values, "Lab", 1)
+}
+
+#' @rdname properties
+#' @export
+luminance <- function (shades, values = NULL)
+{
+    .replaceProperty(shades, values, "XYZ", 2)
 }
 
 #' @rdname properties
