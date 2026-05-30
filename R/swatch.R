@@ -38,4 +38,10 @@ swatch <- function (x, bg = "white", ...)
     # Centre coordinates are reversed in the y-axis so that the plot "reads" top-to-bottom
     plot(NA, NA, xlim=c(-0.1,1.1), ylim=0.5+c(-1,1)*devRatio*0.6, xlab="", ylab="", xaxt="n", yaxt="n", bty="n", asp=1)
     rect(centres[,1]-width/2, rev(centres[,2])-width/2, centres[,1]+width/2, rev(centres[,2])+width/2, col=shades, border="grey50", lwd=2)
+
+    if (.hasNames(shades))
+    {
+        labelCol <- ifelse(lightness(shades) > 50, "black", "white")
+        text(centres[,1], rev(centres[,2]), names(shades), col=labelCol, cex=0.7)
+    }
 }

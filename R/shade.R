@@ -109,6 +109,26 @@
         return (dim(x))
 }
 
+.hasNames <- function (x) !is.null(names(x)) && any(nchar(names(x)) > 0)
+
+.names <- function (x, ..., allowNull = TRUE)
+{
+    if (!missing(..1))
+    {
+        elements <- lapply(list(x,...), .names, allowNull=FALSE)
+        result <- do.call("c", elements)
+    }
+    else if (!is.null(names(x)))
+        result <- names(x)
+    else
+        result <- rep("", length(x))
+
+    if (allowNull && (is.null(result) || all(result == "")))
+        return (NULL)
+    else
+        return (result)
+}
+
 .alpha <- function (x, ..., allowNull = TRUE)
 {
     if (!missing(..1))
@@ -188,7 +208,8 @@ shade.shade <- function (x, ...)
 shade.color <- function (x, ...)
 {
     hex <- colorspace::hex(x, fixup=TRUE)
-    structure(hex, space=class(x), coords=colorspace::coords(x), alpha=.alpha(hex), class="shade")
+    coords <- colorspace::coords(x)
+    structure(hex, names=rownames(coords), space=class(x), coords=coords, alpha=.alpha(hex), class="shade")
 }
 
 #' @rdname shade
@@ -196,7 +217,7 @@ shade.color <- function (x, ...)
 shade.matrix <- function (x, space = "sRGB", alpha = NULL, ...)
 {
     hex <- .toHex(x, space, alpha)
-    structure(hex, space=space, coords=x, alpha=.alpha(hex), class="shade")
+    structure(hex, names=rownames(x), space=space, coords=x, alpha=.alpha(hex), class="shade")
 }
 
 #' @rdname shade
@@ -208,7 +229,7 @@ shade.character <- function (x, ...)
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
     coords[is.na(x),] <- NA
     alpha <- .alpha(x)
-    structure(.toHex(coords,"sRGB",alpha), space="sRGB", coords=coords, alpha=alpha, class="shade")
+    structure(.toHex(coords,"sRGB",alpha), names=names(x), space="sRGB", coords=coords, alpha=alpha, class="shade")
 }
 
 #' @rdname shade
@@ -226,7 +247,7 @@ print.shade <- function (x, ...)
 {
     len <- length(x)
     hasAlpha <- !is.null(attr(x, "alpha"))
-    cat(paste0(" ", len, ifelse(len==1," shade"," shades"), " in ", space(x), " space, ", ifelse(hasAlpha,"with","without"), " transparency\n"))
+    cat(paste0(" ", len, ifelse(.hasNames(x)," named",""), ifelse(len==1," shade"," shades"), " in ", space(x), " space, ", ifelse(hasAlpha,"with","without"), " transparency\n"))
     print(structure(x, space=NULL, coords=NULL, alpha=NULL, class=NULL), quote=FALSE)
 }
 
@@ -269,7 +290,7 @@ c.shade <- function (...)
         shades <- lapply(shades, warp, "XYZ")
     }
     
-    structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), alpha=do.call(".alpha",shades), class="shade")
+    structure(do.call("c",lapply(shades,as.character)), space=space, coords=do.call("rbind",lapply(shades,coords)), alpha=do.call(".alpha",shades), names=do.call(".names",shades), class="shade")
 }
 
 #' @rdname shade
@@ -440,5 +461,5 @@ warp <- function (x, space)
         coords[!missing,] <- convertColor(coords[!missing,,drop=FALSE], .converters[[sourceSpace]], .converters[[targetSpace]])
     alpha <- .alpha(x)
     
-    return (structure(.toHex(coords,targetSpace,alpha), dim=dim(x), space=space, coords=coords, alpha=alpha, class="shade"))
+    return (structure(.toHex(coords,targetSpace,alpha), names=names(x), dim=dim(x), space=space, coords=coords, alpha=alpha, class="shade"))
 }
