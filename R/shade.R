@@ -229,6 +229,11 @@ shade.character <- function (x, ...)
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
     coords[is.na(x),] <- NA
     alpha <- .alpha(x)
+    
+    nonHex <- !grepl("^\\s*#", x, perl=TRUE)
+    if (!.hasNames(x) && any(nonHex))
+        names(x) <- ifelse(nonHex, x, "")
+    
     structure(.toHex(coords,"sRGB",alpha), names=names(x), space="sRGB", coords=coords, alpha=alpha, class="shade")
 }
 
