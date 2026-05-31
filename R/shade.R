@@ -230,7 +230,7 @@ shade.character <- function (x, ...)
     coords[is.na(x),] <- NA
     alpha <- .alpha(x)
     
-    nonHex <- !grepl("^\\s*#", x, perl=TRUE)
+    nonHex <- !is.na(x) & !grepl("^\\s*#", x, perl=TRUE)
     if (!.hasNames(x) && any(nonHex))
         names(x) <- ifelse(nonHex, x, "")
     
