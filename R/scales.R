@@ -63,14 +63,22 @@ gradient <- function (shades, steps = NULL, space = NULL)
         return (function (steps) gradient(shades,steps,space))
     
     nShades <- length(shades)
+    sourceNames <- .names(shades, allowNull=FALSE)
+    names <- rep("", steps)
     locs <- seq(1, nShades, length.out=steps)
     finalCols <- matrix(NA, steps, 3L)
     for (i in seq_along(locs))
     {
         loc <- locs[i]
         fraction <- loc - floor(loc)
+        if (fraction < 1e-5)
+            names[i] <- sourceNames[floor(loc)]
+        else if ((1 - fraction) < 1e-5)
+            names[i] <- sourceNames[ceiling(loc)]
         finalCols[i,] <- (1 - fraction) * coords(shades)[floor(loc),] + fraction * coords(shades)[ceiling(loc),]
     }
     
+    if (any(nchar(names) > 0))
+        rownames(finalCols) <- names
     return (shade(finalCols, space=space))
 }
