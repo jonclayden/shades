@@ -4,13 +4,19 @@
 \alias{swatch}
 \title{Simple colour swatches}
 \usage{
-swatch(x, bg = "white", ...)
+swatch(x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...)
 }
 \arguments{
-\item{x}{One or more colours, in any suitable form (see
-\code{\link{shade}}).}
+\item{x}{One or more colours, in any suitable form (see \code{\link[=shade]{shade()}}).}
 
 \item{bg}{A background colour.}
+
+\item{border}{The border colour to draw around each box.}
+
+\item{cex}{The font size to use for labelling named shades.}
+
+\item{font}{The font weight to use for labelling named shades, in the sense
+of \code{\link[=par]{par()}}. The default, 2, corresponds to boldface.}
 
 \item{...}{Additional arguments (currently unused).}
 }
@@ -22,6 +28,9 @@ dimensions after the second).
 }
 \examples{
 swatch(c("red", "green", "blue"))
+}
+\seealso{
+\code{\link[=par]{par()}}
 }
 \author{
 Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}

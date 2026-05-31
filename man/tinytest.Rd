@@ -21,7 +21,7 @@ A \code{"tinytest"} object.
 }
 \description{
 This function provides an expectation for use with the \code{tinytest} package,
-which compares two colour vectors via \link{all.equal.shade(hexonly=TRUE)}. It
+which compares two colour vectors via \code{all.equal.shade(hexonly=TRUE)}. It
 evaluates \code{TRUE} if the vectors have the same length and resolve to the same
 hex colour strings.
 }

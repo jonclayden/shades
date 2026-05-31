@@ -1,7 +1,7 @@
 #' Expectation for comparing shades
 #' 
 #' This function provides an expectation for use with the `tinytest` package,
-#' which compares two colour vectors via [all.equal.shade(hexonly=TRUE)]. It
+#' which compares two colour vectors via `all.equal.shade(hexonly=TRUE)`. It
 #' evaluates `TRUE` if the vectors have the same length and resolve to the same
 #' hex colour strings.
 #' 
@@ -10,7 +10,7 @@
 #'   casting to [shade()].
 #' @param ... Further arguments to [all.equal()].
 #' @param info An optional information string shown in case of failure.
-#' @return A \code{"tinytest"} object.
+#' @return A `"tinytest"` object.
 #' 
 #' @rdname tinytest
 #' @export
