@@ -4,7 +4,7 @@ using("shades")
 shades <- gradient(c("red","blue"), 3)
 shades[2] <- NA
 
-expect_equal(is.na(shades), c(FALSE,TRUE,FALSE))
+expect_equal(is.na(shades), c(red=FALSE,TRUE,blue=FALSE))
 expect_true(all(is.na(coords(shades)[2,])))
 expect_equal(saturation(shades), c(1,NA,1))
 expect_equal_shades(saturation(shades,0.5), shade(c("#FF8080",NA,"#8080FF")))
