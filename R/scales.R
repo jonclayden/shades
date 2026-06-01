@@ -60,7 +60,7 @@ gradient <- function (shades, steps = NULL, space = NULL)
         shades <- warp(shades, space)
     
     if (is.null(steps))
-        return (function (steps) gradient(shades,steps,space))
+        return (function (n) gradient(shades,n,space))
     
     nShades <- length(shades)
     sourceNames <- .names(shades, allowNull=FALSE)
