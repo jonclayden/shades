@@ -13,7 +13,7 @@ dichromat(shades, type = c("protanopic", "deuteranopic", "tritanopic", "none"))
 \item{type}{The type of colour vision deficiency to simulate: protanopia
 (red blindness), deuteranopia (green blindness) or tritanopia (blue
 blindness). The latter is the rarest in the population. \code{"none"} is
-also available, as a pass-through option. Abbrevations, such as the first
+also available, as a pass-through option. Abbreviations, such as the first
 letter, may be used, and multiple values are acceptable.}
 }
 \value{

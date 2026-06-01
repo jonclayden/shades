@@ -28,7 +28,7 @@
 #' @param type The type of colour vision deficiency to simulate: protanopia
 #'   (red blindness), deuteranopia (green blindness) or tritanopia (blue
 #'   blindness). The latter is the rarest in the population. \code{"none"} is
-#'   also available, as a pass-through option. Abbrevations, such as the first
+#'   also available, as a pass-through option. Abbreviations, such as the first
 #'   letter, may be used, and multiple values are acceptable.
 #' @return New colours of class \code{"shade"} in LMS space, representing
 #'   projections of the original shades onto a submanifold appropriate to the
