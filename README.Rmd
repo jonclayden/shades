@@ -1,5 +1,5 @@
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(collapse=TRUE, fig.path="tools/figures/", fig.height=2, dev="svg")
+knitr::opts_chunk$set(collapse=TRUE, fig.path="tools/figures/", fig.height=2, dev="svglite")
 ```
 
 [![CRAN version](https://www.r-pkg.org/badges/version/shades)](https://cran.r-project.org/package=shades) [![CI Status](https://github.com/jonclayden/shades/actions/workflows/ci.yaml/badge.svg)](https://github.com/jonclayden/shades/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/jonclayden/shades/branch/master/graph/badge.svg)](https://codecov.io/gh/jonclayden/shades) [![Dependencies](https://tinyverse.netlify.app/badge/shades)](https://tinyverse.netlify.app)

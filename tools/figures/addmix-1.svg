@@ -1,9 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="504" height="144" viewBox="0 0 504 144">
-<rect x="-50.4" y="-14.4" width="604.8" height="172.8" fill="rgb(100%, 100%, 100%)" fill-opacity="1"/>
-<path fill-rule="nonzero" fill="rgb(100%, 0%, 0%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 93.203125 101.167969 L 151.535156 101.167969 L 151.535156 42.835938 L 93.203125 42.835938 Z M 93.203125 101.167969 "/>
-<path fill-rule="nonzero" fill="rgb(100%, 100%, 0%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 158.019531 101.167969 L 216.351562 101.167969 L 216.351562 42.835938 L 158.019531 42.835938 Z M 158.019531 101.167969 "/>
-<path fill-rule="nonzero" fill="rgb(0%, 100%, 0%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 222.832031 101.167969 L 281.164062 101.167969 L 281.164062 42.835938 L 222.832031 42.835938 Z M 222.832031 101.167969 "/>
-<path fill-rule="nonzero" fill="rgb(0%, 100%, 100%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 287.648438 101.167969 L 345.980469 101.167969 L 345.980469 42.835938 L 287.648438 42.835938 Z M 287.648438 101.167969 "/>
-<path fill-rule="nonzero" fill="rgb(0%, 0%, 100%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 352.464844 101.167969 L 410.796875 101.167969 L 410.796875 42.835938 L 352.464844 42.835938 Z M 352.464844 101.167969 "/>
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='504.00pt' height='144.00pt' viewBox='0 0 504.00 144.00'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA='>
+    <rect x='0.00' y='0.00' width='504.00' height='144.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA=)'>
+<rect x='93.20' y='42.83' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #FF0000;' />
+<rect x='158.02' y='42.83' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #FFFF00;' />
+<rect x='222.83' y='42.83' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #00FF00;' />
+<rect x='287.65' y='42.83' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #00FFFF;' />
+<rect x='352.46' y='42.83' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #0000FF;' />
+<text x='122.37' y='74.95' text-anchor='middle' style='font-size: 8.40px; font-weight: bold; font-family: "Arial";' textLength='13.06px' lengthAdjust='spacingAndGlyphs'>red</text>
+<text x='252.00' y='73.34' text-anchor='middle' style='font-size: 8.40px; font-weight: bold; font-family: "Arial";' textLength='22.86px' lengthAdjust='spacingAndGlyphs'>green</text>
+<text x='381.63' y='74.95' text-anchor='middle' style='font-size: 8.40px; font-weight: bold;fill: #FFFFFF; font-family: "Arial";' textLength='17.25px' lengthAdjust='spacingAndGlyphs'>blue</text>
+</g>
+</g>
 </svg>

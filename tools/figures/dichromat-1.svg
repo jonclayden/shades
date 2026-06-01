@@ -1,13 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="504" height="144" viewBox="0 0 504 144">
-<rect x="-50.4" y="-14.4" width="604.8" height="172.8" fill="rgb(100%, 100%, 100%)" fill-opacity="1"/>
-<path fill-rule="nonzero" fill="rgb(0%, 27.45098%, 67.843137%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 78.945312 89.5 L 113.945312 89.5 L 113.945312 54.5 L 78.945312 54.5 Z M 78.945312 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(0%, 22.745098%, 100%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 117.832031 89.5 L 152.832031 89.5 L 152.832031 54.5 L 117.832031 54.5 Z M 117.832031 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(0%, 15.294118%, 100%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 156.722656 89.5 L 191.722656 89.5 L 191.722656 54.5 L 156.722656 54.5 Z M 156.722656 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(53.333333%, 65.490196%, 100%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 195.609375 89.5 L 230.609375 89.5 L 230.609375 54.5 L 195.609375 54.5 Z M 195.609375 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(100%, 96.862745%, 65.098039%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 234.5 89.5 L 269.5 89.5 L 269.5 54.5 L 234.5 54.5 Z M 234.5 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(100%, 96.470588%, 0%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 273.390625 89.5 L 308.390625 89.5 L 308.390625 54.5 L 273.390625 54.5 Z M 273.390625 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(100%, 97.647059%, 0%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 312.277344 89.5 L 347.277344 89.5 L 347.277344 54.5 L 312.277344 54.5 Z M 312.277344 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(80%, 68.235294%, 7.45098%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 351.167969 89.5 L 386.167969 89.5 L 386.167969 54.5 L 351.167969 54.5 Z M 351.167969 89.5 "/>
-<path fill-rule="nonzero" fill="rgb(30.196078%, 25.882353%, 13.333333%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(49.803922%, 49.803922%, 49.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 390.054688 89.5 L 425.054688 89.5 L 425.054688 54.5 L 390.054688 54.5 Z M 390.054688 89.5 "/>
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='504.00pt' height='144.00pt' viewBox='0 0 504.00 144.00'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA='>
+    <rect x='0.00' y='0.00' width='504.00' height='144.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA=)'>
+<rect x='78.94' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #0046AD;' />
+<rect x='117.83' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #003AFF;' />
+<rect x='156.72' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #0027FF;' />
+<rect x='195.61' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #88A7FF;' />
+<rect x='234.50' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #FFF7A6;' />
+<rect x='273.39' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #FFF600;' />
+<rect x='312.28' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #FFF900;' />
+<rect x='351.17' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #CCAE13;' />
+<rect x='390.06' y='54.50' width='35.00' height='35.00' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #4D4222;' />
+</g>
+</g>
 </svg>
