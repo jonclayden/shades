@@ -157,15 +157,16 @@
 #' Objects of class \code{"shade"} are simply standard R character vectors
 #' representing one or more 8-bit (s)RGB colours in CSS-like hex format, but
 #' with extra attributes giving the current colour space and coordinates.
+#' Opacity values are also supported.
 #'
 #' Comparison between \code{"shade"} objects \code{x} and \code{y} is achieved
 #' by converting \code{y} (the second argument) into the colour space of
 #' \code{x} and then comparing coordinates, after any clipping.
 #' 
 #' @param x,y R objects, or \code{"shade"} objects for methods.
-#' @param space For a matrix, the space in which coordinates are being
+#' @param .space For a matrix, the space in which coordinates are being
 #'   provided.
-#' @param alpha For a matrix, an associated vector of opacity values between 0
+#' @param .alpha For a matrix, an associated vector of opacity values between 0
 #'   and 1, if required.
 #' @param target,current Shade vectors to compare.
 #' @param i An index vector.
@@ -176,7 +177,7 @@
 #'   colours in any acceptable form.
 #' @return A character vector of class \code{"shade"}, with additional
 #'   attributes as follows.
-#'     \item{space}{A string naming a color space.}
+#'     \item{space}{A string naming a colour space.}
 #'     \item{coords}{A matrix giving colour coordinates in the relevant space,
 #'       one colour per row.}
 #' 
@@ -193,6 +194,38 @@
 #' @export
 shade <- function (x, ...)
 {
+    if (nargs() == 0)
+        return (structure(character(0), space="sRGB", coords=matrix(NA,0,3), class="shade"))
+    else if (missing(x))
+    {
+        # x is missing but there must be at least one argument
+        args <- list(...)
+        return (structure(do.call(c, lapply(unname(args),shade)), names=names(args)))
+    }
+    else if (is.matrix(x) && !inherits(x,"shade"))
+    {
+        # Special case for (plain) matrix, to shim names arguments for backwards compatibility
+        args <- list(...)
+        if ("space" %in% names(args))
+        {
+            args$.space <- args$space
+            args$space <- NULL
+        }
+        if ("alpha" %in% names(args))
+        {
+            args$.alpha <- args$alpha
+            args$alpha <- NULL
+        }
+        return (do.call(shade.matrix, c(list(x), args)))
+    }
+    else if (!missing(..1))
+    {
+        # x and at least one other argument are present; x is not matrix
+        args <- list(x, ...)
+        return (structure(do.call(c, lapply(unname(args),shade)), names=names(args)))
+    }
+
+    # Only x is present, and it is not a matrix - standard dispatch
     UseMethod("shade")
 }
 
@@ -214,10 +247,10 @@ shade.color <- function (x, ...)
 
 #' @rdname shade
 #' @export
-shade.matrix <- function (x, space = "sRGB", alpha = NULL, ...)
+shade.matrix <- function (x, ..., .space = "sRGB", .alpha = NULL)
 {
-    hex <- .toHex(x, space, alpha)
-    structure(hex, names=rownames(x), space=space, coords=x, alpha=.alpha(hex), class="shade")
+    hex <- .toHex(x, .space, .alpha)
+    structure(hex, names=rownames(x), space=.space, coords=x, alpha=shades:::.alpha(hex), class="shade")
 }
 
 #' @rdname shade
@@ -225,7 +258,8 @@ shade.matrix <- function (x, space = "sRGB", alpha = NULL, ...)
 shade.character <- function (x, ...)
 {
     if (length(x) == 0)
-        stop("Colour vector must not be empty")
+        return (shade())
+    
     coords <- structure(t(col2rgb(x)/255), dimnames=list(NULL,c("R","G","B")))
     coords[is.na(x),] <- NA
     alpha <- .alpha(x)
@@ -241,8 +275,6 @@ shade.character <- function (x, ...)
 #' @export
 shade.default <- function (x, ...)
 {
-    if (missing(x))
-        stop("Colour vector must not be empty")
     shade.character(as.character(x), ...)
 }
 
@@ -267,17 +299,22 @@ print.shade <- function (x, ...)
 #' @export
 "[<-.shade" <- function (x, i, value)
 {
-    replacement <- warp(value, attr(x,"space"))
-    attr(x,"coords")[i,] <- attr(replacement,"coords")
+    space <- attr(x, "space")
+    replacement <- warp(value, space)
+    coords <- attr(x, "coords")
+    coords[i,] <- attr(replacement, "coords")
     
     alpha <- .alpha(x, allowNull=FALSE)
-    alpha[i] <- .alpha(value, allowNull=FALSE)
+    alpha[i] <- .alpha(replacement, allowNull=FALSE)
     if (all(alpha == 1))
-        attr(x, "alpha") <- NULL
-    else
-        attr(x, "alpha") <- alpha
+        alpha <- NULL
     
-    NextMethod("[<-")
+    names <- .names(x, allowNull=FALSE)
+    names[i] <- .names(replacement, allowNull=FALSE)
+    if (all(names == ""))
+        names <- NULL
+    
+    structure(.toHex(coords,space,alpha), space=space, coords=coords, alpha=alpha, names=names, class="shade")
 }
 
 #' @rdname shade
