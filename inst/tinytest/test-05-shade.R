@@ -1,6 +1,5 @@
 # Create shade objects from various objects
-expect_error(shade(), "must not be empty")
-expect_error(shade(character(0)), "must not be empty")
+expect_equal(shade(), shade(character(0)))
 expect_stdout(print(shade("red")), "1 named shade")
 expect_equal(space(shade("red")), "sRGB")
 expect_equivalent(coords("red"), matrix(c(1,0,0),nrow=1))
@@ -29,6 +28,5 @@ expect_true(shade("red") != shade("green"))
 expect_true(shade("red") == shade(matrix(c(0,1,1),nrow=1),space="HSV"))
 expect_equal(space(c(shade("red"), shade(matrix(c(0,1,1),nrow=1),space="HSV"))), "XYZ")
 
-# expect_match exists in tinytest, but is broken in the current CRAN build
-expect_true(grepl("Mean colour distance is", all.equal(shade("red"),shade("green"))))
-expect_true(grepl("Lengths do not match", all.equal(shade("red"),shade(c("green","blue")))))
+expect_match(all.equal(shade("red"),shade("green")), "Mean colour distance is")
+expect_match(all.equal(shade("red"),shade(c("green","blue"))), "Lengths do not match")
