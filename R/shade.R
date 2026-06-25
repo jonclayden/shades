@@ -154,32 +154,42 @@
 
 #' The shade class
 #' 
-#' Objects of class \code{"shade"} are simply standard R character vectors
+#' Objects of class `"shade"` are simply standard R character vectors
 #' representing one or more 8-bit (s)RGB colours in CSS-like hex format, but
 #' with extra attributes giving the current colour space and coordinates.
 #' Opacity values are also supported.
 #'
-#' Comparison between \code{"shade"} objects \code{x} and \code{y} is achieved
-#' by converting \code{y} (the second argument) into the colour space of
-#' \code{x} and then comparing coordinates, after any clipping.
+#' The `shade()` function creates a colour vector from a single main argument
+#' plus method-specific arguments where appropriate. The `shades()` function
+#' provides an alternative interface that converts each of its arguments to
+#' shades, with direct inline naming, and then concatenates them.
 #' 
-#' @param x,y R objects, or \code{"shade"} objects for methods.
-#' @param .space For a matrix, the space in which coordinates are being
+#' Comparison between `"shade"` objects `x` and `y` is achieved by converting
+#' `y` (the second argument) into the colour space of `x` and then comparing
+#' coordinates, after any clipping.
+#' 
+#' @param x,y R objects, or `"shade"` objects for methods.
+#' @param space For a matrix, the space in which coordinates are being
 #'   provided.
-#' @param .alpha For a matrix, an associated vector of opacity values between 0
+#' @param alpha For a matrix, an associated vector of opacity values between 0
 #'   and 1, if required.
 #' @param target,current Shade vectors to compare.
 #' @param i An index vector.
 #' @param value A vector of replacement colours.
-#' @param hexonly If \code{TRUE}, compare only on the basis of the hex strings.
+#' @param hexonly If `TRUE`, compare only on the basis of the hex strings.
 #'   Otherwise test for equal coordinates.
-#' @param ... Additional parameters to methods. For \code{c}, any number of
-#'   colours in any acceptable form.
-#' @return A character vector of class \code{"shade"}, with additional
-#'   attributes as follows.
+#' @param ... For `shade()`, additional parameters to methods. For `shades()`
+#'   and `c()`, any number of colours in any acceptable form.
+#' @return A character vector of class `"shade"`, with additional attributes
+#'   as follows.
 #'     \item{space}{A string naming a colour space.}
 #'     \item{coords}{A matrix giving colour coordinates in the relevant space,
 #'       one colour per row.}
+#'     \item{alpha}{A numeric vector of alpha (opacity) values between 0 and 1,
+#'       one value per element of the vector. If not present then full opacity
+#'       is assumed for every element.}
+#'     \item{names}{A character vector of element names, in the usual R
+#'       convention. If not present then the object is unnamed.}
 #' 
 #' @note When concatenating, shades that are all from the same space will
 #'   remain in that space, but shades from different spaces will be warped to
@@ -190,42 +200,13 @@
 #' s[1]
 #' s[1] <- "pink"
 #' @author Jon Clayden <code@@clayden.org>
-#' @aliases shades
 #' @export
 shade <- function (x, ...)
 {
+    # Zero-length special case - nothing to dispatch on
     if (nargs() == 0)
         return (structure(character(0), space="sRGB", coords=matrix(NA,0,3), class="shade"))
-    else if (missing(x))
-    {
-        # x is missing but there must be at least one argument
-        args <- list(...)
-        return (structure(do.call(c, lapply(unname(args),shade)), names=names(args)))
-    }
-    else if (is.matrix(x) && !inherits(x,"shade"))
-    {
-        # Special case for (plain) matrix, to shim names arguments for backwards compatibility
-        args <- list(...)
-        if ("space" %in% names(args))
-        {
-            args$.space <- args$space
-            args$space <- NULL
-        }
-        if ("alpha" %in% names(args))
-        {
-            args$.alpha <- args$alpha
-            args$alpha <- NULL
-        }
-        return (do.call(shade.matrix, c(list(x), args)))
-    }
-    else if (!missing(..1))
-    {
-        # x and at least one other argument are present; x is not matrix
-        args <- list(x, ...)
-        return (structure(do.call(c, lapply(unname(args),shade)), names=names(args)))
-    }
-
-    # Only x is present, and it is not a matrix - standard dispatch
+    
     UseMethod("shade")
 }
 
@@ -247,10 +228,10 @@ shade.color <- function (x, ...)
 
 #' @rdname shade
 #' @export
-shade.matrix <- function (x, ..., .space = "sRGB", .alpha = NULL)
+shade.matrix <- function (x, space = "sRGB", alpha = NULL, ...)
 {
-    hex <- .toHex(x, .space, .alpha)
-    structure(hex, names=rownames(x), space=.space, coords=x, alpha=shades:::.alpha(hex), class="shade")
+    hex <- .toHex(x, space, alpha)
+    structure(hex, names=rownames(x), space=space, coords=x, alpha=.alpha(hex), class="shade")
 }
 
 #' @rdname shade
@@ -276,6 +257,26 @@ shade.character <- function (x, ...)
 shade.default <- function (x, ...)
 {
     shade.character(as.character(x), ...)
+}
+
+#' @rdname shade
+#' @export
+shades <- function (...)
+{
+    args <- list(...)
+    elements <- lapply(unname(args), shade)
+    result <- do.call(c, elements)
+    
+    if (.hasNames(args))
+    {
+        resultNames <- .names(result, allowNull=FALSE)
+        lengths <- vapply(elements, length, integer(1L))
+        argNames <- rep(.names(args, allowNull=FALSE), lengths)
+        indices <- which(argNames != "")
+        names(result) <- replace(resultNames, indices, argNames[indices])
+    }
+    
+    return (result)
 }
 
 #' @rdname shade

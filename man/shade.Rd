@@ -2,12 +2,12 @@
 % Please edit documentation in R/shade.R
 \name{shade}
 \alias{shade}
-\alias{shades}
 \alias{shade.shade}
 \alias{shade.color}
 \alias{shade.matrix}
 \alias{shade.character}
 \alias{shade.default}
+\alias{shades}
 \alias{print.shade}
 \alias{[.shade}
 \alias{[<-.shade}
@@ -31,6 +31,8 @@ shade(x, ...)
 
 \method{shade}{default}(x, ...)
 
+shades(...)
+
 \method{print}{shade}(x, ...)
 
 \method{[}{shade}(x, i)
@@ -52,8 +54,8 @@ shade(x, ...)
 \arguments{
 \item{x, y}{R objects, or \code{"shade"} objects for methods.}
 
-\item{...}{Additional parameters to methods. For \code{c}, any number of
-colours in any acceptable form.}
+\item{...}{For \code{shade()}, additional parameters to methods. For \code{shades()}
+and \code{c()}, any number of colours in any acceptable form.}
 
 \item{space}{For a matrix, the space in which coordinates are being
 provided.}
@@ -71,21 +73,32 @@ and 1, if required.}
 Otherwise test for equal coordinates.}
 }
 \value{
-A character vector of class \code{"shade"}, with additional
-attributes as follows.
-\item{space}{A string naming a color space.}
+A character vector of class \code{"shade"}, with additional attributes
+as follows.
+\item{space}{A string naming a colour space.}
 \item{coords}{A matrix giving colour coordinates in the relevant space,
 one colour per row.}
+\item{alpha}{A numeric vector of alpha (opacity) values between 0 and 1,
+one value per element of the vector. If not present then full opacity
+is assumed for every element.}
+\item{names}{A character vector of element names, in the usual R
+convention. If not present then the object is unnamed.}
 }
 \description{
 Objects of class \code{"shade"} are simply standard R character vectors
 representing one or more 8-bit (s)RGB colours in CSS-like hex format, but
 with extra attributes giving the current colour space and coordinates.
+Opacity values are also supported.
 }
 \details{
-Comparison between \code{"shade"} objects \code{x} and \code{y} is achieved
-by converting \code{y} (the second argument) into the colour space of
-\code{x} and then comparing coordinates, after any clipping.
+The \code{shade()} function creates a colour vector from a single main argument
+plus method-specific arguments where appropriate. The \code{shades()} function
+provides an alternative interface that converts each of its arguments to
+shades, with direct inline naming, and then concatenates them.
+
+Comparison between \code{"shade"} objects \code{x} and \code{y} is achieved by converting
+\code{y} (the second argument) into the colour space of \code{x} and then comparing
+coordinates, after any clipping.
 }
 \note{
 When concatenating, shades that are all from the same space will
