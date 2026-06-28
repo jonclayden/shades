@@ -22,7 +22,7 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
 {
     shades <- shade(x)
     grid <- .dims(shades, collapse=TRUE)
-    if (length(grid) == 1)
+    if (length(grid) == 1L)
         grid <- c(grid, 1)
     
     width <- 0.9 / (max(grid) + 1)
@@ -30,8 +30,8 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
     
     # The first line generates one centre value per location in each dimension
     # The second expands out one x and y position per shade
-    centres <- lapply(grid, function(i) gap * ((max(grid) - i) / 2 + seq_len(i)))
-    centres <- as.matrix(expand.grid(centres))
+    stops <- lapply(grid, function(i) gap * ((max(grid) - i) / 2 + seq_len(i)))
+    centres <- as.matrix(expand.grid(stops))
     
     oldPars <- par(mai=c(0,0,0,0), bg=bg)
     on.exit(par(oldPars))
@@ -42,7 +42,25 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
     # Centre coordinates are reversed in the y-axis so that the plot "reads" top-to-bottom
     plot(NA, NA, xlim=c(-0.1,1.1), ylim=0.5+c(-1,1)*devRatio*0.6, xlab="", ylab="", xaxt="n", yaxt="n", bty="n", asp=1)
     rect(centres[,1]-width/2, rev(centres[,2])-width/2, centres[,1]+width/2, rev(centres[,2])+width/2, col=shades, border=border, lwd=2)
-
+    
+    dn <- dimnames(shades)
+    if (is.null(dn))
+        dn <- list(NULL, NULL)
+    else if (length(dn) == 1L)
+        dn <- c(dn, list(NULL))
+    dimLabels <- .names(dn, allowNull=FALSE)
+    
+    if (!is.null(dn[[1]]))
+    {
+        text(stops[[1]], min(centres[,2])-width, dn[[1]], col="grey40")
+        text(mean(centres[,1]), min(centres[,2])-1.5*width, dimLabels[1], font=2, xpd=TRUE)
+    }
+    if (!is.null(dn[[2]]))
+    {
+        text(min(centres[,1])-width, stops[[2]], dn[[2]], col="grey40", srt=90)
+        text(min(centres[,1])-1.5*width, mean(centres[,2]), dimLabels[2], font=2, srt=90, xpd=TRUE)
+    }
+    
     if (.hasNames(shades))
     {
         blackContrast <- contrast(shades, "black")

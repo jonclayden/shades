@@ -1,14 +1,29 @@
-.replaceProperty <- function (shades, replacement, space, dim)
+.makeDimnames <- function (source, result, labels, firstName)
+{
+    if (is.null(dim(result)) || length(dim(result)) <= max(1,length(dim(source))) || is.null(labels))
+        return (NULL)
+    
+    dn <- list()
+    dn[[firstName]] <- labels
+    if (!is.null(dimnames(source)))
+        dn <- c(dn, dimnames(source))
+    else
+        dn <- c(dn, rep(list(NULL), length(.dims(source))))
+    
+    return (dn)
+}
+
+.replaceProperty <- function (shades, replacement, space, dim, name)
 {
     UseMethod(".replaceProperty")
 }
 
-.replaceProperty.function <- function (shades, replacement, space, dim)
+.replaceProperty.function <- function (shades, replacement, space, dim, name)
 {
-    function (...) .replaceProperty(shades(...), replacement, space, dim)
+    function (...) .replaceProperty(shades(...), replacement, space, dim, name)
 }
 
-.replaceProperty.Scale <- function (shades, replacement, space, dim)
+.replaceProperty.Scale <- function (shades, replacement, space, dim, name)
 {
     ggplot2::ggproto(NULL, shades, palette=function(self,...) {
         colours <- ggplot2::ggproto_parent(shades, self)$palette(...)
@@ -16,7 +31,7 @@
     })
 }
 
-.replaceProperty.default <- function (shades, replacement, space, dim) 
+.replaceProperty.default <- function (shades, replacement, space, dim, name)
 {
     shades <- warp(shades, space)
     
@@ -27,6 +42,7 @@
         if (is.numeric(replacement) || is.logical(replacement))
         {
             arity <- length(replacement)
+            valueLabels <- as.character(replacement)
             replacement <- rep(replacement, length(shades))
         }
         else
@@ -34,6 +50,7 @@
             fun <- match.fun(replacement)
             arity <- length(fun(coords(shades)[1,dim]))
             replacement <- fun(coords(shades)[,dim])
+            valueLabels <- NULL
         }
         
         missing <- is.na(replacement)
@@ -42,7 +59,10 @@
         coords[!missing,dim] <- replacement[!missing]
         coords <- .clip(coords, space)
         alpha <- .alpha(shades, allowNull=FALSE)[indices]
-        return (drop(structure(shade(coords,space=space,alpha=alpha), dim=c(arity,.dims(shades)))))
+        
+        result <- drop(structure(shade(coords,space=space,alpha=alpha), dim=c(arity,.dims(shades))))
+        dimnames(result) <- .makeDimnames(shades, result, valueLabels, name)
+        return (result)
     }
 }
 
@@ -95,42 +115,42 @@
 #' @export
 saturation <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "HSV", 2)
+    .replaceProperty(shades, values, "HSV", 2, "saturation")
 }
 
 #' @rdname properties
 #' @export
 brightness <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "HSV", 3)
+    .replaceProperty(shades, values, "HSV", 3, "brightness")
 }
 
 #' @rdname properties
 #' @export
 lightness <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "Lab", 1)
+    .replaceProperty(shades, values, "Lab", 1, "lightness")
 }
 
 #' @rdname properties
 #' @export
 luminance <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "XYZ", 2)
+    .replaceProperty(shades, values, "XYZ", 2, "luminance")
 }
 
 #' @rdname properties
 #' @export
 chroma <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "LCh", 2)
+    .replaceProperty(shades, values, "LCh", 2, "chroma")
 }
 
 #' @rdname properties
 #' @export
 hue <- function (shades, values = NULL)
 {
-    .replaceProperty(shades, values, "HSV", 1)
+    .replaceProperty(shades, values, "HSV", 1, "hue")
 }
 
 #' @rdname properties
@@ -159,6 +179,7 @@ opacity <- function (shades, values = NULL)
         if (is.numeric(values) || is.logical(values))
         {
             arity <- length(values)
+            valueLabels <- as.character(values)
             values <- rep(values, length(shades))
         }
         else
@@ -166,12 +187,16 @@ opacity <- function (shades, values = NULL)
             fun <- match.fun(values)
             arity <- length(fun(.alpha(shades,allowNull=FALSE)[1]))
             values <- fun(.alpha(shades, allowNull=FALSE))
+            valueLabels <- NULL
         }
-        
+
         indices <- rep(seq_along(shades), each=arity)
         coords <- coords(shades)[indices,,drop=FALSE]
         values[is.na(values)] <- .alpha(shades, allowNull=FALSE)[indices][is.na(values)]
-        return (drop(structure(shade(coords,space=space(shades),alpha=values), dim=c(arity,.dims(shades)))))
+        
+        result <- drop(structure(shade(coords,space=space(shades),alpha=values), dim=c(arity,.dims(shades))))
+        dimnames(result) <- .makeDimnames(shades, result, valueLabels, "opacity")
+        return (result)
     }
 }
 
