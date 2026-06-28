@@ -341,7 +341,7 @@ c.shade <- function (...)
 rep.shade <- function (x, ...)
 {
     indices <- rep(seq_along(x), ...)
-    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], class="shade")
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], names=.names(x)[indices], class="shade")
 }
 
 #' @rdname shade
@@ -349,7 +349,7 @@ rep.shade <- function (x, ...)
 rev.shade <- function (x)
 {
     indices <- rev(seq_along(x))
-    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], class="shade")
+    structure(as.character(x)[indices], space=attr(x,"space"), coords=attr(x,"coords")[indices,,drop=FALSE], alpha=attr(x,"alpha")[indices], names=.names(x)[indices], class="shade")
 }
 
 #' @rdname shade
