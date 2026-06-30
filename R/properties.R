@@ -27,7 +27,7 @@
 {
     ggplot2::ggproto(NULL, shades, palette=function(self,...) {
         colours <- ggplot2::ggproto_parent(shades, self)$palette(...)
-        .replaceProperty(colours, replacement, space, dim)
+        .replaceProperty(colours, replacement, space, dim, name)
     })
 }
 
