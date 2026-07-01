@@ -2,6 +2,33 @@ Significant changes to the shades package are laid out below for each release.
 
 ===============================================================================
 
+VERSION 1.5.0
+
+- Names and dimnames are now supported for shade objects and can be set using
+  the usual accessor functions. Names are initialised from standard colours
+  where these are specified rather than a hex code, propagated through
+  operations like concatenation and shown by swatch() as labels on each box.
+  Dimnames are set automatically when a matrix is created by updating
+  colour properties on a vector, and are shown by swatch() as axis labels.
+- The new shades() convenience function is a variant of shade() that combines
+  construction of shade objects with concatenation. It supports inline colour
+  naming using standard argument names, and creating shade objects from source
+  objects of different types.
+- New colour property accessor function luminance() has been added,
+  as has the contrast() function for (W3C) colour contrast.
+- There is now full support for the Oklab colour space.
+- Empty shade vectors are now allowed and can be created with shade().
+- The swatch() function gains extra parameters for controlling additional
+  aspects of the plot.
+- The argument to function objects created by gradient() is now called n rather
+  than steps, for compatibility with tinyplot.
+- The tinytest package is now used for testing.
+- The README now includes an example of using shades with tinyplot, as well as
+  ggplot2.
+- A small roxygen issue has been fixed (#9).
+
+===============================================================================
+
 VERSION 1.4.0
 
 - The package now handles missing values, patching up some of the limitations
