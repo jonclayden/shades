@@ -28,10 +28,20 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
     width <- 0.9 / (max(grid) + 1)
     gap <- 1 / (max(grid) + 1)
     
-    # The first line generates one centre value per location in each dimension
-    # The second expands out one x and y position per shade
+    # Generate one centre value per location in each dimension, reverse the
+    # second so that the plot "reads" top-to-bottom, and expand to one x and y
+    # position per shade
     stops <- lapply(grid, function(i) gap * ((max(grid) - i) / 2 + seq_len(i)))
+    stops[[2]] <- rev(stops[[2]])
     centres <- as.matrix(expand.grid(stops))
+    
+    dn <- dimnames(shades)
+    if (is.null(dn))
+        dn <- list(NULL, NULL)
+    else if (length(dn) == 1L)
+        dn <- c(dn, list(NULL))
+    named <- !vapply(dn, is.null, logical(1L))
+    dimLabels <- .names(dn, allowNull=FALSE)
     
     oldPars <- par(mai=c(0,0,0,0), bg=bg)
     on.exit(par(oldPars))
@@ -39,23 +49,18 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
     devSize <- dev.size()
     devRatio <- devSize[2] / devSize[1]
     
-    # Centre coordinates are reversed in the y-axis so that the plot "reads" top-to-bottom
-    plot(NA, NA, xlim=c(-0.1,1.1), ylim=0.5+c(-1,1)*devRatio*0.6, xlab="", ylab="", xaxt="n", yaxt="n", bty="n", asp=1)
-    rect(centres[,1]-width/2, rev(centres[,2])-width/2, centres[,1]+width/2, rev(centres[,2])+width/2, col=shades, border=border, lwd=2)
+    xlim <- c(-0.1 - ifelse(named[2],1.5*width,0), 1.1)
+    ylim <- 0.5 + c(-1,1) * devRatio * c(0.6 + ifelse(named[1],1.5*width,0), 0.6)
     
-    dn <- dimnames(shades)
-    if (is.null(dn))
-        dn <- list(NULL, NULL)
-    else if (length(dn) == 1L)
-        dn <- c(dn, list(NULL))
-    dimLabels <- .names(dn, allowNull=FALSE)
+    plot(NA, NA, xlim=xlim, ylim=ylim, xlab="", ylab="", xaxt="n", yaxt="n", bty="n", asp=1)
+    rect(centres[,1]-width/2, centres[,2]-width/2, centres[,1]+width/2, centres[,2]+width/2, col=shades, border=border, lwd=2)
     
-    if (!is.null(dn[[1]]))
+    if (named[1])
     {
         text(stops[[1]], min(centres[,2])-width, dn[[1]], col="grey40")
         text(mean(centres[,1]), min(centres[,2])-1.5*width, dimLabels[1], font=2, xpd=TRUE)
     }
-    if (!is.null(dn[[2]]))
+    if (named[2])
     {
         text(min(centres[,1])-width, stops[[2]], dn[[2]], col="grey40", srt=90)
         text(min(centres[,1])-1.5*width, mean(centres[,2]), dimLabels[2], font=2, srt=90, xpd=TRUE)
@@ -66,6 +71,6 @@ swatch <- function (x, bg = "white", border = "grey50", cex = 0.7, font = 2, ...
         blackContrast <- contrast(shades, "black")
         whiteContrast <- contrast(shades, "white")
         labelCol <- ifelse(blackContrast > whiteContrast, "black", "white")
-        text(centres[,1], rev(centres[,2]), names(shades), col=labelCol, cex=cex, font=font)
+        text(centres[,1], centres[,2], names(shades), col=labelCol, cex=cex, font=font)
     }
 }
