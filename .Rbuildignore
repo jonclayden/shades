@@ -2,3 +2,4 @@
 ^codecov\.yml$
 ^\.covrignore$
 ^\.github$
+^\.claude$
