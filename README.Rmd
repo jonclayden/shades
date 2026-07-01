@@ -42,15 +42,15 @@ swatch(gradient(c("red","blue"), 5))
 swatch(gradient(c("red","blue"), 5, space="Lab"))
 ```
 
-Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
+Here, we are using the `swatch` function to visualise a set of colours as a series of squares. Named colours like "red" are labelled automatically. Notice the more uniform appearance of the gradient when it traverses through the [Lab colour space](https://en.wikipedia.org/wiki/Lab_color_space).
 
 Similarly, we can create a set of new colours by changing the brightness and saturation levels of some base colours, and make the code more readable by using the pipe operator.
 
-```{r saturation}
+```{r saturation, fig.height=3}
 c("red","blue") |> brightness(0.6) |> saturation(seq(0,1,0.25)) |> swatch()
 ```
 
-This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. Notice that the pipeline is combinative (like the base function `outer`), returning each combination of parameters in a multidimensional array. The final shades are arranged in two rows by `swatch`, for convenience.
+This operation takes the original two colours, reduces their brightness to 60%, assigns a whole series of saturation levels to the result, and then passes it to `swatch` for visualisation. Notice that the pipeline is combinative (like the base function `outer`), returning each combination of parameters in a multidimensional array. The final shades are arranged in two rows by `swatch`, for convenience, and automatically labelled with the saturation values.
 
 Note that `NA` can be used as a pass-through value:
 

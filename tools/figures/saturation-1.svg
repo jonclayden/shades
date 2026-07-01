@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='504.00pt' height='144.00pt' viewBox='0 0 504.00 144.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='504.00pt' height='216.00pt' viewBox='0 0 504.00 216.00'>
 <g class='svglite'>
 <defs>
   <style type='text/css'><![CDATA[
@@ -21,21 +21,27 @@
 </defs>
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <defs>
-  <clipPath id='cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA='>
-    <rect x='0.00' y='0.00' width='504.00' height='144.00' />
+  <clipPath id='cpMC4wMHw1MDQuMDB8MC4wMHwyMTYuMDA='>
+    <rect x='0.00' y='0.00' width='504.00' height='216.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwxNDQuMDA=)'>
-<rect x='93.20' y='10.43' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #999999;' />
-<rect x='158.02' y='10.43' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #997373;' />
-<rect x='222.83' y='10.43' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #994D4D;' />
-<rect x='287.65' y='10.43' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #992626;' />
-<rect x='352.46' y='10.43' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #990000;' />
-<rect x='93.20' y='75.24' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #999999;' />
-<rect x='158.02' y='75.24' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #737399;' />
-<rect x='222.83' y='75.24' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #4D4D99;' />
-<rect x='287.65' y='75.24' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #262699;' />
-<rect x='352.46' y='75.24' width='58.33' height='58.33' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #000099;' />
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwyMTYuMDA=)'>
+<rect x='118.28' y='40.36' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #999999;' />
+<rect x='172.86' y='40.36' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #997373;' />
+<rect x='227.44' y='40.36' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #994D4D;' />
+<rect x='282.02' y='40.36' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #992626;' />
+<rect x='336.60' y='40.36' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #990000;' />
+<rect x='118.28' y='94.94' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #999999;' />
+<rect x='172.86' y='94.94' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #737399;' />
+<rect x='227.44' y='94.94' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #4D4D99;' />
+<rect x='282.02' y='94.94' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #262699;' />
+<rect x='336.60' y='94.94' width='49.12' height='49.12' style='stroke-width: 1.50; stroke: #7F7F7F; fill: #000099;' />
+<text x='142.84' y='172.87' text-anchor='middle' style='font-size: 12.00px;fill: #666666; font-family: "Arial";' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='197.42' y='172.87' text-anchor='middle' style='font-size: 12.00px;fill: #666666; font-family: "Arial";' textLength='23.34px' lengthAdjust='spacingAndGlyphs'>0.25</text>
+<text x='252.00' y='172.87' text-anchor='middle' style='font-size: 12.00px;fill: #666666; font-family: "Arial";' textLength='16.67px' lengthAdjust='spacingAndGlyphs'>0.5</text>
+<text x='306.58' y='172.87' text-anchor='middle' style='font-size: 12.00px;fill: #666666; font-family: "Arial";' textLength='23.34px' lengthAdjust='spacingAndGlyphs'>0.75</text>
+<text x='361.16' y='172.94' text-anchor='middle' style='font-size: 12.00px;fill: #666666; font-family: "Arial";' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='252.00' y='197.41' text-anchor='middle' style='font-size: 12.00px; font-weight: bold; font-family: "Arial";' textLength='58.00px' lengthAdjust='spacingAndGlyphs'>saturation</text>
 </g>
 </g>
 </svg>
