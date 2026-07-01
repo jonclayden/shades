@@ -10,8 +10,7 @@ distance(shades, reference)
 contrast(shades, reference)
 }
 \arguments{
-\item{shades}{One or more colours, in any suitable form (see
-\code{\link[=shade]{shade()}}).}
+\item{shades}{One or more colours, in any suitable form (see \code{\link[=shade]{shade()}}).}
 
 \item{reference}{A single reference colour.}
 }
@@ -22,16 +21,15 @@ A numeric vector of distances or contrasts.
 The \code{distance()} function calculates a distance measure that aims to
 quantify perceptual difference between a vector of colours and a reference
 colour. The measure in question is the CIE Delta E (2000), which is
-calculated based on colour coordinates in Lab space.
-}
-\details{
-Colour contrast relates more specifically to legibility, in the context
-where text in one colour is overlaid on a background in another. The W3C
-definition used here ranges between 1 (identical colours, no contrast) and
-21 (black on white, maximum contrast).
+calculated based on colour coordinates in Lab space. Colour contrast relates
+more specifically to legibility, in the context where text in one colour is
+overlaid on a background in another. The W3C definition used here ranges
+between 1 (identical colours, no contrast) and 21 (black on white, maximum
+contrast).
 }
 \examples{
 distance(c("red","green","blue"), "red")
+contrast(c("red","green","blue"), "red")
 }
 \references{
 See \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}

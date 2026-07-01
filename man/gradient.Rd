@@ -40,8 +40,8 @@ gradient(c("red","blue"), 5, space="Lab")
 gradient("viridis", 5)
 }
 \references{
-\url{http://bids.github.io/colormap/} for the \code{matplotlib} colour maps;
-\url{http://colorbrewer2.org} for the ColorBrewer ones.
+\url{https://bids.github.io/colormap/} for the \code{matplotlib} colour maps;
+\url{https://colorbrewer2.org} for the ColorBrewer ones.
 }
 \author{
 Jon Clayden \href{mailto:code@clayden.org}{code@clayden.org}

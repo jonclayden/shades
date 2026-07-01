@@ -1,5 +1,5 @@
 #' @import grDevices
-#' @importFrom graphics par rect plot
+#' @importFrom graphics par rect plot text
 .onLoad <- function (libname, pkgname)
 {
     # Illuminant E

@@ -3,20 +3,19 @@
 #' The `distance()` function calculates a distance measure that aims to
 #' quantify perceptual difference between a vector of colours and a reference
 #' colour. The measure in question is the CIE Delta E (2000), which is
-#' calculated based on colour coordinates in Lab space.
+#' calculated based on colour coordinates in Lab space. Colour contrast relates
+#' more specifically to legibility, in the context where text in one colour is
+#' overlaid on a background in another. The W3C definition used here ranges
+#' between 1 (identical colours, no contrast) and 21 (black on white, maximum
+#' contrast).
 #' 
-#' Colour contrast relates more specifically to legibility, in the context
-#' where text in one colour is overlaid on a background in another. The W3C
-#' definition used here ranges between 1 (identical colours, no contrast) and
-#' 21 (black on white, maximum contrast).
-#' 
-#' @param shades One or more colours, in any suitable form (see
-#'   [shade()]).
+#' @param shades One or more colours, in any suitable form (see [shade()]).
 #' @param reference A single reference colour.
 #' @return A numeric vector of distances or contrasts.
 #' 
 #' @examples
 #' distance(c("red","green","blue"), "red")
+#' contrast(c("red","green","blue"), "red")
 #' @references
 #' See \url{http://www.brucelindbloom.com/index.html?Eqn_DeltaE_CIE2000.html}
 #' for CIE Delta E. The contrast measure is defined as part of the W3C Web
